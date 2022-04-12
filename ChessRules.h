@@ -9,7 +9,7 @@
 
 enum forma_pieza_t { PEON, CABALLO, ALFIL, TORRE, DAMA, REY };
 enum color_pieza_t { BLANCA, NEGRA };
-enum movimiento_t { PROPIA_PIEZA, NO_PERMITIDO, PERMITIDO, COMER_PIEZA };
+enum movimiento_t { PROPIA_PIEZA = -1, NO_PERMITIDO, PERMITIDO, COMER_PIEZA };
 
 
 struct tablero_t {
