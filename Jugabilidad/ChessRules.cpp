@@ -66,7 +66,10 @@ Juego::Juego()
 
 Juego::~Juego()
 {
-	// En proceso...
+	for (int i = 0; i < ROW_SIZE; i++) {
+		delete[] tab[i];
+	}
+	delete[] tab;
 }
 
 string Juego::print()
