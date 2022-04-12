@@ -1,4 +1,22 @@
 
+    /*
+    chesstime tiempo = chesstime(SEMIRAPIDA);
+
+    std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+    tiempo.start();
+
+    while (true) {
+        
+        int out;
+        std::cin >> out;
+        tiempo.turnPlayerB();
+        std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+        std::cin >> out;
+        tiempo.turnPlayerA();
+        std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+    }
+    */
+
 
 #ifndef _CHESSTIME_H_
 #define _CHESSTIME_H_
@@ -23,17 +41,17 @@ public:  // Servicios
 	// Iniciar el tiempo de la partida (Empieza PlayerA)
 	void start();
 
-	// Métodos para obtener el tiempo restante de cada jugador
+	// MÃ©todos para obtener el tiempo restante de cada jugador
 	int getSecLeftPlaA();
 	int getSecLeftPlaB();
 	int getMinLeftPlaA();
 	int getMinLeftPlaB();
 
-	// Métodos para indicar de quien es el turno
+	// MÃ©todos para indicar de quien es el turno
 	void turnPlayerA();
 	void turnPlayerB();
 
-	// Métodos para indicar si algún jugador pierde por tiempo
+	// MÃ©todos para indicar si algÃºn jugador pierde por tiempo
 	bool PlaA_end_time();
 	bool PlaB_end_time();
 
