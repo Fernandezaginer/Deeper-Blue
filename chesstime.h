@@ -1,4 +1,5 @@
 
+// TEST UNITARIO:
     /*
     chesstime tiempo = chesstime(SEMIRAPIDA);
 
