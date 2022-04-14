@@ -3,6 +3,7 @@
 #include "ChessRules.h"
 
 #include <sstream>
+#include <iostream>
 using namespace std;
 
 
@@ -61,7 +62,18 @@ Juego::Juego()
 	}
 
 
+	// Test unitarios movimientos de piezas:
+	/*
+	int aux_i = 2;
+	int aux_j = 5;
 
+	tab[3][4] = pieza_t(PEON, BLANCA);
+	tab[3][0] = pieza_t(PEON, BLANCA);
+	tab[aux_i][aux_j] = pieza_t(REY, NEGRA);
+
+	auto m = tab[aux_i][aux_j].get_mov_permitidos(tab);
+	cout << mov_print(m);
+	*/
 }
 
 Juego::~Juego()
