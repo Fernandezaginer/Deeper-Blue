@@ -102,24 +102,123 @@ tablero_info_t pieza_t::get_mov_permitidos(pieza_t** tab)
 
 
 	if (this->getForma() == PEON) {       // Leo
-
+		if (this->getColor() == BLANCA) {
+			matriz.TAB[row][col] = PROPIA_PIEZA;
+			if (row > 0) {
+				matriz.TAB[row - 1][col] = tab[row - 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
+				if (row > 0) {
+					matriz.TAB[row - 1][col - 1] = tab[row - 1][col - 1].getForma() != NO_PIEZA ? tab[row - 1][col - 1].getColor() == this->color ? NO_PERMITIDO :COMER_PIEZA : NO_PERMITIDO;
+				}
+				if (row < ROW_SIZE - 1) {
+					matriz.TAB[row - 1][col + 1] = tab[row - 1][col + 1].getForma() != NO_PIEZA ? tab[row - 1][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+				}
+			}
+			if (row > 1) {
+				matriz.TAB[row - 2][col] = tab[row - 2][col].getForma() == NO_PIEZA && row == 6 ? PERMITIDO : NO_PERMITIDO;
+			}
+		}
+		else if (this->getColor() == NEGRA) {
+			matriz.TAB[row][col] = PROPIA_PIEZA;
+			matriz.TAB[row][col] = PROPIA_PIEZA;
+			if (row + 1 < ROW_SIZE) {
+				matriz.TAB[row + 1][col] = tab[row + 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
+				if (col > 0) {
+					matriz.TAB[row + 1][col - 1] = tab[row + 1][col - 1].getForma() != NO_PIEZA ? tab[row + 1][col - 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+				}
+				if (col < COL_SIZE - 1) {
+					matriz.TAB[row + 1][col + 1] = tab[row + 1][col + 1].getForma() != NO_PIEZA ? tab[row + 1][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+				}
+			}
+			if (row + 2 < ROW_SIZE) {
+				matriz.TAB[row + 2][col] = tab[row + 2][col].getForma() == NO_PIEZA && row == 1 ? PERMITIDO : NO_PERMITIDO;
+			}
+		}
 	}
 
-	if (this->getForma() == CABALLO) {   // Leo
 
+
+	if (this->getForma() == CABALLO) {   // Leo
+		matriz.TAB[row][col] = PROPIA_PIEZA;
+		if (row > 3) {
+			if (col > 0) {
+				matriz.TAB[row - 2][col - 1] = tab[row - 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col - 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+			if (col < ROW_SIZE) {
+				matriz.TAB[row - 2][col + 1] = tab[row - 2][col + 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+		}
+		if (row < COL_SIZE - 1) {
+			if (col > 0) {
+				matriz.TAB[row + 2][col - 1] = tab[row + 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 2][col - 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+			if (col < ROW_SIZE) {
+				matriz.TAB[row + 2][col + 1] = tab[row + 2][col + 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 2][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+		}
+		if (col > 2) {
+			if (col > 0) {
+				matriz.TAB[row - 1][col - 2] = tab[row - 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col - 2].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+			if (col < COL_SIZE) {
+				matriz.TAB[row + 1][col - 2] = tab[row + 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col - 2].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+		}
+		if (col < ROW_SIZE - 1) {
+			if (row > 0) {
+				matriz.TAB[row - 1][col + 2] = tab[row - 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col + 2].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+			if (row < COL_SIZE) {
+				matriz.TAB[row + 1][col + 2] = tab[row + 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col + 2].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+			}
+		}
 	}
 
 	if (this->getForma() == ALFIL) {     // Leo
-
-		// Movimiento en diagonal
-		aux_permite_mov_diag(matriz, tab, row, col, this);
-
-
-		// Propia pieza
+		int i = 1;
+		while (row + i < ROW_SIZE && col + i < COL_SIZE) {
+			if (tab[row + i][col + i].getForma() == NO_PIEZA) {
+				matriz.TAB[row + i][col + i] = PERMITIDO;
+			}
+			else {
+				matriz.TAB[row + i][col + i] = tab[row + i][col + i].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+				break;
+			}
+			i++;
+		}
+		i = 1;
+		while (row + i < ROW_SIZE && col - i >= 0) {
+			if (tab[row + i][col - i].getForma() == NO_PIEZA) {
+				matriz.TAB[row + i][col - i] = PERMITIDO;
+			}
+			else {
+				matriz.TAB[row + i][col - i] = tab[row + i][col + i].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+				break;
+			}
+			i++;
+		}
+		i = 1;
+		while (row - i >= 0 && col - i >= 0) {
+			if (tab[row - i][col - i].getForma() == NO_PIEZA) {
+				matriz.TAB[row - i][col - i] = PERMITIDO;
+			}
+			else {
+				matriz.TAB[row - i][col - i] = tab[row + i][col + i].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+				break;
+			}
+			i++;
+		}
+		i = 1;
+		while (row - i >= 0 && col + i < COL_SIZE) {
+			if (tab[row - i][col + i].getForma() == NO_PIEZA) {
+				matriz.TAB[row - i][col + i] = PERMITIDO;
+			}
+			else {
+				matriz.TAB[row - i][col + i] = tab[row + i][col + i].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA;
+				break;
+			}
+			i++;
+		}
 		matriz.TAB[row][col] = PROPIA_PIEZA;
-
-		// Analizar si está clavada (próximanemnte)
-
 	}
 
 	if (this->getForma() == TORRE) {     // Andrés
