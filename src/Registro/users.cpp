@@ -4,13 +4,13 @@ using namespace std;
 User::User()
 {
 	name = "default"; //nombre default
-	score = 0.0f; //puntuación default
+	score = 0.0f; //puntuaciÃ³n default
 }
 
 void User::setname()
 {
-	printf("Introduzca su nombre de usuario\n"); //petición de username
-	getline(std::cin, name);  //´getline para sobreescribir el nombre del usurario
+	printf("Introduzca su nombre de usuario\n"); //peticiÃ³n de username
+	getline(std::cin, name);  //Â´getline para sobreescribir el nombre del usurario
 }
 
 string User::getname()
