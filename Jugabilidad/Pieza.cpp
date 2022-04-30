@@ -113,8 +113,8 @@ tablero_info_t pieza_t::get_mov_permitidos(pieza_t** tab)
 					matriz.TAB[row - 1][col + 1] = tab[row - 1][col + 1].getForma() != NO_PIEZA ? tab[row - 1][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
 			}
-			if (row > 1) {
-				matriz.TAB[row - 2][col] = tab[row - 2][col].getForma() == NO_PIEZA && row == 6 ? PERMITIDO : NO_PERMITIDO;
+			if(row == 6){
+				matriz.TAB[row - 2][col] = tab[row - 2][col].getForma() == NO_PIEZA && tab[row - 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
 			}
 		}
 		else if (this->getColor() == NEGRA) {
@@ -129,8 +129,8 @@ tablero_info_t pieza_t::get_mov_permitidos(pieza_t** tab)
 					matriz.TAB[row + 1][col + 1] = tab[row + 1][col + 1].getForma() != NO_PIEZA ? tab[row + 1][col + 1].getColor() == this->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
 			}
-			if (row + 2 < ROW_SIZE) {
-				matriz.TAB[row + 2][col] = tab[row + 2][col].getForma() == NO_PIEZA && row == 1 ? PERMITIDO : NO_PERMITIDO;
+			if (row == 1) {
+				matriz.TAB[row + 2][col] = tab[row + 2][col].getForma() == NO_PIEZA && tab[row + 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
 			}
 		}
 	}
