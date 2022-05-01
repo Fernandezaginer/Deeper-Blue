@@ -6,7 +6,6 @@ Juego a;
 cout << a.print();
 */
 
-
 #include "Pieza.h"
 #include <sstream>
 using namespace std;
@@ -15,9 +14,10 @@ using namespace std;
 #define _CHESSPULES_H_
 
 
-
 // Puntero a las piezas de la partida
 typedef  pieza_t** tablero_t;
+
+
 
 // CRITERIO DEL TABLERO:
 
@@ -37,23 +37,39 @@ T C A D R A C T  // Piezas blancas
 
 
 
-
-
 class Juego {
 private:
 	tablero_t tab;
-	int numero_turnos_sin_comer;
+
+	// Informacion del enrroque
+	bool playerA_enroque_permitido;
+	bool playerB_enroque_permitido;
+
+	// Tablas por repeticion de movimiento:
+	tablero_t* historial;
+	int numero_mov;
+	bool anade_movimiento_historial(tablero_t posicion);
+	bool tableros_iguales(tablero_t* t1, tablero_t* t2);
+
 
 public:
 
+	// Constructor y destructor:
 	Juego();
 	~Juego();
 	
 	string print(); // Temporal
 
-	// A futuro:
+	// Movimientos de las piezas:
+	tablero_info_t get_mov_permitidos(pieza_t* a, pieza_t** tab);
+	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
+
+	// Servicios
+	bool tablas_por_repeticiones_de_posicion();
+	bool jaque_mate_playerA();
+	bool jaque_mate_playerB();
+
 	/*
-	bool haz_movimiento(tablero_t&, int fila, int columna);
 	void start();
 	
 	bool tablas();
@@ -64,6 +80,7 @@ public:
 
 	tablero_t get_tablero();
 	*/
+
 };
 
 
