@@ -51,10 +51,14 @@ public:
 
 	// Servicios:
 	friend bool operator == (pieza_t lhs, pieza_t rhs);
+	char pieza_to_char();
 
 	friend class Juego;
 
 };
 
 
+
 #endif
+
+
