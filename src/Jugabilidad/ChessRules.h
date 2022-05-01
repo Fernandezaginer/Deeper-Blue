@@ -66,8 +66,8 @@ public:
 
 	// Servicios
 	bool tablas_por_repeticiones_de_posicion();
-	bool jaque_mate_playerA();
-	bool jaque_mate_playerB();
+	bool jaque_mate_playerA();  // En proceso
+	bool jaque_mate_playerB();  // En proceso
 
 	/*
 	void start();
