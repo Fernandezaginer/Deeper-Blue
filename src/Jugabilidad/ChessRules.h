@@ -51,6 +51,17 @@ private:
 	bool anade_movimiento_historial(tablero_t posicion);
 	bool tableros_iguales(tablero_t* t1, tablero_t* t2);
 
+	// Tablas por rey ahogado
+	bool tablas_por_rey_ahogado(color_pieza_t color);
+	bool jaque_player(color_pieza_t color, tablero_t mat);
+	bool jaque_mate_player(color_pieza_t color, tablero_t mat);
+
+
+	// Notacion del movimietno
+	ostringstream mov;
+	char row_to_char(int row);
+	char col_to_char(int col);
+
 
 public:
 
@@ -61,13 +72,18 @@ public:
 	string print(); // Temporal
 
 	// Movimientos de las piezas:
-	tablero_info_t get_mov_permitidos(pieza_t* a, pieza_t** tab);
+	tablero_info_t get_mov_permitidos(pieza_t* a, tablero_t tab);
 	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
+	ostream& notacion_ulimo_moviento();
 
 	// Servicios
 	bool tablas_por_repeticiones_de_posicion();
-	bool jaque_mate_playerA();  // En proceso
-	bool jaque_mate_playerB();  // En proceso
+	bool tablas_por_rey_ahogado();
+	bool jaque_playerA();
+	bool jaque_playerB();
+	bool jaque_mate_playerA();
+	bool jaque_mate_playerB();
+	
 
 	/*
 	void start();
