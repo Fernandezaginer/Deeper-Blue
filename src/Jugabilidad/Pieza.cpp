@@ -76,6 +76,37 @@ void pieza_t::aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int ro
 	}
 }
 
+char pieza_t::pieza_to_char()
+{
+	char car;
+	switch (forma)
+	{
+	case PEON:
+		car = 'P';
+		break;
+	case CABALLO:
+		car = 'C';
+		break;
+	case ALFIL:
+		car = 'A';
+		break;
+	case TORRE:
+		car = 'T';
+		break;
+	case DAMA:
+		car = 'D';
+		break;
+	case REY:
+		car = 'R';
+		break;
+	default:
+		car = '-';
+		break;
+	}
+
+	return car;
+}
+
 
 
 
