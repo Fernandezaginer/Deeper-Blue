@@ -47,7 +47,6 @@ void pieza_t::aux_permite_mov_vert_hor(tablero_info_t& matriz, pieza_t** tab, in
 	}
 }
 
-
 void pieza_t::aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int row, int col)
 {
 	for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
@@ -75,6 +74,7 @@ void pieza_t::aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int ro
 		matriz.TAB[i][j] = PERMITIDO;
 	}
 }
+
 
 char pieza_t::pieza_to_char()
 {
@@ -107,9 +107,36 @@ char pieza_t::pieza_to_char()
 	return car;
 }
 
+int pieza_t::valor()
+{
+	int valor_pieza;
 
-
-
+	switch (forma)
+	{
+		case PEON:
+			valor_pieza = 1;
+			break;
+		case CABALLO:
+			valor_pieza = 3;
+			break;
+		case ALFIL:
+			valor_pieza = 3;
+			break;
+		case TORRE:
+			valor_pieza = 5;
+			break;
+		case DAMA:
+			valor_pieza = 9;
+			break;
+		case REY:
+			valor_pieza = 0;
+			break;
+		default:
+			valor_pieza = 0;
+			break;
+	}
+	return 0;
+}
 
 string mov_print(tablero_info_t t) {
 	ostringstream o;
