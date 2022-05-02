@@ -7,6 +7,9 @@
 using namespace std;
 
 
+//-------------------------------------------------
+//                  HISTORIAL
+//-------------------------------------------------
 
 bool Juego::anade_movimiento_historial(tablero_t posicion)
 {
@@ -16,6 +19,22 @@ bool Juego::anade_movimiento_historial(tablero_t posicion)
 		return true;
 	}
 	return false;
+}
+
+
+
+//-------------------------------------------------
+//           INFORMACIÓN DE LA PARTIDA
+//-------------------------------------------------
+
+bool Juego::tablas()
+{
+	return tablas_por_repeticiones_de_posicion() || tablas_por_rey_ahogado();
+}
+
+bool Juego::jaque_mate()
+{
+	return jaque_mate_playerA() || jaque_mate_playerB();
 }
 
 bool Juego::tablas_por_repeticiones_de_posicion()
@@ -44,10 +63,9 @@ bool Juego::tablas_por_rey_ahogado()
 	return false;
 }
 
-
 bool Juego::tablas_por_rey_ahogado(color_pieza_t color)
 {
-	
+
 	int num_piezas = 0;
 
 	for (int i = 0; i < ROW_SIZE; i++) {
@@ -80,9 +98,10 @@ bool Juego::jaque_player(color_pieza_t color, tablero_t mat)
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < COL_SIZE; j++) {
 			if (mat[i][j].getColor() != color && mat[i][j].getColor() != NO_COLOR && mat[i][j].getForma() != REY && mat[i][j].getForma() != NO_PIEZA) {
-				tablero_info_t aux = get_mov_permitidos(&(mat[i][j]),mat);
+				tablero_info_t aux = get_mov_permitidos(&(mat[i][j]), mat);
 				if (aux.TAB[row][col] == COMER_PIEZA) {
 					jaque = true;
+					break;
 				}
 			}
 		}
@@ -97,46 +116,28 @@ bool Juego::jaque_mate_player(color_pieza_t color, tablero_t mat)
 	return false;
 }
 
-char Juego::row_to_char(int row)
-{
-	char aux;
-	aux = '8' - row;
-	return aux;
-}
-
-char Juego::col_to_char(int col)
-{
-	char aux;
-	aux = 'a' + col;
-	return aux;
-	return 0;
-}
-
 bool Juego::jaque_mate_playerA()
 {
 
-	
+
 	return false;
 }
 
 bool Juego::jaque_mate_playerB()
 {
-	// Add code...
 
 	return false;
 }
 
+
 bool Juego::jaque_playerA()
 {
-	//jaque_player(BLANCA);
-// Y tiene defensa o escapatoria
-
-	return false;
+	return jaque_player(BLANCA, tab) || !(jaque_mate_playerA());
 }
 
 bool Juego::jaque_playerB()
 {
-	return false;
+	return jaque_player(NEGRA, tab) || !(jaque_mate_playerB());
 }
 
 
@@ -152,12 +153,22 @@ bool Juego::tableros_iguales(tablero_t* t1, tablero_t* t2)
 	return true;
 }
 
+
+
+//-------------------------------------------------
+//                  MOVIMIENTOS
+//-------------------------------------------------
+
+
 Juego::Juego()
 {
 
 	// Informacion del enrroque
 	playerA_enroque_permitido = 1;
 	playerB_enroque_permitido = 1;
+
+	// Auxiliar:
+	analisis_mov = 0;
 
 	// Tablas por repeticion de movimiento
 	numero_mov = 0;
@@ -167,10 +178,8 @@ Juego::Juego()
 	}
 
 
-
-
 	// Reserva de memoria tablero
-	tab = new pieza_t* [ROW_SIZE];
+	tab = new pieza_t * [ROW_SIZE];
 	for (int i = 0; i < ROW_SIZE; i++) {
 		*(tab + i) = new pieza_t[COL_SIZE];
 	}
@@ -188,7 +197,7 @@ Juego::Juego()
 
 
 	// Posicion inicial de la partida (Para una partida normal de momento)
-	
+
 	// Negras
 	tab[0][0] = pieza_t(TORRE, NEGRA);
 	tab[0][1] = pieza_t(CABALLO, NEGRA);
@@ -197,7 +206,7 @@ Juego::Juego()
 	tab[0][4] = pieza_t(REY, NEGRA);
 	tab[0][5] = pieza_t(ALFIL, NEGRA);
 	tab[0][6] = pieza_t(CABALLO, NEGRA);
-	//tab[0][7] = pieza_t(TORRE, NEGRA);
+	tab[0][7] = pieza_t(TORRE, NEGRA);
 	for (int i = 0; i < COL_SIZE; i++) {
 		tab[1][i] = pieza_t(PEON, NEGRA);
 	}
@@ -207,7 +216,7 @@ Juego::Juego()
 	//tab[7][1] = pieza_t(CABALLO, BLANCA);
 	//tab[7][2] = pieza_t(ALFIL, BLANCA);
 	//tab[7][3] = pieza_t(DAMA, BLANCA);
-	//tab[7][4] = pieza_t(REY, BLANCA);
+	tab[7][4] = pieza_t(REY, BLANCA);
 	//tab[7][5] = pieza_t(ALFIL, BLANCA);
 	//tab[7][6] = pieza_t(CABALLO, BLANCA);
 	tab[7][7] = pieza_t(TORRE, BLANCA);
@@ -215,7 +224,7 @@ Juego::Juego()
 	//	tab[6][i] = pieza_t(PEON, BLANCA);
 	//}
 
-	
+
 	// Test unitarios movimientos de piezas:
 	//int aux_i = 3;
 	//int aux_j = 0;
@@ -228,13 +237,53 @@ Juego::Juego()
 	cout << mov_print(m);
 	*/
 
+	// Test jaque:
+	/*
 	tab[1][3] = pieza_t(NO_PIEZA, NO_COLOR);
-	tab[7][4] = pieza_t(REY, BLANCA);
-
+	tab[7][3] = pieza_t(REY, BLANCA);
 	cout << jaque_player(BLANCA, tab) << endl;
+	*/
+
+	// Test recursividad:
+	tab[1][3] = pieza_t(NO_PIEZA, NO_COLOR);
+	cout << this->print();
+	auto m = get_mov_permitidos(&(tab[7][4]), tab);
+	cout << mov_print(m);
 
 
 }
+
+void Juego::tablero_inicio_normal()
+{
+	// Posicion inicial de la partida
+	
+	// Negras
+	tab[0][0] = pieza_t(TORRE, NEGRA);
+	tab[0][1] = pieza_t(CABALLO, NEGRA);
+	tab[0][2] = pieza_t(ALFIL, NEGRA);
+	tab[0][3] = pieza_t(DAMA, NEGRA);
+	tab[0][4] = pieza_t(REY, NEGRA);
+	tab[0][5] = pieza_t(ALFIL, NEGRA);
+	tab[0][6] = pieza_t(CABALLO, NEGRA);
+	tab[0][7] = pieza_t(TORRE, NEGRA);
+	for (int i = 0; i < COL_SIZE; i++) {
+		tab[1][i] = pieza_t(PEON, NEGRA);
+	}
+
+	// Blancas
+	tab[7][0] = pieza_t(TORRE, BLANCA);
+	tab[7][1] = pieza_t(CABALLO, BLANCA);
+	tab[7][2] = pieza_t(ALFIL, BLANCA);
+	tab[7][3] = pieza_t(DAMA, BLANCA);
+	tab[7][4] = pieza_t(REY, BLANCA);
+	tab[7][5] = pieza_t(ALFIL, BLANCA);
+	tab[7][6] = pieza_t(CABALLO, BLANCA);
+	tab[7][7] = pieza_t(TORRE, BLANCA);
+	for (int i = 0; i < COL_SIZE; i++) {
+		tab[6][i] = pieza_t(PEON, BLANCA);
+	}
+}
+
 
 Juego::~Juego()
 {
@@ -278,7 +327,7 @@ string Juego::print()
 				car = '-';
 				break;
 			}
-			
+
 			o << " " << car << " ";
 
 		}
@@ -288,8 +337,6 @@ string Juego::print()
 
 	return o.str();
 }
-
-
 
 
 tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
@@ -307,7 +354,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 	int row, col;
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < COL_SIZE; j++) {
-			if (a== &(tab[i][j])) {
+			if (a == &(tab[i][j])) {
 				row = i;
 				col = j;
 			}
@@ -451,7 +498,8 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 		// Propia pieza
 		matriz.TAB[row][col] = PROPIA_PIEZA;
 
-		// Analizar si está clavada (próximanemnte)
+		// Analizar si está clavada:
+		aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
 
 	}
 
@@ -469,28 +517,8 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 
 
 
-		// Analizar si está clavada (próximanemnte)
-		for (int i = 0; i < ROW_SIZE; i++) {
-			for (int j = 0; j < ROW_SIZE; j++) {
-				if (matriz.TAB[i][j] != PROPIA_PIEZA && matriz.TAB[i][j] != NO_PERMITIDO) {
-
-					tablero_t aux = tab;
-					
-
-					//
-
-					if (1) {
-						// = NO PEMRITIDO
-					}
-
-				}
-			}
-		}
-
-
-		
-
-		//get_mov_permitidos
+		// Analizar si está clavada:
+		aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
 
 
 	}
@@ -534,7 +562,13 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 		}
 
 
-		// Aplicar la recursividad por si con algun mov entra en jaque: (próximanemnte)
+		// Analizar si está clavada:
+		cout << mov_print(matriz);
+		if (analisis_mov == 0) {
+			analisis_mov = 1;
+			aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
+			analisis_mov = 0;
+		}
 
 
 	}
@@ -543,12 +577,46 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 	return matriz;
 }
 
+void Juego::aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t** tab, int row, int col)
+{
+	for (int i = 0; i < ROW_SIZE; i++) {
+		for (int j = 0; j < COL_SIZE; j++) {
+			if (matriz.TAB[i][j] == PERMITIDO || matriz.TAB[i][j] == COMER_PIEZA) {
+
+				// Crear tablero auxiliar:
+				pieza_t** aux = new pieza_t * [ROW_SIZE];
+				for (int i = 0; i < ROW_SIZE; i++) {
+					*(aux + i) = new pieza_t[COL_SIZE];
+				}
+				for (int i = 0; i < ROW_SIZE; i++) {
+					for (int j = 0; j < COL_SIZE; j++) {
+						aux[i][j] = tab[i][j];
+					}
+				}
+
+				// Suponer movimiento y ver si hay jaque:
+				aux[i][j] = tab[row][col];
+				aux[row][col] = pieza_t(NO_PIEZA, NO_COLOR);
+
+				if (jaque_player(tab[row][col].getColor(), aux)) {
+					matriz.TAB[i][j] = NO_PERMITIDO;
+				}
+				cout << mov_print(matriz);
+
+				for (int i = 0; i < ROW_SIZE; i++) {
+					delete[] aux[i];
+				}
+				delete[] aux;
+			}
+		}
+	}
+}
 
 bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 {
 
 	// Llamar al método mov_permitidos, para verificar el permiso
-	tablero_info_t mat = get_mov_permitidos(&(tab[row_o][col_o]),tab);
+	tablero_info_t mat = get_mov_permitidos(&(tab[row_o][col_o]), tab);
 
 	if (mat.TAB[row_f][col_f] != NO_PERMITIDO && mat.TAB[row_f][col_f] != PROPIA_PIEZA) {
 
@@ -561,7 +629,7 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 		if (mat.TAB[row_f][col_f] != ENROQUE_C && mat.TAB[row_f][col_f] != ENROQUE_L) {
 			mov << tab[row_o][col_o].pieza_to_char() << col_to_char(col_o) << row_to_char(row_o) << (mat.TAB[row_f][col_f] == COMER_PIEZA ? 'x' : ' ') << col_to_char(col_f) << row_to_char(row_f);
 		}
-		else if (mat.TAB[row_f][col_f] == ENROQUE_C){
+		else if (mat.TAB[row_f][col_f] == ENROQUE_C) {
 			mov << "0-0";
 		}
 		else if (mat.TAB[row_f][col_f] == ENROQUE_L) {
@@ -628,12 +696,63 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 	return false;
 }
 
+
+
+
+//-------------------------------------------------
+//                  NOTACIÓN
+//-------------------------------------------------
+
 ostream& Juego::notacion_ulimo_moviento()
 {
 	return mov;
 }
 
+char Juego::row_to_char(int row)
+{
+	char aux;
+	aux = '8' - row;
+	return aux;
+}
+
+char Juego::col_to_char(int col)
+{
+	char aux;
+	aux = 'a' + col;
+	return aux;
+	return 0;
+}
 
 
+//-------------------------------------------------
+//                  SECUNDARIO
+//-------------------------------------------------
+
+
+int Juego::score_playerA()
+{
+	int puntuacion = 0;
+	for (int i = 0; i < ROW_SIZE; i++) {
+		for (int j = 0; j < COL_SIZE; j++) {
+			if (tab[i][j].getColor() == BLANCA) {
+				puntuacion += tab[i][j].valor();
+			}
+		}
+	}
+	return puntuacion;
+}
+
+int Juego::score_playerB()
+{
+	int puntuacion = 0;
+	for (int i = 0; i < ROW_SIZE; i++) {
+		for (int j = 0; j < COL_SIZE; j++) {
+			if (tab[i][j].getColor() == NEGRA) {
+				puntuacion += tab[i][j].valor();
+			}
+		}
+	}
+	return puntuacion;
+}
 
 
