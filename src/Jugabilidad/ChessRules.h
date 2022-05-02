@@ -38,6 +38,35 @@ T C A D R A C T  // Piezas blancas
 
 
 class Juego {
+
+
+public:
+
+	// Constructor y destructor:
+	Juego();
+	~Juego();
+
+	string print(); // Temporal
+
+	// Movimientos de las piezas:
+	tablero_info_t get_mov_permitidos(pieza_t* a, tablero_t tab);
+	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
+	ostream& notacion_ulimo_moviento();
+
+	// Servicios
+	bool tablas();
+	bool jaque_mate();
+	bool tablas_por_repeticiones_de_posicion();
+	bool tablas_por_rey_ahogado();
+	bool jaque_playerA();
+	bool jaque_playerB();
+	bool jaque_mate_playerA();
+	bool jaque_mate_playerB();
+
+	int score_playerA();
+	int score_playerB();
+
+
 private:
 	tablero_t tab;
 
@@ -56,46 +85,17 @@ private:
 	bool jaque_player(color_pieza_t color, tablero_t mat);
 	bool jaque_mate_player(color_pieza_t color, tablero_t mat);
 
+	// Auxiliar movimiento:
+	void aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t** tab, int row, int col);
+	bool analisis_mov;
 
 	// Notacion del movimietno
 	ostringstream mov;
 	char row_to_char(int row);
 	char col_to_char(int col);
 
-
-public:
-
-	// Constructor y destructor:
-	Juego();
-	~Juego();
-	
-	string print(); // Temporal
-
-	// Movimientos de las piezas:
-	tablero_info_t get_mov_permitidos(pieza_t* a, tablero_t tab);
-	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
-	ostream& notacion_ulimo_moviento();
-
-	// Servicios
-	bool tablas_por_repeticiones_de_posicion();
-	bool tablas_por_rey_ahogado();
-	bool jaque_playerA();
-	bool jaque_playerB();
-	bool jaque_mate_playerA();
-	bool jaque_mate_playerB();
-	
-
-	/*
-	void start();
-	
-	bool tablas();
-	bool jaque_mate();
-
-	int score_playerA();
-	int score_playerB();
-
-	tablero_t get_tablero();
-	*/
+	// Temporal:
+	void tablero_inicio_normal();
 
 };
 
