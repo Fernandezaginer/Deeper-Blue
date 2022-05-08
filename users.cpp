@@ -76,7 +76,7 @@ void User::actualizeusers()
 }
 
 //setname obsoleto
-void User::setname()
+void User::setname(string name)
 {
 	printf("Introduzca su nombre de usuario\n"); //petición de username
 	getline(std::cin, name);  //´getline para sobreescribir el nombre del usurario
