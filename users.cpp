@@ -1,12 +1,12 @@
 #include "users.h"
 using namespace std;
-
+//datos por defecto
 User::User()
 {
 	name = "FREE_SLOT"; //nombre default
 	score = 0.0f; //puntuación default
 }
-
+//añade usuario directamente, es fuertemente preferible el uso de la función usertofile en lugar de esta
 void User::adduser()
 {
 	ifstream fich("users.txt");
@@ -48,7 +48,7 @@ void User::adduser()
 	cout << "exito"; //borrar mas adelante, es por comprobar el final del programa
 	actualizeusers();
 }
-
+//actualiza los usuarios por el fichero, es fuertemente preferible el uso de la función actUsers en lugar de esta
 void User::actualizeusers()
 {
 	User X, A, B, C, D, E;
@@ -74,24 +74,34 @@ void User::actualizeusers()
 	printf_s("usuarios: %s\n%s\n%s\n%s\n%s\n%s\n", X.getname().c_str(), A.getname().c_str(), B.getname().c_str(), C.getname().c_str(), D.getname().c_str(), E.getname().c_str());
 	fich.close();
 }
-
-//setname obsoleto
-void User::setname(string name)
+//pide un nombre y lo establece
+void User::setname()
 {
 	printf("Introduzca su nombre de usuario\n"); //petición de username
 	getline(std::cin, name);  //´getline para sobreescribir el nombre del usurario
+} 
+//se utiliza el nombre enviado para establecerlo
+void User::stablishname(string n)
+{
+	name = n;
 }
-
+//devuelve el nombre
 string User::getname()
 {
 	return (name); //regresa nombre de usuario
 }
-
-void User::setscore(float newscore)
+//pide un puntaje y lo establece
+void User::setscore()
 {
-	score = newscore; // establece el nuevo puntaje
+	printf("Introduzca el puntaje que desea:\n");
+	scanf_s("%f", &score);
 }
-
+//se utiliza el puntaje enviado para establecerlo
+void User::stablishscore(float n)
+{
+	score = n;
+}
+//devuelve el puntaje
 float User::getscore()
 {
 	return (score); //regresa el puntaje
