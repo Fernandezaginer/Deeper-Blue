@@ -1,33 +1,23 @@
-
-
-// Test unitario:
-/*
-#include "users.cpp"
-
-int main()
-{
-	User us1;
-	us1.setname(); // poner nombre al usuario us1
-	us1.setscore(9.0f); // seteo de la puntuaci贸n del usuario 
-	printf_s("usuario: %s\nPuntaje: %f", us1.getname().c_str(), us1.getscore()); // impresi贸n para corroborar 
-	//printf("%s\n",someString.c_str()); 貌 std::cout << YourString << std::endl;
-	return 0;
-}
-*/
-
 #pragma once
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <vector>
+using namespace std;
 
 class User{
-public: 
+private:
 	std::string name; //nombre del usuario
-	float score; //puntuaci贸n del usuario
+	float score; //puntuaci髇 del usuario
 public:
-	inline User();
-	inline void setname(); //setter del nombre de usuario
-	inline std::string getname(); //getter del nombre de usuario
-	inline void setscore(float); //setter del score del usuario
-	inline float getscore(); //getter de la puntuaci贸n del usuario
+	User();
+	void setname(); //setter del nombre de usuario por scanf
+	void stablishname(string n);//setter del nombre de usuario por string enviada
+	std::string getname(); //getter del nombre de usuario
+	void setscore(); //setter del score del usuario por scanf
+	void stablishscore(float n);//setter del score del usuario por float enviado
+	float getscore(); //getter de la puntuaci髇 del usuario
+	void adduser(); //gesti髇 para a馻dir user personalizado al fichero
+	void actualizeusers(); //actualizaci髇 de los usuarios en la clase por el fichero
 };
