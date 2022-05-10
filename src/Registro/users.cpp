@@ -106,3 +106,97 @@ float User::getscore()
 {
 	return (score); //regresa el puntaje
 }
+//Crear replay
+void User::createreplay(User n) {
+	ifstream fich("replay.txt");
+	if (!fich.is_open())
+	{
+		cout << "Error al abrir replay.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	string aux, fullreplaylist;
+	int s = 0;
+	while (getline(fich, aux))
+	{
+			fullreplaylist = fullreplaylist + aux + "\n";
+	}
+	fich.close();
+	////////////////////////////
+	ofstream foch("replay.txt");
+	if (!foch)
+	{
+		cout << "Error al abrir replay.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		fullreplaylist = fullreplaylist + name + " vs " + n.name + "\n";
+		while (moverficha() != marca de fin)
+		{
+			fullreplaylist = fullreplaylist + moverficha() + "\n"; //copiar movimientos hasta la marca de fin
+		}
+		fullreplaylist = fullreplaylist + moverficha() + "\n"; //que aparezca la marca de fin
+		foch << fullreplaylist << endl; //impresión del replay
+	}
+	foch.close();
+}
+//Leer replay
+void User::readreplay(User n) {
+	ifstream fich("replay.txt");
+	if (!fich.is_open())
+	{
+		cout << "Error al abrir replay.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	string move, pool;
+	pool = name + " vs " + n.name;
+	getline(fich, move);
+	while (move != pool)
+	{
+		getline(fich, move);
+	}
+	while (move != "marca de fin")
+	{
+		moverficha(move);
+	}
+	fich.close();
+}
+//eliminar replay (solo elimina la mas reciente)
+void User::deletereplay(User n){
+	ifstream fich("replay.txt");
+	if (!fich.is_open())
+	{
+		cout << "Error al abrir replay.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	string move, pool, fullreplaylist;
+	pool = name + " vs " + n.name;
+	getline(fich, move);
+	fullreplaylist = move + "\n";
+	while (move != pool)
+	{
+		getline(fich, move);
+		fullreplaylist = fullreplaylist + move + "\n";
+	}
+	while (move != "marca de final")
+	{
+		getline(fich, move);
+	}
+	getline(fich, move);
+	while (getline(fich, move))
+	{
+		fullreplaylist = fullreplaylist + move + "\n";
+	}
+	int del = fullreplaylist.size();
+	fullreplaylist[del - 1] = '\0'; //eliminación de un \n muy extraño
+	fich.close();
+	/////////////////////////////////////////////////
+	ofstream foch("replay.txt");
+	if (!foch)
+	{
+		cout << "Error al abrir replay.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	foch << fullreplaylist << endl;
+	foch.close();
+}

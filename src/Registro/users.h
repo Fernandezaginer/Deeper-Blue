@@ -20,4 +20,7 @@ public:
 	float getscore(); //getter de la puntuación del usuario
 	void adduser(); //gestión para añadir user personalizado al fichero
 	void actualizeusers(); //actualización de los usuarios en la clase por el fichero
+	void createreplay(User b);//crea la replay
+	void readreplay(User b);//lee la replay buscada y la envía a la función mover ficha
+	void deletereplay(User b);//elimina replay
 };

@@ -11,8 +11,10 @@ int main()
 	printf_s("usuario: %s\nPuntaje: %f", us1.getname().c_str(), us1.getscore()); // impresión para corroborar 
 	//printf("%s\n",someString.c_str()); ò std::cout << YourString << std::endl;
 	*/
+	/*
 	deleteuser();
 	usertofile();
+	*/
 	return 0;
 }
 

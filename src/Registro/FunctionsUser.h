@@ -129,8 +129,8 @@ void deleteuser()
 		fulluserlist = fulluserlist + aux + "\n";
 		s++;
 	}
-	int puto = fulluserlist.size();
-	fulluserlist[puto - 1] = '\0'; //eliminación de un \n muy extraño
+	int del = fulluserlist.size();
+	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
 	fich.close();
 	/////////////////////////////////////////////////
 	ofstream foch("users.txt");
