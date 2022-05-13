@@ -20,46 +20,6 @@ bool IA_UnitTests::test_3()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
 	tab[6][3] = pieza_t(NO_PIEZA, BLANCA);
-	std::cout << IA_UnitTests::IA_d_b.getScore(tab) << std::endl << IA_UnitTests::IA_d_n.getScore(tab) << std::endl << std::endl;
-	ostringstream o;
-
-	for (int i = 0; i < ROW_SIZE; i++) {
-		pieza_t* aux;
-		aux = *(tab + i);
-		for (int j = 0; j < COL_SIZE; j++) {
-			char car;
-
-			switch ((aux + j)->getForma())
-			{
-			case PEON:
-				car = 'P';
-				break;
-			case CABALLO:
-				car = 'C';
-				break;
-			case ALFIL:
-				car = 'A';
-				break;
-			case TORRE:
-				car = 'T';
-				break;
-			case DAMA:
-				car = 'D';
-				break;
-			case REY:
-				car = 'R';
-				break;
-			default:
-				car = '-';
-				break;
-			}
-
-			o << " " << car << " ";
-
-		}
-		o << endl;
-	}
-	std:cout << std::endl << std::endl << o.str() << std::endl << std::endl;
 	return IA_UnitTests::IA_d_b.getScore(tab) == -80 && IA_UnitTests::IA_d_n.getScore(tab) == +80;
 }
 

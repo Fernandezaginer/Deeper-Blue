@@ -46,7 +46,7 @@ int IA_dificil::getScore(tablero_t tablero) {
 		for (int y = 0; y < COL_SIZE; y++) {
 			forma_pieza_t forma = tablero[y][x].getForma();
 			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje material
-			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == this->color ? 7 - y : y)][x]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje de piezas individuales
+			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == BLANCA ? 7 - y : y)][x]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje de piezas individuales
 		}
 	}
 	return score;
