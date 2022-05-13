@@ -15,7 +15,7 @@ using namespace std;
 // Información de la pieza
 enum forma_pieza_t { NO_PIEZA, PEON, CABALLO, ALFIL, TORRE, DAMA, REY };
 enum color_pieza_t { NO_COLOR, BLANCA, NEGRA };
-enum movimiento_t { PROPIA_PIEZA = -1, NO_PERMITIDO, PERMITIDO, COMER_PIEZA, ENROQUE_C, ENROQUE_L };
+enum movimiento_t { PROPIA_PIEZA = -1, NO_PERMITIDO, PERMITIDO, COMER_PIEZA, ENROQUE_C, ENROQUE_L, PROMOCION, COMER_AL_PASO};
 
 // Extructura que indica los movimientos permitidos
 typedef struct {
@@ -37,6 +37,7 @@ private:
 	void aux_permite_mov_vert_hor(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 	void aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 
+
 public:
 
 	// Constructores:
@@ -51,10 +52,15 @@ public:
 
 	// Servicios:
 	friend bool operator == (pieza_t lhs, pieza_t rhs);
+	char pieza_to_char();
+	int valor();
 
 	friend class Juego;
 
 };
 
 
+
 #endif
+
+
