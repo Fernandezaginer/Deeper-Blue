@@ -1,23 +1,23 @@
 #include "IA.h"
 
-bool IA_facil::hacerMovimiento() {
+bool IA_facil::hacerMovimiento(Juego partida) {
 	srand(time(NULL));
 	bool searching = true;
 	time_t t_0 = time(NULL);
 	while (time(NULL) < t_0 + 5) {
 		for (int i = 0; i < ROW_SIZE; i++) {
 			for (int j = 0; j < COL_SIZE; j++) {
-				if (this->partida.get_tablero()[i][j].getColor() == this->color) {
+				if (partida.get_tablero()[i][j].getColor() == this->color) {
 					if (rand() % 10 == 5) {
 						bool moving = true;
 						while (moving) {
 							moving = false;
 							for (int m = 0; m < ROW_SIZE; m++) {
 								for (int n = 0; n < COL_SIZE; n++) {
-									if (this->partida.get_mov_permitidos(&this->partida.get_tablero()[i][j], this->partida.get_tablero()).TAB[m][n] > 0) {
+									if (partida.get_mov_permitidos(&partida.get_tablero()[i][j], partida.get_tablero()).TAB[m][n] > 0) {
 										moving = true;
 										if (rand() % 5 == 3) {
-											if (this->partida.haz_movimiento(i, j, m, n)) {
+											if (partida.haz_movimiento(i, j, m, n)) {
 												return true;
 											}
 										}
@@ -33,13 +33,102 @@ bool IA_facil::hacerMovimiento() {
 	return false;
 }
 
-bool IA_dificil::hacerMovimiento()
+bool IA_dificil::hacerMovimiento(Juego partida)
 {
+	tablero_t tablero = partida.get_tablero();
+	int score = 0;
 	return false;
 }
 
+int IA_dificil::getScore(tablero_t tablero) {
+	int score = 0;
+	for (int x = 0; x < ROW_SIZE; x++) {
+		for (int y = 0; y < COL_SIZE; y++) {
+			forma_pieza_t forma = tablero[y][x].getForma();
+			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje material
+			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == this->color ? 7 - y : y)][x]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje de piezas individuales
+		}
+	}
+	return score;
+}
 
-const int IA_dificil::pawntable[ROW_SIZE][COL_SIZE] = {
+//enum forma_pieza_t { NO_PIEZA, PEON, CABALLO, ALFIL, TORRE, DAMA, REY };
+const int IA_dificil::individualsTable[7][ROW_SIZE][COL_SIZE] = {
+	{
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+	},
+	{
+		{ 0,   0,   0,   0,   0,   0,   0,   0},
+		{ 5,  10,  10, -20, -20,  10,  10,   5},
+		{ 5,  -5, -10,   0,   0, -10,  -5,   5},
+		{ 0,   0,   0,  20,  20,   0,   0,   0},
+		{ 5,   5,  10,  25,  25,  10,   5,   5},
+		{10,  10,  20,  30,  30,  20,  10,  10},
+		{50,  50,  50,  50,  50,  50,  50,  50},
+		{ 0,   0,   0,   0,   0,   0,   0,   0}
+	},
+	{
+		{-50, -40, -30, -30, -30, -30, -40, -50},
+		{-40, -20,   0,   5,   5,   0, -20, -40},
+		{-30,   5,  10,  15,  15,  10,   5, -30},
+		{-30,   0,  15,  20,  20,  15,   0, -30},
+		{-30,   5,  15,  20,  20,  15,   5, -30},
+		{-30,   0,  10,  15,  15,  10,   0, -30},
+		{-40, -20,   0,   0,   0,   0, -20, -40},
+		{-50, -40, -30, -30, -30, -30, -40, -50}
+	},
+	{
+		{-20, -10, -10, -10, -10, -10, -10, -20},
+		{-10,   5,   0,   0,   0,   0,   5, -10},
+		{-10,  10,  10,  10,  10,  10,  10, -10},
+		{-10,   0,  10,  10,  10,  10,   0, -10},
+		{-10,   5,   5,  10,  10,   5,   5, -10},
+		{-10,   0,   5,  10,  10,   5,   0, -10},
+		{-10,   0,   0,   0,   0,   0,   0, -10},
+		{-20, -10, -10, -10, -10, -10, -10, -20}
+	},
+	{
+		{  0,   0,   0,   5,   5,   0,   0,   0},
+		{ -5,   0,   0,   0,   0,   0,   0,  -5},
+		{ -5,   0,   0,   0,   0,   0,   0,  -5},
+		{ -5,   0,   0,   0,   0,   0,   0,  -5},
+		{ -5,   0,   0,   0,   0,   0,   0,  -5},
+		{ -5,   0,   0,   0,   0,   0,   0,  -5},
+		{  5,  10,  10,  10,  10,  10,  10,   5},
+		{  0,   0,   0,   0,   0,   0,   0,   0}
+	},
+	{
+		{-20, -10, -10,  -5,  -5, -10, -10, -20},
+		{-10,   0,   0,   0,   0,   0,   0, -10},
+		{-10,   0,   5,   5,   5,   5,   0, -10},
+		{  0,   0,   5,   5,   5,   5,   0,  -5},
+		{ -5,   0,   5,   5,   5,   5,   0,  -5},
+		{-10,   0,   5,   5,   5,   5,   0, -10},
+		{-10,   0,   0,   0,   0,   0,   0, -10},
+		{-20, -10, -10,  -5,  -5, -10, -10, -20}
+	},
+	{
+		{ 20,  30,  10,   0,   0,  10,  30,  20},
+		{ 20,  20,   0,   0,   0,   0,  20,  20},
+		{-10, -20, -20, -20, -20, -20, -20, -10},
+		{-20, -30, -30, -40, -40, -30, -30, -20},
+		{-30, -40, -40, -50, -50, -40, -40, -30},
+		{-30, -40, -40, -50, -50, -40, -40, -30},
+		{-30, -40, -40, -50, -50, -40, -40, -30},
+		{-30, -40, -40, -50, -50, -40, -40, -30}
+	}
+};
+
+const int IA_dificil::valorPiezas[7] = { 0, 100, 320, 330, 500, 900, 9999 };
+
+/*const int IA_dificil::pawntable[ROW_SIZE][COL_SIZE] = {
 	{ 0,   0,   0,   0,   0,   0,   0,   0},
 	{ 5,  10,  10, -20, -20,  10,  10,   5},
 	{ 5,  -5, -10,   0,   0, -10,  -5,   5},
@@ -98,4 +187,9 @@ const int IA_dificil::kingstable[ROW_SIZE][COL_SIZE] = {
 	{-30, -40, -40, -50, -50, -40, -40, -30},
 	{-30, -40, -40, -50, -50, -40, -40, -30},
 	{-30, -40, -40, -50, -50, -40, -40, -30}
-};
+};*/
+
+bool IA_base::hacerMovimiento(Juego partida)
+{
+	return false;
+}
