@@ -424,10 +424,10 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			}
 		}
 		if (col > 2) {
-			if (col > 0) {
+			if (row > 0) {
 				matriz.TAB[row - 1][col - 2] = tab[row - 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (col < COL_SIZE) {
+			if (row < COL_SIZE) {
 				matriz.TAB[row + 1][col - 2] = tab[row + 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
