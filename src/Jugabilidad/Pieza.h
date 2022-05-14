@@ -1,4 +1,3 @@
-
 #include <sstream>
 using namespace std;
 
@@ -37,6 +36,7 @@ private:
 	void aux_permite_mov_vert_hor(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 	void aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 
+
 public:
 
 	// Constructores:
@@ -51,10 +51,13 @@ public:
 
 	// Servicios:
 	friend bool operator == (pieza_t lhs, pieza_t rhs);
+	char pieza_to_char();
+	int valor();
 
 	friend class Juego;
 
 };
+
 
 
 #endif

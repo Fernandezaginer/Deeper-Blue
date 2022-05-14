@@ -28,11 +28,12 @@ public:
 };
 
 class IA_dificil : public IA_base {
-public:
+private:
 	//Juego partida;
 	//color_pieza_t color;
 
-	int getScore(tablero_t tablero);
+	static int getScore(Juego partida, color_pieza_t player);
+	static int getBoardScore(tablero_t partida, color_pieza_t player);
 public:
 	friend class IA_UnitTests;
 	IA_dificil(color_pieza_t col = NEGRA) : IA_base(col) {}

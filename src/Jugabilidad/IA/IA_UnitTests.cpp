@@ -1,28 +1,43 @@
 #include "IA_UnitTests.h"
 #include <iostream>
 
-
+/// <summary>
+/// Comprueba evaluación de tableros de la IA_dificil en la posición inicial
+/// </summary>
+/// <returns>true si la evaluación es correcta</returns>
 bool IA_UnitTests::test_1()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
-	return IA_UnitTests::IA_d_b.getScore(tab) == 0 && IA_UnitTests::IA_d_n.getScore(tab) == 0;
+	return IA_dificil::getBoardScore(tab, BLANCA) == 0 && IA_dificil::getBoardScore(tab, NEGRA) == 0;
 }
 
+/// <summary>
+/// Comprueba evaluación de tableros de la IA_dificil con la dama blanca en una posición favorable
+/// </summary>
+/// <returns>true si la evaluación es correcta</returns>
 bool IA_UnitTests::test_2()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
 	tab[7][3] = pieza_t(NO_PIEZA, BLANCA);
 	tab[5][3] = pieza_t(DAMA, BLANCA);
-	return IA_UnitTests::IA_d_b.getScore(tab) == 10 && IA_UnitTests::IA_d_n.getScore(tab) == -10;
+	return IA_dificil::getBoardScore(tab, BLANCA) == 10 && IA_dificil::getBoardScore(tab, NEGRA) == -10;
 }
 
+/// <summary>
+/// Comprueba evaluación de tableros de la IA_dificil cuando a las piezas blancas les falta un peón
+/// </summary>
+/// <returns>true si la evaluación es correcta</returns>
 bool IA_UnitTests::test_3()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
 	tab[6][3] = pieza_t(NO_PIEZA, BLANCA);
-	return IA_UnitTests::IA_d_b.getScore(tab) == -80 && IA_UnitTests::IA_d_n.getScore(tab) == +80;
+	return IA_dificil::getBoardScore(tab, BLANCA) == -80 && IA_dificil::getBoardScore(tab, NEGRA) == +80;
 }
 
+/// <summary>
+/// Genera un tablero con la posición inicial de las piezas
+/// </summary>
+/// <returns>Tablero con la posición inicial de las piezas</returns>
 tablero_t IA_UnitTests::generarTablero()
 {
 	// Reserva de memoria tablero
@@ -73,6 +88,10 @@ tablero_t IA_UnitTests::generarTablero()
     return tab;
 }
 
+/// <summary>
+/// Genera un tablero con la posición inicial de las piezas
+/// </summary>
+/// <returns>Tablero con la posición inicial de las piezas</returns>
 bool IA_UnitTests::test()
 {
     bool (*unitTests[3])(void) = { IA_UnitTests::test_1, IA_UnitTests::test_2, IA_UnitTests::test_3 };
@@ -84,6 +103,3 @@ bool IA_UnitTests::test()
     }
     return true;
 }
-
-IA_dificil IA_UnitTests::IA_d_b = IA_dificil(BLANCA);
-IA_dificil IA_UnitTests::IA_d_n = IA_dificil(NEGRA);

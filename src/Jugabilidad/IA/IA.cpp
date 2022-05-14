@@ -40,13 +40,34 @@ bool IA_dificil::hacerMovimiento(Juego partida)
 	return false;
 }
 
-int IA_dificil::getScore(tablero_t tablero) {
+
+
+int IA_dificil::getScore(Juego partida, color_pieza_t player)
+{
+	tablero_t tablero = partida.get_tablero();
+	int score = IA_dificil::getBoardScore(tablero, player);
+	if (partida.jaque_player(BLANCA, tablero)) {
+		if (player == BLANCA)
+			score += 9999;
+		else
+			score -= 9999;
+	}
+	if (partida.jaque_player(NEGRA, tablero)) {
+		if (player == NEGRA)
+			score += 9999;
+		else
+			score -= 9999;
+	}
+	return 0;
+}
+
+int IA_dificil::getBoardScore(tablero_t tablero, color_pieza_t player) {
 	int score = 0;
 	for (int x = 0; x < ROW_SIZE; x++) {
 		for (int y = 0; y < COL_SIZE; y++) {
 			forma_pieza_t forma = tablero[y][x].getForma();
-			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje material
-			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == BLANCA ? 7 - y : y)][x]) * (tablero[y][x].getColor() == this->color ? 1 : -1); //Cálculo de puntaje de piezas individuales
+			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cálculo de puntaje material
+			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == BLANCA ? 7 - y : y)][x]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cálculo de puntaje de piezas individuales
 		}
 	}
 	return score;
@@ -127,67 +148,6 @@ const int IA_dificil::individualsTable[7][ROW_SIZE][COL_SIZE] = {
 };
 
 const int IA_dificil::valorPiezas[7] = { 0, 100, 320, 330, 500, 900, 9999 };
-
-/*const int IA_dificil::pawntable[ROW_SIZE][COL_SIZE] = {
-	{ 0,   0,   0,   0,   0,   0,   0,   0},
-	{ 5,  10,  10, -20, -20,  10,  10,   5},
-	{ 5,  -5, -10,   0,   0, -10,  -5,   5},
-	{ 0,   0,   0,  20,  20,   0,   0,   0},
-	{ 5,   5,  10,  25,  25,  10,   5,   5},
-	{10,  10,  20,  30,  30,  20,  10,  10},
-	{50,  50,  50,  50,  50,  50,  50,  50},
-	{ 0,   0,   0,   0,   0,   0,   0,   0}
-};
-const int IA_dificil::knightstable[ROW_SIZE][COL_SIZE] = {
-	{-50, -40, -30, -30, -30, -30, -40, -50},
-	{-40, -20,   0,   5,   5,   0, -20, -40},
-	{-30,   5,  10,  15,  15,  10,   5, -30},
-	{-30,   0,  15,  20,  20,  15,   0, -30},
-	{-30,   5,  15,  20,  20,  15,   5, -30},
-	{-30,   0,  10,  15,  15,  10,   0, -30},
-	{-40, -20,   0,   0,   0,   0, -20, -40},
-	{-50, -40, -30, -30, -30, -30, -40, -50}
-};
-const int IA_dificil::bishopstable[ROW_SIZE][COL_SIZE] = {
-	{-20, -10, -10, -10, -10, -10, -10, -20},
-	{-10,   5,   0,   0,   0,   0,   5, -10},
-	{-10,  10,  10,  10,  10,  10,  10, -10},
-	{-10,   0,  10,  10,  10,  10,   0, -10},
-	{-10,   5,   5,  10,  10,   5,   5, -10},
-	{-10,   0,   5,  10,  10,   5,   0, -10},
-	{-10,   0,   0,   0,   0,   0,   0, -10},
-	{-20, -10, -10, -10, -10, -10, -10, -20}
-};
-const int IA_dificil::rookstable[ROW_SIZE][COL_SIZE] = {
-	{  0,   0,   0,   5,   5,   0,   0,   0},
-	{ -5,   0,   0,   0,   0,   0,   0,  -5},
-	{ -5,   0,   0,   0,   0,   0,   0,  -5},
-	{ -5,   0,   0,   0,   0,   0,   0,  -5},
-	{ -5,   0,   0,   0,   0,   0,   0,  -5},
-	{ -5,   0,   0,   0,   0,   0,   0,  -5},
-	{  5,  10,  10,  10,  10,  10,  10,   5},
-	{  0,   0,   0,   0,   0,   0,   0,   0}
-};
-const int IA_dificil::queenstable[ROW_SIZE][COL_SIZE] = {
-	{-20, -10, -10,  -5,  -5, -10, -10, -20},
-	{-10,   0,   0,   0,   0,   0,   0, -10},
-	{-10,   5,   5,   5,   5,   5,   0, -10},
-	{  0,   0,   5,   5,   5,   5,   0,  -5},
-	{ -5,   0,   5,   5,   5,   5,   0,  -5},
-	{-10,   0,   5,   5,   5,   5,   0, -10},
-	{-10,   0,   0,   0,   0,   0,   0, -10},
-	{-20, -10, -10,  -5,  -5, -10, -10, -20}
-};
-const int IA_dificil::kingstable[ROW_SIZE][COL_SIZE] = {
-	{ 20,  30,  10,   0,   0,  10,  30,  20},
-	{ 20,  20,   0,   0,   0,   0,  20,  20},
-	{-10, -20, -20, -20, -20, -20, -20, -10},
-	{-20, -30, -30, -40, -40, -30, -30, -20},
-	{-30, -40, -40, -50, -50, -40, -40, -30},
-	{-30, -40, -40, -50, -50, -40, -40, -30},
-	{-30, -40, -40, -50, -50, -40, -40, -30},
-	{-30, -40, -40, -50, -50, -40, -40, -30}
-};*/
 
 bool IA_base::hacerMovimiento(Juego partida)
 {
