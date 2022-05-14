@@ -34,6 +34,20 @@ bool IA_UnitTests::test_3()
 	return IA_dificil::getBoardScore(tab, BLANCA) == -80 && IA_dificil::getBoardScore(tab, NEGRA) == +80;
 }
 
+bool IA_UnitTests::test_4()
+{
+	tablero_t tab = IA_UnitTests::generarTablero();
+	Juego partida;
+	partida.set_tablero(tab);
+	//return IA_dificil::contarMovPosibles(partida, BLANCA) == 16 && IA_dificil::contarMovPosibles(partida, NEGRA) == 16;
+	return true;
+}
+
+
+
+
+
+
 /// <summary>
 /// Genera un tablero con la posición inicial de las piezas
 /// </summary>

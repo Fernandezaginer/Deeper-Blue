@@ -40,7 +40,54 @@ bool IA_dificil::hacerMovimiento(Juego partida)
 	return false;
 }
 
+arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
+{
+	tablero_t tab = partida.get_tablero();
+	arbol tree;
 
+	rama rama_aux;
+	for (int x = 0; x < COL_SIZE; x++) {
+		for (int y = 0; y < ROW_SIZE; y++) {
+			if (tab[y][x].getColor() == player) {
+				lista_movimientos listaMov = partida.get_mov_permitidos_l(&tab[y][x], tab);
+				for (int mov = 0; mov < listaMov.size(); mov++) {
+					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
+					fruto fruta;
+					fruta.mov = listaMov[mov];
+					fruta.partida = partida_aux;
+					fruta.score = IA_dificil::getScore(partida_aux, player);
+					rama_aux.push_back(fruta);
+				}
+			}
+		}
+	}
+	tree.push_back(rama_aux);
+
+	for (int i = 0; i < depth; i++) {
+		rama_aux = rama();
+		for (int x = 0; x < COL_SIZE; x++) {
+			for (int y = 0; y < ROW_SIZE; y++) {
+				if (tab[y][x].getColor() == player) {
+				}
+			}
+		}
+		tree.push_back(rama_aux);
+	}
+	return tree;
+}
+
+int IA_dificil::contarMovPosibles(Juego partida, color_pieza_t player) {
+	tablero_t tab = partida.get_tablero();
+	int num = 0;
+	for (int x = 0; x < COL_SIZE; x++) {
+		for (int y = 0; y < ROW_SIZE; y++) {
+			if (tab[y][x].getColor() == player) {
+				num += partida.get_mov_permitidos_l(&tab[y][x], tab).size();
+			}
+		}
+	}
+	return num;
+}
 
 int IA_dificil::getScore(Juego partida, color_pieza_t player)
 {

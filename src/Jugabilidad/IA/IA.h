@@ -6,6 +6,14 @@
 #include "ChessRules.h"
 #include "Pieza.h"
 
+struct fruto {
+	movimiento mov;
+	Juego partida;
+	int score;
+};
+typedef vector<fruto> rama;
+typedef vector<rama> arbol;
+
 class IA_base {
 protected:
 	color_pieza_t color;
@@ -18,8 +26,6 @@ public:
 
 class IA_facil : public IA_base{
 private:
-	//Juego partida;
-	//color_pieza_t color;
 public:
 	friend class IA_UnitTests;
 	IA_facil(color_pieza_t col = NEGRA) : IA_base(col) {}
@@ -29,9 +35,8 @@ public:
 
 class IA_dificil : public IA_base {
 private:
-	//Juego partida;
-	//color_pieza_t color;
-
+	static arbol getArbol(Juego partida, color_pieza_t player, int depth);
+	static int contarMovPosibles(Juego partida, color_pieza_t player);
 	static int getScore(Juego partida, color_pieza_t player);
 	static int getBoardScore(tablero_t partida, color_pieza_t player);
 public:
