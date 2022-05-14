@@ -75,7 +75,6 @@ void pieza_t::aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int ro
 	}
 }
 
-
 char pieza_t::pieza_to_char()
 {
 	char car;
@@ -163,6 +162,12 @@ string mov_print(tablero_info_t t) {
 				break;
 			case ENROQUE_L:
 				car = 'E';
+				break;
+			case COMER_AL_PASO_L:
+				car = 'x';
+				break;
+			case COMER_AL_PASO_R:
+				car = 'x';
 				break;
 			default:
 				car = '-';
