@@ -1,5 +1,6 @@
 #include "FICHA.h"
 #include "freeglut.h"
+#include "ListaFiguras.h"
 
 void FICHA::setPos(float x, float y)
 {
@@ -14,30 +15,9 @@ void FICHA::setRad(float r)
 
 void FICHA::dibuja()
 {
-	
 	glColor3ub(col.rojo, col.verde, col.azul);
 	glTranslatef(posicion.x, posicion.y, 0);
-	
-	switch (pieza)
-	{
-
-	case NOPIEZA:
-		break;
-
-	case TIPO0:
-		glutSolidSphere(radio, 20, 20);
-		break;
-
-	case TIPO1:
-		glutSolidCube(1.5 * radio);
-		break;
-
-	case TIPO2:
-		glutSolidTeapot(0.75 * radio);
-		break;
-
-	}
-
+	ListaFiguras::print(pieza, jugador);
 	glTranslatef(-posicion.x, -posicion.y, 0);
 }
 

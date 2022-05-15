@@ -15,4 +15,3 @@ public:
 	Figura(const char* path, const char* textura);
 	void dibuja();
 };
-

@@ -68,7 +68,7 @@ void Figura::dibuja() {
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
 		for (int j = 0; j < 3; j++) {
-			glTexCoord2d(this->UVs[(3 * i) + j].x, 1-this->UVs[(3 * i) + j].y);
+			glTexCoord2d(this->UVs[(3 * i) + j].x, 1 - this->UVs[(3 * i) + j].y);
 			glVertex3f(this->vertices[(3 * i) + j].x, this->vertices[(3 * i) + j].y, this->vertices[(3 * i) + j].z);
 		}
 		glEnd();

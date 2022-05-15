@@ -1,5 +1,6 @@
 #include "VECTOR.h"
 #include "COLOR.h"
+#include "Figura.h"
 
 #pragma once
 class FICHA
@@ -17,6 +18,7 @@ private:
 	VECTOR posicion;
 	float radio;
 	COLOR col;
+	Figura CABALLO{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
 
 
 
