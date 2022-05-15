@@ -2,9 +2,9 @@ invitado vs pepe
 Mov1
 mov2
 ...
-"marca de fin"
+FIN
 invitado vs juan
 Mov1
 mov2
 ...
-"marca de fin"
+FIN

@@ -19,8 +19,8 @@ void actUsers() {
 	}
 	if (i > 0)
 	{
-	X.stablishname(listuser[0]);
-	X.stablishscore(stof(listuser[1]));
+		X.stablishname(listuser[0]);
+		X.stablishscore(stof(listuser[1]));
 	}
 	if (i > 2)
 	{

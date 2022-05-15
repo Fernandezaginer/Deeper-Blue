@@ -107,7 +107,7 @@ float User::getscore()
 	return (score); //regresa el puntaje
 }
 //Crear replay
-void User::createreplay(User n) {
+void User::createreplay(User n, string savemove) {
 	ifstream fich("replay.txt");
 	if (!fich.is_open())
 	{
@@ -130,18 +130,13 @@ void User::createreplay(User n) {
 	}
 	else
 	{
-		fullreplaylist = fullreplaylist + name + " vs " + n.name + "\n";
-		while (moverficha() != marca de fin)
-		{
-			fullreplaylist = fullreplaylist + moverficha() + "\n"; //copiar movimientos hasta la marca de fin
-		}
-		fullreplaylist = fullreplaylist + moverficha() + "\n"; //que aparezca la marca de fin
-		foch << fullreplaylist << endl; //impresión del replay
+		fullreplaylist = fullreplaylist + savemove;
+		foch << savemove << endl; //impresión del replay
 	}
 	foch.close();
 }
 //Leer replay
-void User::readreplay(User n) {
+string User::readreplay(User n) {
 	ifstream fich("replay.txt");
 	if (!fich.is_open())
 	{
@@ -155,9 +150,9 @@ void User::readreplay(User n) {
 	{
 		getline(fich, move);
 	}
-	while (move != "marca de fin")
+	while (move != "FIN")
 	{
-		moverficha(move);
+		return(move);
 	}
 	fich.close();
 }
@@ -178,7 +173,7 @@ void User::deletereplay(User n){
 		getline(fich, move);
 		fullreplaylist = fullreplaylist + move + "\n";
 	}
-	while (move != "marca de final")
+	while (move != "FIN")
 	{
 		getline(fich, move);
 	}
