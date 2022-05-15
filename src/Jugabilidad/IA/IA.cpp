@@ -40,6 +40,24 @@ bool IA_dificil::hacerMovimiento(Juego partida)
 	return false;
 }
 
+movimiento IA_dificil::evaluarArbol(arbol tree)
+{
+	rama rama_fin = tree.back();
+	movimiento mejor_movimiento;
+	int best_score = -9999;
+	int signo = tree.size() % 2 ? 1 : -1;
+	for (int i = 0; i < rama_fin.size(); i++) {
+		fruto fruta = rama_fin[i];
+		int score = 0;
+		while (fruta.parent) {
+			score += signo * fruta.score;
+			signo *= -1;
+		}
+	}
+
+	return movimiento();
+}
+
 arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 {
 	tablero_t tab = partida.get_tablero();
@@ -51,11 +69,12 @@ arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 			if (tab[y][x].getColor() == player) {
 				lista_movimientos listaMov = partida.get_mov_permitidos_l(&tab[y][x], tab);
 				for (int mov = 0; mov < listaMov.size(); mov++) {
-					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
+					//Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
 					fruto fruta;
 					fruta.mov = listaMov[mov];
-					fruta.partida = partida_aux;
-					fruta.score = IA_dificil::getScore(partida_aux, player);
+					//fruta.partida = partida_aux;
+					//fruta.score = IA_dificil::getScore(partida_aux, player);
+					fruta.parent = 0;
 					rama_aux.push_back(fruta);
 				}
 			}
@@ -65,9 +84,23 @@ arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 
 	for (int i = 0; i < depth; i++) {
 		rama_aux = rama();
-		for (int x = 0; x < COL_SIZE; x++) {
-			for (int y = 0; y < ROW_SIZE; y++) {
-				if (tab[y][x].getColor() == player) {
+		player = player == BLANCA ? NEGRA : BLANCA;
+		for (int fruta_i = 0; fruta_i < tree.back().size(); fruta_i++) {
+			tab = tree.back()[fruta_i].partida.get_tablero();
+			for (int x = 0; x < COL_SIZE; x++) {
+				for (int y = 0; y < ROW_SIZE; y++) {
+					if (tab[y][x].getColor() == player) {
+						lista_movimientos listaMov = tree.back()[fruta_i].partida.get_mov_permitidos_l(&tab[y][x], tab);
+						for (int mov = 0; mov < listaMov.size(); mov++) {
+							//Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
+							fruto fruta;
+							fruta.mov = listaMov[mov];
+							//fruta.partida = partida_aux;
+							//fruta.score = IA_dificil::getScore(partida_aux, player);
+							fruta.parent = &tree.back()[fruta_i];
+							rama_aux.push_back(fruta);
+						}
+					}
 				}
 			}
 		}

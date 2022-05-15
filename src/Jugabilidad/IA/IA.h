@@ -10,6 +10,7 @@ struct fruto {
 	movimiento mov;
 	Juego partida;
 	int score;
+	struct fruto* parent;
 };
 typedef vector<fruto> rama;
 typedef vector<rama> arbol;
@@ -35,6 +36,7 @@ public:
 
 class IA_dificil : public IA_base {
 private:
+	movimiento evaluarArbol(arbol tree);
 	static arbol getArbol(Juego partida, color_pieza_t player, int depth);
 	static int contarMovPosibles(Juego partida, color_pieza_t player);
 	static int getScore(Juego partida, color_pieza_t player);
