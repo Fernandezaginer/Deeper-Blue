@@ -55,7 +55,7 @@ void Interfaz::dibuja()
 		break;
 	case -1:
 		this->in.direct = "misimagenes/inicial.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 4) {
 			this->estado = 0;
 			this->t_0 = time(NULL);
 		}
@@ -63,7 +63,7 @@ void Interfaz::dibuja()
 	case 0: // pantalla de inicio sin el start
 		this->in.direct = "misimagenes/iniciox.png";
 
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
 			this->estado = 1;
 			this->t_0 = time(NULL);
 		}
@@ -169,7 +169,7 @@ void Interfaz::dibuja()
 			this->estado = 4;
 		}
 		if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-			this->estado = 20;
+			this->estado = 21;
 		}
 		break;
 	case 10: //usuario 2
@@ -207,7 +207,7 @@ void Interfaz::dibuja()
 		this->in.carga();
 		this->in.direct = "misimagenes/cins.png";
 		if (this->in.coor_y >= 8.25) {
-			this->estado = 23;
+			this->estado = 24;
 			this->in.coor_y = -4.5f;
 		}
 		break;
@@ -216,86 +216,81 @@ void Interfaz::dibuja()
 		//if victoria-> CASE 17 
 		this->estado = 17;
 		//if derrota->CASE 18 this->estado = 18;
+		//if tablas->CASE 19 this->estado = 19;
+		this->t_0 = time(NULL);
 		break;
 	case 16: //IA JUEGO
 		//introducir logica del juego
 		//if victoria-> CASE 17 this->estado = 17;
 		//if derrota->CASE 18 
-		this->estado = 18;
+		//this->estado = 18;
+		//if tablas->CASE 19 
+		this->estado = 19;
+		this->t_0 = time(NULL);
 		break;
 	case 17: //victoria
 		this->in.direct = "misimagenes/victoria.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
-			this->estado = 19;
+		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+			this->estado = 20;
 			this->t_0 = time(NULL);
 		}
 		break;
 	case 18: // derrota
 		this->in.direct = "misimagenes/derrota.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
-			this->estado = 19;
+		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+			this->estado = 20;
 			this->t_0 = time(NULL);
 		}
 		break;
-	case 19: //registro
+	case 19: //tablas
+		this->in.direct = "misimagenes/tablas.png";
+		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+			this->estado = 20;
+			this->t_0 = time(NULL);
+		}
+		break;
+
+	case 20: //registro
 		this->in.direct = "misimagenes/reg.png";
 		
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
 			this->estado = 4;
 			this->t_0 = time(NULL);
-			
 		}
 		break;
-	case 20: // exit
+	case 21: // exit
 		this->in.direct = "misimagenes/exitx.png";
 		if (this->con.mousePos.y < 445 && this->con.mousePos.y >404 && this->con.mousePos.x > 717 && this->con.mousePos.x < 770) {
-			this->estado = 21;
-		}
-		if (this->con.mousePos.y < 549 && this->con.mousePos.y >510 && this->con.mousePos.x > 705 && this->con.mousePos.x < 774) {
 			this->estado = 22;
 		}
+		if (this->con.mousePos.y < 549 && this->con.mousePos.y >510 && this->con.mousePos.x > 705 && this->con.mousePos.x < 774) {
+			this->estado = 23;
+		}
 		break;
-	case 21: //exit si
+	case 22: //exit si
 		this->in.direct = "misimagenes/exitsi.png";
 		if (this->con.mousePos.y > 445 || this->con.mousePos.y < 404 || this->con.mousePos.x < 717 || this->con.mousePos.x > 770) {
-			this->estado = 20;
+			this->estado = 21;
 		}
 		if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
 			this->estado = 0;
 		}
 		break;
-	case 22: //exit no 
+	case 23: //exit no 
 		this->in.direct = "misimagenes/exitno.png";
 		if (this->con.mousePos.y > 549 || this->con.mousePos.y < 510 || this->con.mousePos.x < 705 || this->con.mousePos.x > 774) {
-			this->estado = 20;
+			this->estado = 21;
 		}
 		if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
 			this->estado = 4;
 		}
 		break;
-	case 23: //instrucciones objetivo
+	case 24: //instrucciones objetivo
 		this->in.direct = "misimagenes/i_obj.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
 					this->estado = 4;
-					this->t_0 = time(NULL);
-				}
-			}
-			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 1324 && this->con.mousePos.x < 1366) {
-				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 24;
-					this->t_0 = time(NULL);
-				}
-			}
-		}
-		break;
-	case 24: //instrucciones + posición inicial del tablero
-		this->in.direct = "misimagenes/i_pos.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
-			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
-				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 23;
 					this->t_0 = time(NULL);
 				}
 			}
@@ -307,16 +302,9 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 25: //instrucciones + peon
-
-		this->in.direct = "misimagenes/i_peon1.png";
-		if ( time(NULL) > static_cast<long long>(this->t_0) + 1){
-			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_peon2.png";
-			}
-			if (this->con.mousePos.y < 562 && this->con.mousePos.y >481 && this->con.mousePos.x > 783 && this->con.mousePos.x < 1240) {
-				this->in.direct = "misimagenes/i_peon3.png";
-			}
+	case 25: //instrucciones + posición inicial del tablero
+		this->in.direct = "misimagenes/i_pos.png";
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
 					this->estado = 24;
@@ -331,11 +319,15 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 26: //instrucciones+ torre
-		this->in.direct = "misimagenes/i_torre1.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
+	case 26: //instrucciones + peon
+
+		this->in.direct = "misimagenes/i_peon1.png";
+		if ( time(NULL) > static_cast<long long>(this->t_0) + 1){
 			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_torre2.png";
+				this->in.direct = "misimagenes/i_peon2.png";
+			}
+			if (this->con.mousePos.y < 562 && this->con.mousePos.y >481 && this->con.mousePos.x > 783 && this->con.mousePos.x < 1240) {
+				this->in.direct = "misimagenes/i_peon3.png";
 			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
@@ -351,11 +343,11 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 27: //instrucciones+caballo
-		this->in.direct = "misimagenes/i_caballo1.png";
+	case 27: //instrucciones+ torre
+		this->in.direct = "misimagenes/i_torre1.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_caballo2.png";
+				this->in.direct = "misimagenes/i_torre2.png";
 			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
@@ -371,11 +363,11 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 28: //instrucciones+alfil
-		this->in.direct = "misimagenes/i_alfil1.png";
+	case 28: //instrucciones+caballo
+		this->in.direct = "misimagenes/i_caballo1.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_alfil2.png";
+				this->in.direct = "misimagenes/i_caballo2.png";
 			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
@@ -391,11 +383,11 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 29: //instrucciones+reina
-		this->in.direct = "misimagenes/i_reina1.png";
+	case 29: //instrucciones+alfil
+		this->in.direct = "misimagenes/i_alfil1.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_reina2.png";
+				this->in.direct = "misimagenes/i_alfil2.png";
 			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
@@ -411,15 +403,15 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 30: //instrucciones+rey
-		this->in.direct = "misimagenes/i_rey1.png";
+	case 30: //instrucciones+reina
+		this->in.direct = "misimagenes/i_reina1.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
-				this->in.direct = "misimagenes/i_rey2.png";
+				this->in.direct = "misimagenes/i_reina2.png";
 			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 29;
+					this->estado = 28;
 					this->t_0 = time(NULL);
 				}
 			}
@@ -431,10 +423,12 @@ void Interfaz::dibuja()
 			}
 		}
 		break;
-	case 31: //instrucciones+movimientos especiales
-		this->in.direct = "misimagenes/i_mov1.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
-			this->in.direct = "misimagenes/i_mov1.1.png";
+	case 31: //instrucciones+rey
+		this->in.direct = "misimagenes/i_rey1.png";
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
+			if (this->con.mousePos.y < 627 && this->con.mousePos.y >335 && this->con.mousePos.x > 396 && this->con.mousePos.x < 728) {
+				this->in.direct = "misimagenes/i_rey2.png";
+			}
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
 					this->estado = 30;
@@ -450,6 +444,24 @@ void Interfaz::dibuja()
 		}
 		break;
 	case 32: //instrucciones+movimientos especiales
+		this->in.direct = "misimagenes/i_mov1.png";
+		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
+			this->in.direct = "misimagenes/i_mov1.1.png";
+			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
+				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
+					this->estado = 31;
+					this->t_0 = time(NULL);
+				}
+			}
+			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 1324 && this->con.mousePos.x < 1366) {
+				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
+					this->estado = 33;
+					this->t_0 = time(NULL);
+				}
+			}
+		}
+		break;
+	case 33: //instrucciones+movimientos especiales
 		this->in.direct = "misimagenes/i_mov2.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
 			this->in.direct = "misimagenes/i_mov2.1.png";
@@ -457,26 +469,26 @@ void Interfaz::dibuja()
 				this->in.direct = "misimagenes/i_mov2.2.png";
 				if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 					if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-						this->estado = 31;
+						this->estado = 32;
 						this->t_0 = time(NULL);
 					}
 				}
 				if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 1324 && this->con.mousePos.x < 1366) {
 					if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-						this->estado = 33;
+						this->estado = 34;
 						this->t_0 = time(NULL);
 					}
 				}
 			}
 		}
 		break;
-	case 33: //instrucciones+movimientos especiales
+	case 34: //instrucciones+movimientos especiales
 		this->in.direct = "misimagenes/i_mov3.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
 			this->in.direct = "misimagenes/i_mov3.1.png";
 			if (this->con.mousePos.y < 716 && this->con.mousePos.y >656 && this->con.mousePos.x > 182 && this->con.mousePos.x < 220) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 32;
+					this->estado = 33;
 					this->t_0 = time(NULL);
 				}
 			}
