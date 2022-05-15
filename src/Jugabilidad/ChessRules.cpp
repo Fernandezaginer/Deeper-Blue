@@ -576,17 +576,17 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 	return matriz;
 }
 
-vector<movimiento> Juego::get_mov_permitidos_l(pieza_t* a, tablero_t tab)
+lista_movimientos Juego::get_mov_permitidos_l(tablero_t tab, int row_o, int col_o)
 {
-	tablero_info_t movimientos = this->get_mov_permitidos(a, tab);
-	vector<movimiento> resultado;
-	for (int x = 0; x < COL_SIZE; x++) {
-		for (int y = 0; y < ROW_SIZE; y++) {
-			if(movimientos.TAB[y][x] > 0)
-				resultado.push_back({ movimientos.TAB[y][x], x, y});
+	tablero_info_t movimientos = this->get_mov_permitidos(&tab[row_o][col_o], tab);
+	lista_movimientos resultado;
+	for (int col_f = 0; col_f < COL_SIZE; col_f++) {
+		for (int row_f = 0; row_f < ROW_SIZE; row_f++) {
+			if(movimientos.TAB[row_f][col_f] > 0)
+				resultado.push_back({ movimientos.TAB[row_f][col_f], row_o, col_o, row_f, col_f});
 		}
 	}
-	return vector<movimiento>();
+	return resultado;
 }
 
 void Juego::aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t** tab, int row, int col)
