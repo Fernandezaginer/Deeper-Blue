@@ -17,7 +17,7 @@ void FICHA::dibuja()
 {
 	glColor3ub(col.rojo, col.verde, col.azul);
 	glTranslatef(posicion.x, posicion.y, 0);
-	ListaFiguras::print(pieza, jugador);
+	ListaFiguras::dibuja(pieza, jugador);
 	glTranslatef(-posicion.x, -posicion.y, 0);
 }
 

@@ -69,7 +69,7 @@ void TABLERO::inicializa()
 		{
 			cas[i][j].setLims(Lim1, var, i, j);
 
-			pel[i][j].setPos(Lim1.x + (0.5 + j) * var.x, Lim1.y + (0.5 + i) * var.y);
+			pel[i][j].setPos(Lim1.x + (0.5 + j) * var.x, Lim1.y + ( i) * var.y);
 			if (var.x < var.y)
 			{
 				pel[i][j].setRad(0.75 * var.x / 2);
@@ -127,7 +127,7 @@ void TABLERO::dibuja()
 void TABLERO::modifica()
 {
 	pel[0][0].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR1);
-	pel[lado - 1][lado - 1].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR2);
+	pel[4][4].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR2);
 	pel[0][lado - 1].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR1);
 	pel[lado - 1][0].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR2);
 }
