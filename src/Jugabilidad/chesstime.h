@@ -60,6 +60,8 @@ protected: // No tocar
 	bool isTrunPlayerA;
 	bool isTrunPlayerB;
 
+	modo_partida_t getModo() { return modo; }
+
 private:  // No tocar
 
 	modo_partida_t modo;
