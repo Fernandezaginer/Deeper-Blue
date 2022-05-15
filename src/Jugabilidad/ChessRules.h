@@ -1,14 +1,10 @@
-
-
 // Test unitario:
 /*
 	Juego a(RAPIDA);
 	cout << a.print();
-
 	while (a.getMinLeftPlaA() == 10);
 	a.movimiento(6, 4, 4, 4);
 	cout << a.print();
-
 	while (a.getMinLeftPlaB() == 10);
 	a.movimiento(1, 4, 3, 4);
 	cout << a.print();
@@ -27,7 +23,16 @@ using namespace std;
 // Puntero a las piezas de la partida
 typedef  pieza_t** tablero_t;
 
+enum casillas_t { a1 = 0, b1, c1, d1, e1, f1, g1, h1, a2, b2, c2, d2, e2, f2, g2, h2, a3, b3, c3, d3, e3, f3, g3, h3, a4, b4, c4, d4, e4, f4, g4, h4, a5, b5, c5, d5, e5, f5, g5, h5, a6, b6, c6, d6, e6, f6, g6, h6, a7, b7, c7, d7, e7, f7, g7, h7, a8, b8, c8, d8, e8, f8, g8, h8};
+struct movimiento {
+	movimiento_t mov;
+	int row_o;
+	int col_o;
+	int row_f;
+	int col_f;
+};
 
+typedef vector<movimiento> lista_movimientos;
 
 // CRITERIO DEL TABLERO:
 
@@ -60,6 +65,7 @@ public:
 
 	// Movimientos de las piezas:
 	tablero_info_t mov_permitidos(pieza_t* a, tablero_t tab);
+  lista_movimientos get_mov_permitidos_l(tablero_t tab, int row_o, int col_o);
 	bool movimiento(int row_o, int col_o, int row_f, int col_f);
 	ostream& notacion_ulimo_moviento();
 	tablero_t getTablero() { return tab; }
@@ -78,6 +84,9 @@ public:
 
 	int score_playerA();
 	int score_playerB();
+  
+  tablero_t get_tablero() { return this->tab; }
+	void set_tablero(tablero_t tablero) { this->tab = tablero; }
 
 	// Servivios heredados de chestime.h:
 	/*
@@ -86,7 +95,6 @@ public:
 	int getSecLeftPlaB();
 	int getMinLeftPlaA();
 	int getMinLeftPlaB();
-
 	// Métodos para indicar si algún jugador pierde por tiempo
 	bool PlaA_end_time();
 	bool PlaB_end_time();
@@ -142,4 +150,3 @@ private:
 
 
 #endif
-

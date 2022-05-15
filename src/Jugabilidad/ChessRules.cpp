@@ -1,4 +1,3 @@
-
 #include "Pieza.h"
 #include "ChessRules.h"
 #include "chesstime.h"
@@ -706,6 +705,19 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 
 
 	return matriz;
+}
+
+lista_movimientos Juego::get_mov_permitidos_l(tablero_t tab, int row_o, int col_o)
+{
+	tablero_info_t movimientos = this->get_mov_permitidos(&tab[row_o][col_o], tab);
+	lista_movimientos resultado;
+	for (int col_f = 0; col_f < COL_SIZE; col_f++) {
+		for (int row_f = 0; row_f < ROW_SIZE; row_f++) {
+			if(movimientos.TAB[row_f][col_f] > 0)
+				resultado.push_back({ movimientos.TAB[row_f][col_f], row_o, col_o, row_f, col_f});
+		}
+	}
+	return resultado;
 }
 
 // General

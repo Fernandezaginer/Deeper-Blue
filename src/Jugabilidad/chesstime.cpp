@@ -50,6 +50,7 @@ void chesstime::updateTimeValues()
 				leftTotalSecPlaA = 0;
 			}
 			lastAEpoch == now;
+
 		}
 	}
 
