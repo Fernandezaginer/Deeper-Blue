@@ -252,9 +252,10 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	//}
 	//tab[4][4] = pieza_t(TORRE, BLANCA);
 	//tab[7][7] = pieza_t(REY, BLANCA);
-	//tab[6][6] = pieza_t(TORRE, NEGRA);
-	//tab[7][6] = pieza_t(TORRE, NEGRA);
-	//// tab[4][4] = pieza_t(TORRE, BLANCA);
+	//tab[6][5] = pieza_t(TORRE, NEGRA);
+	//tab[7][5] = pieza_t(TORRE, NEGRA);
+	////tab[7][4] = pieza_t(TORRE, BLANCA);
+	//tab[2][6] = pieza_t(TORRE, BLANCA);
 	//cout << this->print();
 	//cout << tablas_por_rey_ahogado() << endl;
 	//cout << this->jaque_mate();
@@ -310,10 +311,59 @@ void Juego::tablero_inicio_peones()
 
 Juego::~Juego()
 {
+
+	// Borrar el tablero
 	for (int i = 0; i < ROW_SIZE; i++) {
 		delete[] tab[i];
 	}
 	delete[] tab;
+
+	// Borrar el historial:
+	if (numero_mov > 0) {
+		for (int i = 0; i < numero_mov; i++) {
+			for (int j = 0; j < ROW_SIZE; j++) {
+				delete[] historial[i][j];
+			}
+		}
+		delete[] historial;
+	}
+}
+
+Juego::Juego(Juego& J) : chesstime(chesstime::getModo())
+{
+
+	// Informacion del enrroque
+	this->playerA_enroque_permitido = J.playerA_enroque_permitido;
+	this->playerB_enroque_permitido = J.playerB_enroque_permitido;
+
+	// Auxiliar:
+	this->analisis_mov = J.analisis_mov;
+
+	// Reserva de memoria tablero
+	this->tab = new pieza_t * [ROW_SIZE];
+	for (int i = 0; i < ROW_SIZE; i++) {
+		*(this->tab + i) = new pieza_t[COL_SIZE];
+	}
+
+	// Copiar el tablero
+	for (int i = 0; i < ROW_SIZE; i++) {
+		for (int j = 0; j < COL_SIZE; j++) {
+			this->tab[i][j] = J.tab[i][j];
+		}
+	}
+
+	// Historial
+	this->historial = new tablero_t[NUM_MAX_MOV];
+	for (int i = 0; i < NUM_MAX_MOV; i++) {
+		this->historial[i] = NULL;
+	}
+
+	if (J.numero_mov > 0) {
+		for (int k = 0; k < J.numero_mov; k++) {
+			this->historial[k] = J.historial[k];
+		}
+	}
+
 }
 
 string Juego::print(tablero_t t)
