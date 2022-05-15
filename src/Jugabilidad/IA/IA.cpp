@@ -33,29 +33,44 @@ bool IA_facil::hacerMovimiento(Juego partida) {
 	return false;
 }
 
-bool IA_dificil::hacerMovimiento(Juego partida)
+bool IA_dificil::hacerMovimiento(Juego& partida)
 {
-	tablero_t tablero = partida.get_tablero();
-	int score = 0;
+	arbol tree = IA_dificil::getArbol(partida, this->color, 3);
+	movimiento mov = IA_dificil::evaluarArbol(tree);
+	if (mov.mov > 0) {
+		return partida.haz_movimiento(mov.row_o, mov.col_o, mov.row_f, mov.col_f);
+	}
 	return false;
 }
 
 movimiento IA_dificil::evaluarArbol(arbol tree)
 {
-	rama rama_fin = tree.back();
-	movimiento mejor_movimiento;
-	int best_score = -9999;
-	int signo = tree.size() % 2 ? 1 : -1;
-	for (int i = 0; i < rama_fin.size(); i++) {
-		fruto fruta = rama_fin[i];
-		int score = 0;
-		while (fruta.parent) {
-			score += signo * fruta.score;
-			signo *= -1;
+	movimiento mejor_mov;
+	int best_score = -99999;
+	for (int i = 0; i < tree.size(); i++) {
+		fruto testing_fruit = tree[i];
+		int current_score = IA_dificil::evaluarRama(testing_fruit);
+		if (current_score > best_score) {
+			mejor_mov = testing_fruit.mov;
+			best_score = current_score;
 		}
 	}
+	return mejor_mov;
+}
 
-	return movimiento();
+int IA_dificil::evaluarRama(fruto fruta)
+{
+	if (fruta.hijos->size() == 0) {
+		return 0;
+	}
+
+	float score = 0;
+
+	for (int i = 0; i < fruta.hijos->size(); i++) {
+		score += -1 * ((*fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((*fruta.hijos)[i])) / fruta.hijos->size();
+	}
+
+	return (int)score;
 }
 
 arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
@@ -63,50 +78,51 @@ arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 	tablero_t tab = partida.get_tablero();
 	arbol tree;
 
-	rama rama_aux;
 	for (int x = 0; x < COL_SIZE; x++) {
 		for (int y = 0; y < ROW_SIZE; y++) {
 			if (tab[y][x].getColor() == player) {
-				lista_movimientos listaMov = partida.get_mov_permitidos_l(&tab[y][x], tab);
+				lista_movimientos listaMov = partida.get_mov_permitidos_l(tab, y, x);
 				for (int mov = 0; mov < listaMov.size(); mov++) {
-					//Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
+					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f);
 					fruto fruta;
 					fruta.mov = listaMov[mov];
-					//fruta.partida = partida_aux;
-					//fruta.score = IA_dificil::getScore(partida_aux, player);
-					fruta.parent = 0;
-					rama_aux.push_back(fruta);
+					fruta.partida = partida_aux;
+					fruta.score = IA_dificil::getScore(partida_aux, player);
+					IA_dificil::crearRama(fruta, partida_aux, player == BLANCA ? NEGRA : BLANCA, depth - 1);
+					tree.push_back(fruta);
 				}
 			}
 		}
-	}
-	tree.push_back(rama_aux);
-
-	for (int i = 0; i < depth; i++) {
-		rama_aux = rama();
-		player = player == BLANCA ? NEGRA : BLANCA;
-		for (int fruta_i = 0; fruta_i < tree.back().size(); fruta_i++) {
-			tab = tree.back()[fruta_i].partida.get_tablero();
-			for (int x = 0; x < COL_SIZE; x++) {
-				for (int y = 0; y < ROW_SIZE; y++) {
-					if (tab[y][x].getColor() == player) {
-						lista_movimientos listaMov = tree.back()[fruta_i].partida.get_mov_permitidos_l(&tab[y][x], tab);
-						for (int mov = 0; mov < listaMov.size(); mov++) {
-							//Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].y, listaMov[mov].x);
-							fruto fruta;
-							fruta.mov = listaMov[mov];
-							//fruta.partida = partida_aux;
-							//fruta.score = IA_dificil::getScore(partida_aux, player);
-							fruta.parent = &tree.back()[fruta_i];
-							rama_aux.push_back(fruta);
-						}
-					}
-				}
-			}
-		}
-		tree.push_back(rama_aux);
 	}
 	return tree;
+}
+
+void IA_dificil::crearRama(fruto& fruta, Juego partida, color_pieza_t player, int depth_left)
+{
+	if (depth_left == 0)
+	{
+		fruta.hijos = 0;
+		return;
+	}
+
+	tablero_t tab = fruta.partida.get_tablero();
+	for (int x = 0; x < COL_SIZE; x++) {
+		for (int y = 0; y < ROW_SIZE; y++) {
+			if (tab[y][x].getColor() == player) {
+				lista_movimientos listaMov = fruta.partida.get_mov_permitidos_l(tab, y, x);
+				for (int mov = 0; mov < listaMov.size(); mov++) {
+					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f);
+					fruto fruta_n;
+					fruta_n.mov = listaMov[mov];
+					fruta_n.partida = partida_aux;
+					fruta_n.score = IA_dificil::getScore(partida_aux, player);
+					IA_dificil::crearRama(fruta, partida_aux, player == BLANCA ? NEGRA : BLANCA, depth_left - 1);
+
+					(*fruta.hijos).push_back(fruta_n);
+				}
+			}
+		}
+	}
 }
 
 int IA_dificil::contarMovPosibles(Juego partida, color_pieza_t player) {
@@ -115,7 +131,7 @@ int IA_dificil::contarMovPosibles(Juego partida, color_pieza_t player) {
 	for (int x = 0; x < COL_SIZE; x++) {
 		for (int y = 0; y < ROW_SIZE; y++) {
 			if (tab[y][x].getColor() == player) {
-				num += partida.get_mov_permitidos_l(&tab[y][x], tab).size();
+				num += partida.get_mov_permitidos_l(tab, y, x).size();
 			}
 		}
 	}
