@@ -52,12 +52,18 @@ public:
 
 	// Constructor y destructor:
 	Juego(modo_partida_t mode = RAPIDA);
+	Juego(Juego& j);
 	~Juego();
+
+	Juego& operator = (Juego J) { return J; }
+
 
 	// Movimientos de las piezas:
 	tablero_info_t mov_permitidos(pieza_t* a, tablero_t tab);
 	bool movimiento(int row_o, int col_o, int row_f, int col_f);
 	ostream& notacion_ulimo_moviento();
+	tablero_t getTablero() { return tab; }
+	
 
 	// Servicios
 	bool tablas();
