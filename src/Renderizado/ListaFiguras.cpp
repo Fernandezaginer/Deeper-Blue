@@ -1,12 +1,12 @@
 #include "ListaFiguras.h"
 #include "FICHA.h"
 
-static Figura T0J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T1J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T2J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T0J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T1J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T2J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
+static Figura T0J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO0 JUGADOR1
+static Figura T1J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO1 JUGADOR1
+static Figura T2J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO2 JUGADOR1
+static Figura T0J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO0 JUGADOR2
+static Figura T1J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO1 JUGADOR2
+static Figura T2J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" }; //TIPO2 JUGADOR2
 
 void ListaFiguras::print(int pieza, int jugador)
 {
