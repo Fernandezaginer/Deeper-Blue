@@ -2,11 +2,12 @@
 class inicio {
 public:
 	inicio();
-	//void drawinx();
-	//void drawin();
-	//void drawinr();
+
+	float coor_y;
+	float coor_yr;
 	std::string direct;
 	void draw();
 	void carga();
-	float coor_y;
+	//void reg();
+	
 };

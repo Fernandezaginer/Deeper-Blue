@@ -7,13 +7,14 @@
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
-#include "Mundo.h"
+#include "Interfaz.h"
 
 using namespace std;
 
 inicio::inicio () {
 	this->direct = string();
 	this->coor_y = -4.5f;
+	this->coor_yr = 8.25f ;
 }
 void inicio::draw() {
 	glEnable(GL_TEXTURE_2D);

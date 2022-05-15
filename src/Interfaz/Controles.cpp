@@ -7,7 +7,7 @@
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
-#include "Mundo.h"
+#include "Interfaz.h"
 
 using namespace std;
 
