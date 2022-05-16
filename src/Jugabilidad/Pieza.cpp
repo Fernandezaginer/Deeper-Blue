@@ -132,6 +132,7 @@ int pieza_t::valor()
 	default:
 		valor_pieza = 0;
 		break;
+
 	}
 	return 0;
 }

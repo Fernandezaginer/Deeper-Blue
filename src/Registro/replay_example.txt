@@ -1,0 +1,10 @@
+invitado vs Usuario A
+Mov1
+mov2
+...
+FIN
+invitado vs Usuario B
+Mov1
+mov2
+...
+FIN

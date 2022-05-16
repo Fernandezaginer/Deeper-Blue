@@ -4,6 +4,7 @@
 	std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
 	tiempo.start();
 	while (true) {
+
 		int out;
 		std::cin >> out;
 		tiempo.turnPlayerB();

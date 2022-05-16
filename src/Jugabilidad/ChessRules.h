@@ -1,12 +1,15 @@
 // Test unitario:
 /*
+
 #include <iostream>
 #include "chesstime.h";
 #include "ChessRules.h";
+
 #include <thread>
 #include <chrono>
 using std::this_thread::sleep_for;
 using namespace std::chrono_literals;
+
 int main(void)
 {
 	// Test unitario (ejemplo del mate del tonto)
@@ -15,6 +18,7 @@ int main(void)
 	while (!a.jaque_mate_playerA() && !a.jaque_mate_playerB()) {
 		sleep_for(750ms);
 		secuencia++;
+
 		switch (secuencia)
 		{
 		case 1:
@@ -40,6 +44,7 @@ int main(void)
 		default:
 			break;
 		}
+
 		// Print tiempo:
 		cout << a.getMinLeftPlaA() << ":" << a.getSecLeftPlaA() << " " << a.getMinLeftPlaB() << ":" << a.getSecLeftPlaB() << " " << a.jaque_mate_playerA() << std::endl;
 	}
@@ -56,11 +61,14 @@ int main(void)
 	//cout << a.print();
 	return 0;
 }
+
 */
 
 #include "chesstime.h"
 #include "Pieza.h"
+
 #include <vector>
+
 
 #include <sstream>
 using namespace std;
@@ -101,13 +109,17 @@ T C A D R A C T  // Piezas blancas
 
 
 
+
 class Juego : public chesstime 
 {
+
 public:
 
 	// Constructor y destructor:
 	Juego(modo_partida_t mode = RAPIDA);
+
 	Juego(const Juego& j);
+
 	~Juego();
 
 	Juego& operator = (Juego J) { return J; }
@@ -136,13 +148,16 @@ public:
 	int score_playerA();
 	int score_playerB();
 
+
 	// Servicios heredados de chestime.h:
+
 	/*
 	// Métodos para obtener el tiempo restante de cada jugador
 	int getSecLeftPlaA();
 	int getSecLeftPlaB();
 	int getMinLeftPlaA();
 	int getMinLeftPlaB();
+
 	// Métodos para indicar si algún jugador pierde por tiempo
 	bool PlaA_end_time();
 	bool PlaB_end_time();
@@ -161,7 +176,9 @@ private:
 	// Movimiento piezas:
 	bool analisis_mov;
 	tablero_info_t get_mov_permitidos(pieza_t* a, tablero_t tab);
+
 	lista_movimientos get_mov_permitidos_l(tablero_t tab, int row_o, int col_o);
+
 	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
 	void aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 
@@ -190,6 +207,7 @@ private:
 	int char_to_row(char row);
 	int char_to_col(char col);
 
+
 	// Reglas espieciales peón: comer al paso y promoción
 	void aux_detectar_comer_al_paso(tablero_info_t& matriz, pieza_t peon, int row, int col);
 	void aux_detectar_promocion(tablero_info_t& matriz, pieza_t peon, int row, int col);
@@ -202,6 +220,7 @@ private:
 
 	tablero_t get_tablero() { return this->tab; }
 	void set_tablero(tablero_t tablero) { this->tab = tablero; }
+
 };
 
 

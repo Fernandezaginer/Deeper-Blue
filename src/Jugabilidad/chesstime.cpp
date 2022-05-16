@@ -1,7 +1,6 @@
 #include "chesstime.h"
 #include <time.h>
 
-
 chesstime::chesstime(modo_partida_t mode)
 {
 	modo = mode;
