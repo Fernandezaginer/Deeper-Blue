@@ -1,3 +1,4 @@
+
 #include "Pieza.h"
 #include "ChessRules.h"
 #include <sstream>
@@ -101,6 +102,7 @@ char pieza_t::pieza_to_char()
 		car = '-';
 		break;
 	}
+
 	return car;
 }
 
@@ -189,3 +191,5 @@ bool operator==(pieza_t lhs, pieza_t rhs)
 	}
 	return false;
 }
+
+
