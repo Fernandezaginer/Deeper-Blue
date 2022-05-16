@@ -1,22 +1,20 @@
 
 // TEST UNITARIO:
-    /*
-    chesstime tiempo = chesstime(SEMIRAPIDA);
+	/*
+	chesstime tiempo = chesstime(SEMIRAPIDA);
+	std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+	tiempo.start();
+	while (true) {
 
-    std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
-    tiempo.start();
-
-    while (true) {
-        
-        int out;
-        std::cin >> out;
-        tiempo.turnPlayerB();
-        std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
-        std::cin >> out;
-        tiempo.turnPlayerA();
-        std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
-    }
-    */
+		int out;
+		std::cin >> out;
+		tiempo.turnPlayerB();
+		std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+		std::cin >> out;
+		tiempo.turnPlayerA();
+		std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
+	}
+	*/
 
 
 #ifndef _CHESSTIME_H_
@@ -36,32 +34,37 @@ class chesstime {
 
 public:  // Servicios
 
-	// Constructor de inicio de la partida
-	chesstime(modo_partida_t mode);
-
-	// Iniciar el tiempo de la partida (Empieza PlayerA)
-	void start();
-
 	// Métodos para obtener el tiempo restante de cada jugador
 	int getSecLeftPlaA();
 	int getSecLeftPlaB();
 	int getMinLeftPlaA();
 	int getMinLeftPlaB();
 
-	// Métodos para indicar de quien es el turno
-	void turnPlayerA();
-	void turnPlayerB();
-
 	// Métodos para indicar si algún jugador pierde por tiempo
 	bool PlaA_end_time();
 	bool PlaB_end_time();
 
+	// Iniciar el tiempo de la partida (Empieza PlayerA)
+	void start();
+
+	// Constructor de inicio de la partida
+	chesstime(modo_partida_t mode);
+
+protected: // No tocar
+
+	// Métodos para indicar de quien es el turno
+	void turnPlayerA();
+	void turnPlayerB();
+
+	// Turno del jugador
+	bool isTrunPlayerA;
+	bool isTrunPlayerB;
+
+	modo_partida_t getModo() { return modo; }
+
 private:  // No tocar
 
 	modo_partida_t modo;
-
-	bool isTrunPlayerA;
-	bool isTrunPlayerB;
 
 	uint leftTotalSecPlaA;
 	uint leftTotalSecPlaB;

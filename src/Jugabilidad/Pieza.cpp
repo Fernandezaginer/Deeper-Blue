@@ -1,3 +1,4 @@
+
 #include "Pieza.h"
 #include "ChessRules.h"
 #include <sstream>
@@ -74,7 +75,6 @@ void pieza_t::aux_permite_mov_diag(tablero_info_t& matriz, pieza_t** tab, int ro
 	}
 }
 
-
 char pieza_t::pieza_to_char()
 {
 	char car;
@@ -112,27 +112,27 @@ int pieza_t::valor()
 
 	switch (forma)
 	{
-	case PEON:
-		valor_pieza = 1;
-		break;
-	case CABALLO:
-		valor_pieza = 3;
-		break;
-	case ALFIL:
-		valor_pieza = 3;
-		break;
-	case TORRE:
-		valor_pieza = 5;
-		break;
-	case DAMA:
-		valor_pieza = 9;
-		break;
-	case REY:
-		valor_pieza = 0;
-		break;
-	default:
-		valor_pieza = 0;
-		break;
+		case PEON:
+			valor_pieza = 1;
+			break;
+		case CABALLO:
+			valor_pieza = 3;
+			break;
+		case ALFIL:
+			valor_pieza = 3;
+			break;
+		case TORRE:
+			valor_pieza = 5;
+			break;
+		case DAMA:
+			valor_pieza = 9;
+			break;
+		case REY:
+			valor_pieza = 0;
+			break;
+		default:
+			valor_pieza = 0;
+			break;
 	}
 	return 0;
 }
@@ -163,6 +163,12 @@ string mov_print(tablero_info_t t) {
 			case ENROQUE_L:
 				car = 'E';
 				break;
+			case COMER_AL_PASO_L:
+				car = 'x';
+				break;
+			case COMER_AL_PASO_R:
+				car = 'x';
+				break;
 			default:
 				car = '-';
 				break;
@@ -185,3 +191,5 @@ bool operator==(pieza_t lhs, pieza_t rhs)
 	}
 	return false;
 }
+
+
