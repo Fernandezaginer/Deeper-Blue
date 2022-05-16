@@ -1,63 +1,98 @@
 #include "ListaFiguras.h"
 #include "FICHA.h"
 
-static Figura T0J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T1J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T2J1{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T0J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T1J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-static Figura T2J2{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
+static Figura PEONJ1{ "imagenes/PEONJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura TORREJ1{ "imagenes/TORREJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura ALFILJ1{ "imagenes/ALFILJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura CABALLOJ1{ "imagenes/CABALLOJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura REYJ1{ "imagenes/REYJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura REINAJ1{ "imagenes/REINAJ1.obj", "imagenes/TexturaCaballo.png" };
+static Figura PEONJ2{ "imagenes/PEONJ2.obj", "imagenes/TexturaCaballo.png" };
+static Figura TORREJ2{ "imagenes/TORREJ2.obj", "imagenes/TexturaCaballo.png" };
+static Figura ALFILJ2{ "imagenes/ALFILJ2.obj", "imagenes/TexturaCaballo.png" };
+static Figura CABALLOJ2{ "imagenes/CABALLOJ2.obj", "imagenes/TexturaCaballo.png" };
+static Figura REYJ2{ "imagenes/REYJ2.obj", "imagenes/TexturaCaballo.png" };
+static Figura REINAJ2{ "imagenes/REINAJ2.obj", "imagenes/TexturaCaballo.png" };
 
-void ListaFiguras::dibuja(int pieza, int jugador)
+
+void ListaFiguras::dibuja(tablero_t& tab, CASILLA** casi)
 {
-	if (jugador == FICHA::JUGADOR1)
+	
+	for (int i = 0; i < ROW_SIZE; i++)
 	{
-		switch (pieza)
+		for (int j = 0; j < COL_SIZE; j++)
 		{
+			glTranslatef(casi[i][j].getCasilla().x, casi[i][j].getCasilla().y, 0.0f);
+			if (tab[i][j].getColor() == BLANCA)
+			{
+				switch (tab[i][j].getForma())
+				{
 
-		case FICHA::NOPIEZA:
-			break;
+				case NO_PIEZA:
+					break;
 
-		case FICHA::TIPO0:
-			T0J1.dibuja();
-			break;
+				case PEON:
+					PEONJ1.dibuja();
+					break;
 
-		case FICHA::TIPO1:
-			T1J1.dibuja();
-			break;
+				case CABALLO:
+					CABALLOJ1.dibuja();
+					break;
 
-		case FICHA::TIPO2:
-			T2J1.dibuja();
-			break;
+				case ALFIL:
+					ALFILJ1.dibuja();
+					break;
+				case TORRE:
+					TORREJ1.dibuja();
+					break;
+				case DAMA:
+					REINAJ1.dibuja();
+					break;
+				case REY:
+					REYJ1.dibuja();
+					break;
 
+				}
+			}
+			else if (tab[i][j].getColor() == NEGRA)
+			{
+				switch (tab[i][j].getForma())
+				{
+
+				case NO_PIEZA:
+					break;
+
+				case PEON:
+					PEONJ2.dibuja();
+					break;
+
+				case CABALLO:
+					CABALLOJ2.dibuja();
+					break;
+
+				case ALFIL:
+					ALFILJ2.dibuja();
+					break;
+				case TORRE:
+					TORREJ2.dibuja();
+					break;
+				case DAMA:
+					REINAJ2.dibuja();
+					break;
+				case REY:
+					REYJ2.dibuja();
+					break;
+
+				}
+			}
+			else if (tab[i][j].getColor() == FICHA::NOJUGADOR)
+			{
+
+			}
+			glTranslatef(-casi[i][j].getCasilla().x, -casi[i][j].getCasilla().y, 0.0f);
 		}
 	}
-	else if (jugador == FICHA::JUGADOR2)
-	{
-		switch (pieza)
-		{
-
-		case FICHA::NOPIEZA:
-			break;
-
-		case FICHA::TIPO0:
-			T0J2.dibuja();
-			break;
-
-		case FICHA::TIPO1:
-			T1J2.dibuja();
-			break;
-
-		case FICHA::TIPO2:
-			T2J2.dibuja();
-			break;
-
-		}
-	}
-	else if (jugador == FICHA::NOJUGADOR)
-	{
-
-	}
+	
 
 }
 

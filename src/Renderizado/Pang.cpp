@@ -1,8 +1,6 @@
 #include "Mundo.h"
 #include "freeglut.h"
-
-int lado = 8; //N Lados
-Mundo mundo(lado);
+Mundo mundo;
 
 //los callback, funciones que seran llamadas automaticamente por la glut
 //cuando sucedan eventos
@@ -10,6 +8,7 @@ Mundo mundo(lado);
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
+void OnRaton(int boton, int estado, int x, int y);
 
 int main(int argc,char* argv[])
 {
@@ -32,6 +31,7 @@ int main(int argc,char* argv[])
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25,OnTimer,0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
 	glutKeyboardFunc(OnKeyboardDown);
+	glutMouseFunc(OnRaton); //RATON
 
 	mundo.inicializa();
 		
@@ -70,5 +70,11 @@ void OnTimer(int value)
 
 	//no borrar estas lineas
 	glutTimerFunc(25,OnTimer,0);
+	glutPostRedisplay();
+}
+
+void OnRaton(int boton, int estado, int x, int y)
+{
+	mundo.raton(boton, estado, x, y);
 	glutPostRedisplay();
 }

@@ -3,25 +3,18 @@
 #include "freeglut.h"
 #include "FICHA.h"
 #include <math.h>
+#include "ListaFiguras.h"
 
-TABLERO::TABLERO(int n = 1) : lado(n), color_fondo(0, 0, 255)
+TABLERO::TABLERO() : color_fondo(0, 0, 255)
 {
-	pel = NULL;
-
-	pel = new FICHA * [lado];
-
-	for (int i = 0; i < lado; i++)
-	{
-		pel[i] = new FICHA[lado];
-	}
 
 	cas = NULL;
 
-	cas = new CASILLA * [lado];
+	cas = new CASILLA * [ROW_SIZE];
 
-	for (int i = 0; i < lado; i++)
+	for (int i = 0; i < ROW_SIZE; i++)
 	{
-		cas[i] = new CASILLA[lado];
+		cas[i] = new CASILLA[COL_SIZE];
 	}
 
 	Lim1.x = -10.0f;
@@ -36,12 +29,12 @@ TABLERO::TABLERO(int n = 1) : lado(n), color_fondo(0, 0, 255)
 	Lim4.x = 10.0f;
 	Lim4.y = -10.0f;
 
-	var = (Lim3 - Lim1) / lado;
+	var = (Lim3 - Lim1) / ROW_SIZE;
 }
 
 TABLERO::~TABLERO()
 {
-	for (int i = 0; i < lado; i++)
+	for (int i = 0; i < ROW_SIZE; i++)
 	{
 		delete cas[i];
 	}
@@ -50,54 +43,24 @@ TABLERO::~TABLERO()
 
 	cas = NULL;
 
-	for (int i = 0; i < lado; i++)
-	{
-		delete pel[i];
-	}
-
-	delete pel;
-
-	pel = NULL;
+	
 }
 
 void TABLERO::inicializa()
 {
 
-	for (int i = 0; i < lado; i++)
+	for (int i = 0; i < ROW_SIZE; i++)
 	{
-		for (int j = 0; j < lado; j++)
+		for (int j = 0; j < COL_SIZE; j++)
 		{
 			cas[i][j].setLims(Lim1, var, i, j);
-
-			pel[i][j].setPos(Lim1.x + (0.5 + j) * var.x, Lim1.y + ( i) * var.y);
-			if (var.x < var.y)
-			{
-				pel[i][j].setRad(0.75 * var.x / 2);
-			}
-			else
-			{
-				pel[i][j].setRad(0.75 * var.y / 2);
-			}
-			pel[i][j].setPiezaJugador(FICHA::NOPIEZA, FICHA::NOJUGADOR);
 		}
-	}
 
-	for (int j = 0; j < lado; j++)
-	{
-		//JUGADOR_1
-		pel[0][j].setPiezaJugador(FICHA::TIPO0, FICHA::JUGADOR1);
-		pel[1][j].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR1);
-		pel[2][j].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR1);
-
-		//JUGADOR_2
-		pel[lado - 1][j].setPiezaJugador(FICHA::TIPO0, FICHA::JUGADOR2);
-		pel[lado - 2][j].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR2);
-		pel[lado - 3][j].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR2);
 	}
 	
 }
 
-void TABLERO::dibuja()
+void TABLERO::dibuja(tablero_t tab)
 {
 	//cuadrado FONDO
 	glDisable(GL_LIGHTING);
@@ -110,15 +73,17 @@ void TABLERO::dibuja()
 	glEnd();
 	glEnable(GL_LIGHTING);
 
-	//Cada pieza
+	ListaFiguras::dibuja(tab, cas);
 
-	for (int i = 0; i < lado; i++)
+	//Cada Casilla
+
+	for (int i = 0; i < ROW_SIZE; i++)
 	{
-		for (int j = 0; j < lado; j++)
+		for (int j = 0; j < COL_SIZE; j++)
 		{
 			cas[i][j].dibuja();
 			
-			pel[i][j].dibuja();
+			
 		}
 	}
 
@@ -126,12 +91,77 @@ void TABLERO::dibuja()
 
 void TABLERO::modifica()
 {
-	pel[0][0].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR1);
-	pel[4][4].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR2);
-	pel[0][lado - 1].setPiezaJugador(FICHA::TIPO2, FICHA::JUGADOR1);
-	pel[lado - 1][0].setPiezaJugador(FICHA::TIPO1, FICHA::JUGADOR2);
+	
 }
 
 void TABLERO::mueve()
 {
 }
+
+void TABLERO::pintMovPermitidos(tablero_info_t ti)
+{
+	COLOR PP(128, 0, 128); //Propia pieza
+	COLOR NP(255, 0, 0); //No permitido
+	COLOR PE(0, 255, 0); //Permitido
+	COLOR CP(0, 0, 255); //Comer pieza
+	COLOR EC(255, 255, 0); //Enroque C
+	COLOR EL(255, 0, 255); //ENROQUE L
+	COLOR PR(0, 255, 255); //PROMOCION
+	COLOR CL(128, 128, 0); //Comer al paso L
+	COLOR CR(0, 128, 128); //Comer al paso R
+
+	for (int i = 0; i < ROW_SIZE; i++)
+	{
+		for (int j = 0; j < COL_SIZE; j++)
+		{
+			switch (ti.TAB[i][j])
+			{
+			case PROPIA_PIEZA:
+				cas[i][j].setColor(PP);
+				break;
+			case NO_PERMITIDO:
+				cas[i][j].setColor(NP);
+				break;
+			case PERMITIDO:
+				cas[i][j].setColor(PE);
+				break;
+			case COMER_PIEZA:
+				cas[i][j].setColor(CP);
+				break;
+			case ENROQUE_C:
+				cas[i][j].setColor(EC);
+				break;
+			case ENROQUE_L:
+				cas[i][j].setColor(EL);
+				break;
+			case PROMOCION:
+				cas[i][j].setColor(PR);
+				break;
+			case COMER_AL_PASO_L:
+				cas[i][j].setColor(CL);
+				break;
+			case COMER_AL_PASO_R:
+				cas[i][j].setColor(CR);
+				break;
+			default:
+				cas[i][j].resetColor(i, j);
+
+			}
+		}
+
+	}
+}
+
+void TABLERO::resetColor()
+{
+	for (int i = 0; i < ROW_SIZE; i++)
+		for (int j = 0; j < ROW_SIZE; j++)
+			cas[i][j].resetColor(i, j);
+}
+
+pieza_t* TABLERO::seleccionarPiezaRaton(int b, int e, int x, int y)
+{
+	return nullptr;
+}
+
+

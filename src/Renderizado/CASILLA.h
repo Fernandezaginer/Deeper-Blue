@@ -16,6 +16,9 @@ private:
 public:
 	void setLims(VECTOR posInicial, VECTOR variacion, int fila, int columna);
 	void dibuja();
+	void resetColor(int i, int j);
+	void setColor(COLOR c);
+	VECTOR getCasilla();
 
 
 };

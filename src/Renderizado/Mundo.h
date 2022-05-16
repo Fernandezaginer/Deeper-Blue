@@ -1,14 +1,15 @@
 #include "TABLERO.h"
+#include "ChessRules.h"
 #pragma once
 class Mundo
 {
 public: 
-	Mundo(int n = 1) : t(n), cuadradolados(n), x_ojo(0), y_ojo(0), z_ojo(0) {}
 	void tecla(unsigned char key);
 	void inicializa();
 	void rotarOjo();
 	void mueve();
 	void dibuja();
+	void raton(int b, int e, int x, int y);
 
 private:
 	float x_ojo;
@@ -16,6 +17,7 @@ private:
 	float z_ojo;
 
 	TABLERO t;
-	int cuadradolados;
+	Juego j;
+
 
 };

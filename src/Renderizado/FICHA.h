@@ -9,7 +9,7 @@ public:
 	FICHA() :pieza(NOPIEZA), jugador(NOJUGADOR), radio(0) {};
 	~FICHA() {}
 
-	enum pieza_n { NOPIEZA = -1, TIPO0, TIPO1, TIPO2 };
+	enum pieza_n { NOPIEZA = -1, PEON, TORRE, ALFIL, CABALLO, REY, REINA };
 	enum jugador_n { NOJUGADOR = -1, JUGADOR1, JUGADOR2 };
 
 private:
@@ -18,8 +18,7 @@ private:
 	VECTOR posicion;
 	float radio;
 	COLOR col;
-	Figura CABALLO{ "imagenes/caballo.obj", "imagenes/TexturaCaballo.png" };
-
+	
 
 
 public:

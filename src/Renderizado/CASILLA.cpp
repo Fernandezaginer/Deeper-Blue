@@ -17,11 +17,11 @@ void CASILLA::setLims(VECTOR posInicial, VECTOR variacion, int fila, int columna
 
 	if (fila % 2 != columna % 2)
 	{
-		col.setColor(0, 0, 0);
+		col.setColor(255, 255, 255);
 	}
 	else
 	{
-		col.setColor(255, 255, 255);
+		col.setColor(0, 0, 0);
 	}
 }
 
@@ -36,4 +36,29 @@ void CASILLA::dibuja()
 	glVertex3f(Lim4.x, Lim4.y, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
+}
+
+void CASILLA::resetColor(int i, int j)
+{
+	if (i % 2 != j % 2)
+	{
+		col.setColor(255, 255, 255);
+	}
+	else
+	{
+		col.setColor(0, 0, 0);
+	}
+}
+
+void CASILLA::setColor(COLOR c)
+{
+	col = c;
+}
+
+VECTOR CASILLA::getCasilla()
+{
+	VECTOR c;
+	c.x = (Lim1.x + Lim2.x + Lim3.x + Lim4.x) / 4;
+	c.y = (Lim1.y + Lim2.y + Lim3.y + Lim4.y) / 4;
+	return c;
 }
