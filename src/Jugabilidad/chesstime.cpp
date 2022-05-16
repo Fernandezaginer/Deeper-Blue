@@ -1,4 +1,3 @@
-
 #include "chesstime.h"
 #include <time.h>
 
@@ -152,4 +151,3 @@ uint chesstime::getNowEpochTime()
 	localtime(&t);
 	return t;
 }
-

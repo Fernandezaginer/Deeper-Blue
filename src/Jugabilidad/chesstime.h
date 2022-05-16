@@ -1,11 +1,9 @@
-
 // TEST UNITARIO:
 	/*
 	chesstime tiempo = chesstime(SEMIRAPIDA);
 	std::cout << "Tiempo A: " << tiempo.getMinLeftPlaA() << ":" << tiempo.getSecLeftPlaA() << "  Tiempo B:" << tiempo.getMinLeftPlaB() << ":" << tiempo.getSecLeftPlaB() << std::endl;
 	tiempo.start();
 	while (true) {
-
 		int out;
 		std::cin >> out;
 		tiempo.turnPlayerB();
@@ -20,7 +18,7 @@
 #ifndef _CHESSTIME_H_
 #define _CHESSTIME_H_
 
-enum modo_partida_t {RAPIDA, SEMIRAPIDA, NORMAL};
+enum modo_partida_t { RAPIDA, SEMIRAPIDA, NORMAL };
 
 #define RAPIDA_MIN		10
 #define SEMIRAPIDA_MIN	20
@@ -82,5 +80,3 @@ private:  // No tocar
 };
 
 #endif
-
-

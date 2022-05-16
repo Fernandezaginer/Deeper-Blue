@@ -1,6 +1,6 @@
 #include "IA.h"
 
-bool IA_facil::hacerMovimiento(Juego partida) {
+bool IA_facil::hacerMovimiento(Juego& partida) {
 	srand(time(NULL));
 	bool searching = true;
 	time_t t_0 = time(NULL);
@@ -35,7 +35,8 @@ bool IA_facil::hacerMovimiento(Juego partida) {
 
 bool IA_dificil::hacerMovimiento(Juego& partida)
 {
-	arbol tree = IA_dificil::getArbol(partida, this->color, 3);
+	Juego temp = Juego(partida);
+	arbol tree = IA_dificil::getArbol(temp, this->color, 3);
 	movimiento mov = IA_dificil::evaluarArbol(tree);
 	if (mov.mov > 0) {
 		return partida.haz_movimiento(mov.row_o, mov.col_o, mov.row_f, mov.col_f);
@@ -83,7 +84,9 @@ arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 			if (tab[y][x].getColor() == player) {
 				lista_movimientos listaMov = partida.get_mov_permitidos_l(tab, y, x);
 				for (int mov = 0; mov < listaMov.size(); mov++) {
-					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f);
+					Juego partida_aux = Juego(partida);
+					if (!partida_aux.haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f))
+						continue;
 					fruto fruta;
 					fruta.mov = listaMov[mov];
 					fruta.partida = partida_aux;
@@ -111,7 +114,9 @@ void IA_dificil::crearRama(fruto& fruta, Juego partida, color_pieza_t player, in
 			if (tab[y][x].getColor() == player) {
 				lista_movimientos listaMov = fruta.partida.get_mov_permitidos_l(tab, y, x);
 				for (int mov = 0; mov < listaMov.size(); mov++) {
-					Juego partida_aux = Juego(partida).haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f);
+					Juego partida_aux = Juego(partida);
+					if (!partida_aux.haz_movimiento(y, x, listaMov[mov].row_f, listaMov[mov].col_f))
+						continue;
 					fruto fruta_n;
 					fruta_n.mov = listaMov[mov];
 					fruta_n.partida = partida_aux;
