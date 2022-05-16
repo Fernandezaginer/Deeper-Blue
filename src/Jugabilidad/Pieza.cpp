@@ -1,4 +1,3 @@
-
 #include "Pieza.h"
 #include "ChessRules.h"
 #include <sstream>
@@ -112,27 +111,27 @@ int pieza_t::valor()
 
 	switch (forma)
 	{
-		case PEON:
-			valor_pieza = 1;
-			break;
-		case CABALLO:
-			valor_pieza = 3;
-			break;
-		case ALFIL:
-			valor_pieza = 3;
-			break;
-		case TORRE:
-			valor_pieza = 5;
-			break;
-		case DAMA:
-			valor_pieza = 9;
-			break;
-		case REY:
-			valor_pieza = 0;
-			break;
-		default:
-			valor_pieza = 0;
-			break;
+	case PEON:
+		valor_pieza = 1;
+		break;
+	case CABALLO:
+		valor_pieza = 3;
+		break;
+	case ALFIL:
+		valor_pieza = 3;
+		break;
+	case TORRE:
+		valor_pieza = 5;
+		break;
+	case DAMA:
+		valor_pieza = 9;
+		break;
+	case REY:
+		valor_pieza = 0;
+		break;
+	default:
+		valor_pieza = 0;
+		break;
 	}
 	return 0;
 }
@@ -191,5 +190,3 @@ bool operator==(pieza_t lhs, pieza_t rhs)
 	}
 	return false;
 }
-
-
