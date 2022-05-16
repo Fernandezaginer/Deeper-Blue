@@ -1,3 +1,4 @@
+
 #include "Pieza.h"
 #include "ChessRules.h"
 #include "chesstime.h"
@@ -209,7 +210,7 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	//cout << this->print();
 
 
-	// Test unitario recursividad (piezas clavadas)
+	//Test unitario recursividad (piezas clavadas)
 	//tab[0][3] = pieza_t(NO_PIEZA, NO_COLOR);
 	//tab[0][4] = pieza_t(DAMA, NEGRA);
 	//tab[5][3] = pieza_t(TORRE, BLANCA);
@@ -235,7 +236,7 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	//tab[7][7] = pieza_t(REY, BLANCA);
 	//tab[5][6] = pieza_t(TORRE, NEGRA);
 	//tab[6][5] = pieza_t(TORRE, NEGRA);
-	//// tab[4][4] = pieza_t(TORRE, BLANCA);
+	////tab[4][4] = pieza_t(TORRE, BLANCA);
 	//cout << this->print();
 	//cout << tablas_por_rey_ahogado() << endl;
 	//cout << this->jaque_mate();
@@ -253,8 +254,8 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	//tab[7][7] = pieza_t(REY, BLANCA);
 	//tab[6][5] = pieza_t(TORRE, NEGRA);
 	//tab[7][5] = pieza_t(TORRE, NEGRA);
-	////tab[7][4] = pieza_t(TORRE, BLANCA);
-	//tab[2][6] = pieza_t(TORRE, BLANCA);
+	//tab[7][4] = pieza_t(TORRE, BLANCA);
+	////tab[2][6] = pieza_t(TORRE, BLANCA);
 	//cout << this->print();
 	//cout << tablas_por_rey_ahogado() << endl;
 	//cout << this->jaque_mate();
@@ -445,6 +446,57 @@ bool Juego::movimiento(int row_o, int col_o, int row_f, int col_f)
 	return false;
 }
 
+bool Juego::movimiento(string mov)
+{
+
+	int row_o, col_o, row_f, col_f;
+
+	if (mov == "0-0B") {
+		row_o = 7;
+		col_o = 4;
+		row_f = 7;
+		col_f = 6;
+
+	}
+	else if (mov == "0-0N") {
+		row_o = 0;
+		col_o = 4;
+		row_f = 0;
+		col_f = 6;
+	}
+	else if (mov == "0-0-0B") {
+		row_o = 7;
+		col_o = 4;
+		row_f = 7;
+		col_f = 2;
+	}
+	else if (mov == "0-0-0N") {
+		row_o = 0;
+		col_o = 4;
+		row_f = 0;
+		col_f = 2;
+	}
+	else {
+		istringstream l(mov);
+		char aux;
+		
+		// Mov 0
+		l >> aux;
+		l >> aux;
+		col_o = char_to_col(aux);
+		l >> aux;
+		row_o = char_to_row(aux);
+
+		l >> aux;
+		col_f = char_to_col(aux);
+		l >> aux;
+		row_f = char_to_row(aux);
+	}
+	
+
+	return movimiento(row_o, col_o, row_f, col_f);
+}
+
 // General
 tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 {
@@ -480,11 +532,11 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			matriz.TAB[row][col] = PROPIA_PIEZA;
 			if (row > 0) {
 				matriz.TAB[row - 1][col] = tab[row - 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
-				if (row > 0) {
-					matriz.TAB[row - 1][col - 1] = tab[row - 1][col - 1].getForma() != NO_PIEZA ? tab[row - 1][col - 1].getColor() == a->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+				if (col > 0) {
+					matriz.TAB[row - 1][col - 1] = tab[row - 1][col - 1].getForma() != NO_PIEZA ? tab[row - 1][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
-				if (row < ROW_SIZE - 1) {
-					matriz.TAB[row - 1][col + 1] = tab[row - 1][col + 1].getForma() != NO_PIEZA ? tab[row - 1][col + 1].getColor() == a->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+				if (col < ROW_SIZE - 1) {
+					matriz.TAB[row - 1][col + 1] = tab[row - 1][col + 1].getForma() != NO_PIEZA ? tab[row - 1][col + 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
 			}
 			if (row == 6) {
@@ -497,10 +549,10 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			if (row + 1 < ROW_SIZE) {
 				matriz.TAB[row + 1][col] = tab[row + 1][col].getForma() == NO_PIEZA ? PERMITIDO : NO_PERMITIDO;
 				if (col > 0) {
-					matriz.TAB[row + 1][col - 1] = tab[row + 1][col - 1].getForma() != NO_PIEZA ? tab[row + 1][col - 1].getColor() == a->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+					matriz.TAB[row + 1][col - 1] = tab[row + 1][col - 1].getForma() != NO_PIEZA ? tab[row + 1][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
 				if (col < COL_SIZE - 1) {
-					matriz.TAB[row + 1][col + 1] = tab[row + 1][col + 1].getForma() != NO_PIEZA ? tab[row + 1][col + 1].getColor() == a->color ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
+					matriz.TAB[row + 1][col + 1] = tab[row + 1][col + 1].getForma() != NO_PIEZA ? tab[row + 1][col + 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA : NO_PERMITIDO;
 				}
 			}
 			if (row == 1) {
@@ -559,10 +611,33 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 				matriz.TAB[row + 1][col + 2] = tab[row + 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col + 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
+
+		// Analizar si está clavada:
+		if (analisis_mov == 0) {
+			analisis_mov = 1;
+			aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
+			analisis_mov = 0;
+		}
 		*/
+
 	}
 
 	if (a->getForma() == ALFIL) {     // Leo
+
+
+		// Movimiento en diagonal
+		a->aux_permite_mov_diag(matriz, tab, row, col);
+
+
+		// Propia pieza
+		matriz.TAB[row][col] = PROPIA_PIEZA;
+
+		// Analizar si está clavada:
+		if (analisis_mov == 0) {
+			analisis_mov = 1;
+			aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
+			analisis_mov = 0;
+		}
 
 		/*
 		int i = 1;
@@ -707,19 +782,6 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 	return matriz;
 }
 
-lista_movimientos Juego::get_mov_permitidos_l(tablero_t tab, int row_o, int col_o)
-{
-	tablero_info_t movimientos = this->get_mov_permitidos(&tab[row_o][col_o], tab);
-	lista_movimientos resultado;
-	for (int col_f = 0; col_f < COL_SIZE; col_f++) {
-		for (int row_f = 0; row_f < ROW_SIZE; row_f++) {
-			if(movimientos.TAB[row_f][col_f] > 0)
-				resultado.push_back({ movimientos.TAB[row_f][col_f], row_o, col_o, row_f, col_f});
-		}
-	}
-	return resultado;
-}
-
 // General
 bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 {
@@ -734,16 +796,17 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 
 
 		// Notación del movimiento (version larga)
-		mov.clear();
+		mov.str("");
 		if (mat.TAB[row_f][col_f] != ENROQUE_C && mat.TAB[row_f][col_f] != ENROQUE_L) {
-			mov << tab[row_o][col_o].pieza_to_char() << col_to_char(col_o) << row_to_char(row_o) << (mat.TAB[row_f][col_f] == (COMER_PIEZA || COMER_AL_PASO_L || COMER_AL_PASO_R) ? 'x' : ' ') << col_to_char(col_f) << row_to_char(row_f);
+			mov << tab[row_o][col_o].pieza_to_char() << col_to_char(col_o) << row_to_char(row_o) << ((mat.TAB[row_f][col_f] == COMER_PIEZA || mat.TAB[row_f][col_f] == COMER_AL_PASO_L || mat.TAB[row_f][col_f] == COMER_AL_PASO_R) ? 'x' : ' ') << col_to_char(col_f) << row_to_char(row_f);
 		}
 		else if (mat.TAB[row_f][col_f] == ENROQUE_C) {
-			mov << "0-0";
+			mov << "0-0" << (tab[row_o][col_o].getColor() == BLANCA ? 'B' : 'N');
 		}
 		else if (mat.TAB[row_f][col_f] == ENROQUE_L) {
-			mov << "0-0-0";
+			mov << "0-0-0" << (tab[row_o][col_o].getColor() == BLANCA ? 'B' : 'N');
 		}
+		mov_partida << mov.str() << endl;
 	}
 
 
@@ -1077,9 +1140,16 @@ bool Juego::rey_jaque_mate(color_pieza_t color)
 //                  NOTACIÓN
 //-------------------------------------------------
 
-ostream& Juego::notacion_ulimo_moviento()
+string Juego::notacion_ulimo_moviento()
 {
-	return mov;
+	return mov.str();
+}
+
+string Juego::notacion_partida()
+{
+	mov_partida << "FIN" << endl;
+
+	return mov_partida.str();
 }
 
 char Juego::row_to_char(int row)
@@ -1094,7 +1164,20 @@ char Juego::col_to_char(int col)
 	char aux;
 	aux = 'a' + col;
 	return aux;
-	return 0;
+}
+
+int Juego::char_to_row(char row)
+{
+	int aux;
+	aux = '8' - row;
+	return aux;
+}
+
+int Juego::char_to_col(char col)
+{
+	int aux;
+	aux = col - 'a';
+	return aux;
 }
 
 
