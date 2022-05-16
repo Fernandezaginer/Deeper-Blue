@@ -1,5 +1,13 @@
 #include "users.h"
+#include "Chessrules.h"
+#include "chesstime.h"
+#include "Pieza.h"
+#include <thread>
+#include <chrono>
+using std::this_thread::sleep_for;
+using namespace std::chrono_literals;
 using namespace std;
+
 //datos por defecto
 User::User()
 {
@@ -136,7 +144,7 @@ void User::createreplay(User n, string savemove) {
 	foch.close();
 }
 //Leer replay
-string User::readreplay(User n) {
+void User::readreplay(User n) {
 	ifstream fich("replay.txt");
 	if (!fich.is_open())
 	{
@@ -152,7 +160,9 @@ string User::readreplay(User n) {
 	}
 	while (move != "FIN")
 	{
-		return(move);
+		Juego replaygame; //creación de partida replay
+		replaygame.mueve(move); //lee el movimiento
+		sleep_for(1000ms); //tiempo para apreciar cada movimiento
 	}
 	fich.close();
 }

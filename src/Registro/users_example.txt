@@ -1,0 +1,7 @@
+invitado
+23
+Usuario A
+50
+Usuario B
+60
+(Hasta 5 usuarios + invitado)

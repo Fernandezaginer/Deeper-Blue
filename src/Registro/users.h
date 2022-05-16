@@ -21,6 +21,6 @@ public:
 	void adduser(); //gestión para añadir user personalizado al fichero
 	void actualizeusers(); //actualización de los usuarios en la clase por el fichero
 	void createreplay(User b, string savemove);//crea la replay
-	string readreplay(User b);//lee la replay buscada y la envía el string del movimiento de ficha
+	void readreplay(User b);//lee la replay buscada y la envía el string del movimiento de ficha
 	void deletereplay(User b);//elimina replay
 };
