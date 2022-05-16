@@ -20,7 +20,7 @@ using namespace std;
 
 bool Juego::anade_movimiento_historial(tablero_t posicion)
 {
-	if (numero_mov < NUM_MAX_MOV) {
+	if (this->numero_mov < NUM_MAX_MOV) {
 
 		// Reserva espacio:
 		tablero_t aux;
@@ -35,8 +35,8 @@ bool Juego::anade_movimiento_historial(tablero_t posicion)
 				aux[i][j] = posicion[i][j];
 			}
 		}
-		historial[numero_mov] = aux;
-		numero_mov++;
+		historial[this->numero_mov] = aux;
+		this->numero_mov++;
 		return true;
 	}
 	return false;
@@ -153,7 +153,7 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	}
 
 	// Tablas por repeticion de movimiento
-	numero_mov = 0;
+	this->numero_mov = 0;
 	historial = new tablero_t[NUM_MAX_MOV];
 	for (int i = 0; i < NUM_MAX_MOV; i++) {
 		historial[i] = NULL;
@@ -337,6 +337,7 @@ Juego::~Juego()
 
 Juego::Juego(const Juego& J) : chesstime(chesstime::getModo())
 {
+	this->numero_mov = 0;
 
 	// Informacion del enrroque
 	this->playerA_enroque_permitido = J.playerA_enroque_permitido;

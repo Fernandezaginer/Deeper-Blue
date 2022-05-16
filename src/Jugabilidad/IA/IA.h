@@ -11,15 +11,17 @@ struct fruto {
 	movimiento mov;
 	Juego partida;
 	int score;
-	vector<fruto>* hijos;
+	//vector<fruto>* hijos;
+	vector<fruto> hijos;
 
-	fruto(): mov(movimiento()), partida(Juego()), score(0), hijos(new vector<fruto>){}
+	//fruto(): mov(movimiento()), partida(Juego()), score(0), hijos(new vector<fruto>){}
 
-	fruto(const fruto& f) : mov(f.mov), score(f.score) {
+	/*fruto(const fruto& f) : mov(f.mov), score(f.score) {
 		partida = Juego(f.partida);
-		hijos = new vector<fruto>;
-		*hijos = *f.hijos;
-	}
+		//hijos = new vector<fruto>;
+		//*hijos = *f.hijos;
+		hijos = *(new vector<fruto>);
+	}*/
 };
 typedef vector<fruto> arbol;
 

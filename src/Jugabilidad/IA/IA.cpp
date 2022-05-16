@@ -1,4 +1,5 @@
 #include "IA.h"
+#include <iostream>
 
 bool IA_facil::hacerMovimiento(Juego& partida) {
 	srand(time(NULL));
@@ -46,6 +47,7 @@ bool IA_dificil::hacerMovimiento(Juego& partida)
 
 movimiento IA_dificil::evaluarArbol(arbol tree)
 {
+	//cout << "evaluando arbol" << endl;
 	movimiento mejor_mov;
 	int best_score = -99999;
 	for (int i = 0; i < tree.size(); i++) {
@@ -61,14 +63,19 @@ movimiento IA_dificil::evaluarArbol(arbol tree)
 
 int IA_dificil::evaluarRama(fruto fruta)
 {
-	if (fruta.hijos->size() == 0) {
+	//if (fruta.hijos->size() == 0) {
+	if (fruta.hijos.size() == 0) {
 		return 0;
 	}
 
+	//cout << "evaluando rama" << endl;
+
 	float score = 0;
 
-	for (int i = 0; i < fruta.hijos->size(); i++) {
-		score += -1 * ((*fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((*fruta.hijos)[i])) / fruta.hijos->size();
+	//for (int i = 0; i < fruta.hijos->size(); i++) {
+	for (int i = 0; i < fruta.hijos.size(); i++) {
+		//score += -1 * ((*fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((*fruta.hijos)[i])) / fruta.hijos->size();
+		score += -1 * ((fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((fruta.hijos)[i])) / fruta.hijos.size();
 	}
 
 	return (int)score;
@@ -78,7 +85,7 @@ arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
 {
 	tablero_t tab = partida.get_tablero();
 	arbol tree;
-
+	//cout << "Creando arbol..." << endl;
 	for (int x = 0; x < COL_SIZE; x++) {
 		for (int y = 0; y < ROW_SIZE; y++) {
 			if (tab[y][x].getColor() == player) {
@@ -104,10 +111,10 @@ void IA_dificil::crearRama(fruto& fruta, Juego partida, color_pieza_t player, in
 {
 	if (depth_left == 0)
 	{
-		fruta.hijos = 0;
+		//fruta.hijos = 0;
 		return;
 	}
-
+	//cout << "Creando rama: " << depth_left << "..." << endl;
 	tablero_t tab = fruta.partida.get_tablero();
 	for (int x = 0; x < COL_SIZE; x++) {
 		for (int y = 0; y < ROW_SIZE; y++) {
@@ -121,9 +128,12 @@ void IA_dificil::crearRama(fruto& fruta, Juego partida, color_pieza_t player, in
 					fruta_n.mov = listaMov[mov];
 					fruta_n.partida = partida_aux;
 					fruta_n.score = IA_dificil::getScore(partida_aux, player);
-					IA_dificil::crearRama(fruta, partida_aux, player == BLANCA ? NEGRA : BLANCA, depth_left - 1);
+					if (depth_left > 1) {
+						IA_dificil::crearRama(fruta, partida_aux, player == BLANCA ? NEGRA : BLANCA, depth_left - 1);
+					}
 
-					(*fruta.hijos).push_back(fruta_n);
+					//(*fruta.hijos).push_back(fruta_n);
+					fruta.hijos.push_back(fruta_n);
 				}
 			}
 		}
