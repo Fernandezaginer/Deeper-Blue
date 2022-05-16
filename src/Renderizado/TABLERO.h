@@ -11,7 +11,7 @@ public:
 	~TABLERO();
 
 private:
-	CASILLA** cas;
+	CASILLA cas[ROW_SIZE][COL_SIZE];
 	VECTOR Lim1, Lim2, Lim3, Lim4;
 	VECTOR var;
 	COLOR color_fondo;

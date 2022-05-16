@@ -1,10 +1,8 @@
 #include "Mundo.h"
 #include "freeglut.h"
 #include <math.h>
-#include <cmath>
 #include <iostream>
 
-pieza_t selec;
 
 void Mundo::rotarOjo()
 {
@@ -58,22 +56,21 @@ void Mundo::raton(int b, int e, int x, int y) //Boton-estado-posicionx-posiciony
 {
 	std::cout << b << " " << e << " " << x << " " << y << endl;
 	
-	int f, c;
-	int bo = b;
+	
 	VECTOR posInicial(125.0f, 25.0f);
 	
 	VECTOR posFinal(675.0f, 575.0f);
 	
 	if (b == 0 && e == 0)
 	{
-		VECTOR posRaton((float)x, (float)y);
-		f = (int)trunc(ROW_SIZE * (posRaton.y - posInicial.y) / (posFinal.y - posInicial.y));
-		c = (int)trunc(COL_SIZE * (posRaton.x - posInicial.x) / (posFinal.x - posInicial.x));
+		int c = ROW_SIZE*trunc((float)x - 125.0f) / (675.0f - 125.0f);
+		int f = COL_SIZE - COL_SIZE*trunc((float)y - 25.0f) / (575.0f - 25.0f);
 
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
-			selec = j.getTablero()[f][c];
-			t.pintMovPermitidos(j.mov_permitidos(&j.get_tablero()[f][c], j.get_tablero()));
+			pieza_t* selec = &j.getTablero()[f][c];
+			t.pintMovPermitidos(j.mov_permitidos(selec, j.get_tablero()));
+			std::cout << f << " " << c << std::endl;
 		}
 	}
 

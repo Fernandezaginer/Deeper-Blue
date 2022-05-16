@@ -8,15 +8,7 @@
 TABLERO::TABLERO() : color_fondo(0, 0, 255)
 {
 
-	cas = NULL;
-
-	cas = new CASILLA * [ROW_SIZE];
-
-	for (int i = 0; i < ROW_SIZE; i++)
-	{
-		cas[i] = new CASILLA[COL_SIZE];
-	}
-
+	
 	Lim1.x = -10.0f;
 	Lim1.y = -10.0f;
 
@@ -34,15 +26,7 @@ TABLERO::TABLERO() : color_fondo(0, 0, 255)
 
 TABLERO::~TABLERO()
 {
-	for (int i = 0; i < ROW_SIZE; i++)
-	{
-		delete cas[i];
-	}
-
-	delete cas;
-
-	cas = NULL;
-
+	
 	
 }
 
@@ -103,7 +87,7 @@ void TABLERO::pintMovPermitidos(tablero_info_t ti)
 	COLOR PP(128, 0, 128); //Propia pieza
 	COLOR NP(255, 0, 0); //No permitido
 	COLOR PE(0, 255, 0); //Permitido
-	COLOR CP(0, 0, 255); //Comer pieza
+	COLOR CP(128, 0, 255); //Comer pieza
 	COLOR EC(255, 255, 0); //Enroque C
 	COLOR EL(255, 0, 255); //ENROQUE L
 	COLOR PR(0, 255, 255); //PROMOCION
@@ -120,7 +104,7 @@ void TABLERO::pintMovPermitidos(tablero_info_t ti)
 				cas[i][j].setColor(PP);
 				break;
 			case NO_PERMITIDO:
-				cas[i][j].setColor(NP);
+				cas[i][j].resetColor(i, j);
 				break;
 			case PERMITIDO:
 				cas[i][j].setColor(PE);

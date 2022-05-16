@@ -9,6 +9,6 @@
 class ListaFiguras
 {
 public:
-	static void dibuja(tablero_t& tab, CASILLA ** casi);
+	static void dibuja(tablero_t& tab, CASILLA  casi[][COL_SIZE]);
 };
 

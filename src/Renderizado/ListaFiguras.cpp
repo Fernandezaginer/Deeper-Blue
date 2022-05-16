@@ -1,21 +1,23 @@
 #include "ListaFiguras.h"
 #include "FICHA.h"
 
-static Figura PEONJ1{ "imagenes/PEONJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura TORREJ1{ "imagenes/TORREJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura ALFILJ1{ "imagenes/ALFILJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura CABALLOJ1{ "imagenes/CABALLOJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura REYJ1{ "imagenes/REYJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura REINAJ1{ "imagenes/REINAJ1.obj", "imagenes/TexturaCaballo.png" };
-static Figura PEONJ2{ "imagenes/PEONJ2.obj", "imagenes/TexturaCaballo.png" };
-static Figura TORREJ2{ "imagenes/TORREJ2.obj", "imagenes/TexturaCaballo.png" };
-static Figura ALFILJ2{ "imagenes/ALFILJ2.obj", "imagenes/TexturaCaballo.png" };
-static Figura CABALLOJ2{ "imagenes/CABALLOJ2.obj", "imagenes/TexturaCaballo.png" };
-static Figura REYJ2{ "imagenes/REYJ2.obj", "imagenes/TexturaCaballo.png" };
-static Figura REINAJ2{ "imagenes/REINAJ2.obj", "imagenes/TexturaCaballo.png" };
+//JUGADOR1
+static Figura PEONJ1{ "imagenes/PEON.obj", "imagenes/TexturaPeonNegro.png" };
+static Figura TORREJ1{ "imagenes/TORRE.obj", "imagenes/TexturaTorreNegro.png" };
+static Figura ALFILJ1{ "imagenes/ALFIL.obj", "imagenes/TexturaAlfilNegro.png" };
+static Figura CABALLOJ1{ "imagenes/CABALLO.obj", "imagenes/TexturaCaballoNegro.png" };
+static Figura REYJ1{ "imagenes/REY.obj", "imagenes/TexturaReyNegro.png" };
+static Figura REINAJ1{ "imagenes/REINA.obj", "imagenes/TexturaReinaNegro.png" };
+//JUGADOR2
+static Figura PEONJ2{ "imagenes/PEON.obj", "imagenes/TexturaPeonBlanco.png" };
+static Figura TORREJ2{ "imagenes/TORRE.obj", "imagenes/TexturaTorreBlanco.png" };
+static Figura ALFILJ2{ "imagenes/ALFIL.obj", "imagenes/TexturaAlfilBlanco.png" };
+static Figura CABALLOJ2{ "imagenes/CABALLO.obj", "imagenes/TexturaCaballoBlanco.png" };
+static Figura REYJ2{ "imagenes/REY.obj", "imagenes/TexturaReyBlanco.png" };
+static Figura REINAJ2{ "imagenes/REINA.obj", "imagenes/TexturaReinaBlanco.png" };
 
 
-void ListaFiguras::dibuja(tablero_t& tab, CASILLA** casi)
+void ListaFiguras::dibuja(tablero_t& tab, CASILLA casi[][COL_SIZE])
 {
 	
 	for (int i = 0; i < ROW_SIZE; i++)
@@ -23,6 +25,7 @@ void ListaFiguras::dibuja(tablero_t& tab, CASILLA** casi)
 		for (int j = 0; j < COL_SIZE; j++)
 		{
 			glTranslatef(casi[i][j].getCasilla().x, casi[i][j].getCasilla().y, 0.0f);
+			glRotatef(90, 1, 0, 0);
 			if (tab[i][j].getColor() == BLANCA)
 			{
 				switch (tab[i][j].getForma())
@@ -89,7 +92,9 @@ void ListaFiguras::dibuja(tablero_t& tab, CASILLA** casi)
 			{
 
 			}
+			glRotatef(-90, 1, 0, 0);
 			glTranslatef(-casi[i][j].getCasilla().x, -casi[i][j].getCasilla().y, 0.0f);
+			
 		}
 	}
 	
