@@ -42,28 +42,15 @@ void chesstime::updateTimeValues()
 
 	if (isTrunPlayerA) {
 		if (lastAEpoch != now) {
-			int restante = leftTotalSecPlaA - (now - lastAEpoch);
-			if (restante > 0) {
-				leftTotalSecPlaA -= (now - lastAEpoch);
-			}
-			else {
-				leftTotalSecPlaA = 0;
-			}
-			lastAEpoch == now;
-
+			leftTotalSecPlaA -= (now - lastAEpoch);
+			lastAEpoch = now;
 		}
 	}
 
 	else if (isTrunPlayerB) {
 		if (lastBEpoch != now) {
-			int restante = leftTotalSecPlaB - (now - lastBEpoch);
-			if (restante > 0) {
-				leftTotalSecPlaB -= (now - lastBEpoch);
-			}
-			else {
-				leftTotalSecPlaB = 0;
-			}
-			lastBEpoch == now;
+			leftTotalSecPlaB -= (now - lastBEpoch);
+			lastBEpoch = now;
 		}
 	}
 
