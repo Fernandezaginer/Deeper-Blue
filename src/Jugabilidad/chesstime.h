@@ -44,13 +44,13 @@ public:  // Servicios
 	bool PlaA_end_time();
 	bool PlaB_end_time();
 
-protected: // No tocar
-
 	// Iniciar el tiempo de la partida (Empieza PlayerA)
 	void start();
 
 	// Constructor de inicio de la partida
 	chesstime(modo_partida_t mode);
+
+protected: // No tocar
 
 	// Métodos para indicar de quien es el turno
 	void turnPlayerA();
