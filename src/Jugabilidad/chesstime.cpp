@@ -1,7 +1,5 @@
-
 #include "chesstime.h"
 #include <time.h>
-
 
 chesstime::chesstime(modo_partida_t mode)
 {
@@ -152,4 +150,3 @@ uint chesstime::getNowEpochTime()
 	localtime(&t);
 	return t;
 }
-

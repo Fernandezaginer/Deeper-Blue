@@ -1,5 +1,3 @@
-
-
 // Test unitario:
 /*
 
@@ -7,22 +5,17 @@
 #include "chesstime.h";
 #include "ChessRules.h";
 
-
 #include <thread>
 #include <chrono>
 using std::this_thread::sleep_for;
 using namespace std::chrono_literals;
 
-
 int main(void)
 {
-
 	// Test unitario (ejemplo del mate del tonto)
 	Juego a(RAPIDA);
-
 	int secuencia = 0;
 	while (!a.jaque_mate_playerA() && !a.jaque_mate_playerB()) {
-
 		sleep_for(750ms);
 		secuencia++;
 
@@ -54,34 +47,28 @@ int main(void)
 
 		// Print tiempo:
 		cout << a.getMinLeftPlaA() << ":" << a.getSecLeftPlaA() << " " << a.getMinLeftPlaB() << ":" << a.getSecLeftPlaB() << " " << a.jaque_mate_playerA() << std::endl;
-
 	}
-
 	// Fin de la  partida
 	cout << "Fin de la partida" << endl << endl;
 	cout << a.notacion_partida();
-
-
-
 	//tablero_t aux = a.getTablero();
 	//tablero_info_t info = a.mov_permitidos(&(aux[6][0]), aux);
-
 	//movimiento_t mov = info.TAB[5][0];
 	//mov = info.TAB[4][0];
 	//mov = info.TAB[4][5];
-
 	//cout << a.print();
 	//a.movimiento(6, 0, 5, 4);
 	//cout << a.print();
-
 	return 0;
 }
-
 
 */
 
 #include "chesstime.h"
 #include "Pieza.h"
+
+#include <vector>
+
 
 #include <sstream>
 using namespace std;
@@ -93,7 +80,16 @@ using namespace std;
 // Puntero a las piezas de la partida
 typedef  pieza_t** tablero_t;
 
+enum casillas_t { a1 = 0, b1, c1, d1, e1, f1, g1, h1, a2, b2, c2, d2, e2, f2, g2, h2, a3, b3, c3, d3, e3, f3, g3, h3, a4, b4, c4, d4, e4, f4, g4, h4, a5, b5, c5, d5, e5, f5, g5, h5, a6, b6, c6, d6, e6, f6, g6, h6, a7, b7, c7, d7, e7, f7, g7, h7, a8, b8, c8, d8, e8, f8, g8, h8 };
+struct movimiento {
+	movimiento_t mov;
+	int row_o;
+	int col_o;
+	int row_f;
+	int col_f;
+};
 
+typedef vector<movimiento> lista_movimientos;
 
 // CRITERIO DEL TABLERO:
 
@@ -113,12 +109,17 @@ T C A D R A C T  // Piezas blancas
 
 
 
-class Juego : public chesstime {
+
+class Juego : public chesstime 
+{
+
 public:
 
 	// Constructor y destructor:
 	Juego(modo_partida_t mode = RAPIDA);
-	Juego(Juego& j);
+
+	Juego(const Juego& j);
+
 	~Juego();
 
 	Juego& operator = (Juego J) { return J; }
@@ -131,7 +132,7 @@ public:
 	string notacion_ulimo_moviento();
 	string notacion_partida();
 	tablero_t getTablero() { return tab; }
-	
+
 
 	// Servicios
 	bool tablas();
@@ -147,7 +148,9 @@ public:
 	int score_playerA();
 	int score_playerB();
 
-	// Servivios heredados de chestime.h:
+
+	// Servicios heredados de chestime.h:
+
 	/*
 	// Métodos para obtener el tiempo restante de cada jugador
 	int getSecLeftPlaA();
@@ -165,11 +168,17 @@ public:
 	string print(tablero_t t);
 
 private:
+	friend class IA_dificil;
+	friend class IA_facil;
+	friend class IA_UnitTests;
 	tablero_t tab;
 
 	// Movimiento piezas:
 	bool analisis_mov;
 	tablero_info_t get_mov_permitidos(pieza_t* a, tablero_t tab);
+
+	lista_movimientos get_mov_permitidos_l(tablero_t tab, int row_o, int col_o);
+
 	bool haz_movimiento(int row_o, int col_o, int row_f, int col_f);
 	void aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t** tab, int row, int col);
 
@@ -198,8 +207,9 @@ private:
 	int char_to_row(char row);
 	int char_to_col(char col);
 
+
 	// Reglas espieciales peón: comer al paso y promoción
- 	void aux_detectar_comer_al_paso(tablero_info_t& matriz, pieza_t peon, int row, int col);
+	void aux_detectar_comer_al_paso(tablero_info_t& matriz, pieza_t peon, int row, int col);
 	void aux_detectar_promocion(tablero_info_t& matriz, pieza_t peon, int row, int col);
 
 	// Auxiliar:
@@ -208,9 +218,11 @@ private:
 
 	bool jaque_mate();
 
+	tablero_t get_tablero() { return this->tab; }
+	void set_tablero(tablero_t tablero) { this->tab = tablero; }
+
 };
 
 
 
 #endif
-

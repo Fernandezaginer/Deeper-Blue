@@ -1,4 +1,3 @@
-
 // TEST UNITARIO:
 	/*
 	chesstime tiempo = chesstime(SEMIRAPIDA);
@@ -20,7 +19,7 @@
 #ifndef _CHESSTIME_H_
 #define _CHESSTIME_H_
 
-enum modo_partida_t {RAPIDA, SEMIRAPIDA, NORMAL};
+enum modo_partida_t { RAPIDA, SEMIRAPIDA, NORMAL };
 
 #define RAPIDA_MIN		10
 #define SEMIRAPIDA_MIN	20
@@ -82,5 +81,3 @@ private:  // No tocar
 };
 
 #endif
-
-
