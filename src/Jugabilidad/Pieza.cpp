@@ -163,6 +163,12 @@ string mov_print(tablero_info_t t) {
 			case ENROQUE_L:
 				car = 'E';
 				break;
+			case COMER_AL_PASO_L:
+				car = 'x';
+				break;
+			case COMER_AL_PASO_R:
+				car = 'x';
+				break;
 			default:
 				car = '-';
 				break;
