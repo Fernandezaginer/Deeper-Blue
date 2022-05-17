@@ -24,8 +24,12 @@ int main(int argc,char* argv[])
 	//y crear la ventana
 	glutInit(&argc, argv);
 	glutInitWindowSize(1920,1080);
+	
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutCreateWindow("DEEPERBLUE");
+
+	glutFullScreen();
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
