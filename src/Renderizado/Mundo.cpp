@@ -2,6 +2,7 @@
 #include "freeglut.h"
 #include <math.h>
 #include <iostream>
+#include <Windows.h>
 
 
 void Mundo::rotarOjo()
@@ -22,7 +23,8 @@ void Mundo::dibuja()
 	//dibujo del suelo
 
 	t.dibuja(j.getTablero());
-	
+	std::cout <<"Jugador 1 " << j.getMinLeftPlaA() <<":" << j.getSecLeftPlaA() << std::endl;
+	std::cout << "Jugador 2 " << j.getMinLeftPlaB() << ":" << j.getSecLeftPlaB() << std::endl;
 }
 
 
@@ -52,26 +54,27 @@ void Mundo::tecla(unsigned char key)
 	}
 }
 
+static int origen_f, origen_c, final_f, final_c;
+
 void Mundo::raton(int b, int e, int x, int y) //Boton-estado-posicionx-posiciony
 {
-	std::cout << b << " " << e << " " << x << " " << y << endl;
+	//std::cout << b << " " << e << " " << x << " " << y << endl;
 	
-	
-	VECTOR posInicial(125.0f, 25.0f);
-	
-	VECTOR posFinal(675.0f, 575.0f);
-	
+	int c = ROW_SIZE * trunc((float)x - 125.0f) / (675.0f - 125.0f);
+	int f = COL_SIZE - COL_SIZE * trunc((float)y - 25.0f) / (575.0f - 25.0f);
+
+
 	if (b == 0 && e == 0)
 	{
-		int c = ROW_SIZE*trunc((float)x - 125.0f) / (675.0f - 125.0f);
-		int f = COL_SIZE - COL_SIZE*trunc((float)y - 25.0f) / (575.0f - 25.0f);
-
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
+			j.movimiento(origen_f, origen_c, f, c);
 			pieza_t* selec = &j.getTablero()[f][c];
 			t.pintMovPermitidos(j.mov_permitidos(selec, j.get_tablero()));
-			std::cout << f << " " << c << std::endl;
+			origen_f=f;
+			origen_c=c;
+			
 		}
 	}
-
+	
 }
