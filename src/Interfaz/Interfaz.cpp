@@ -48,14 +48,14 @@ void Interfaz::dibuja()
 	{
 	case -2:
 		this->in.direct = "misimagenes/xxx.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			this->estado = -1;
 			this->t_0 = time(NULL);
 		}
 		break;
 	case -1:
 		this->in.direct = "misimagenes/inicial.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 4) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 5) {
 			this->estado = 0;
 			this->t_0 = time(NULL);
 		}
@@ -77,36 +77,25 @@ void Interfaz::dibuja()
 		break;
 	case 2:// inicio+start rosa 
 		this->in.direct = "misimagenes/inicior.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			if (this->con.mousePos.y > 650 || this->con.mousePos.y < 606 || this->con.mousePos.x < 646 || this->con.mousePos.x > 863) {
 				this->estado = 1;
 			}
 			if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_UP) {
 				this->estado = 3;
 			}
-		}
 		break;
 	case 3://usuario 1
 		this->in.direct = "misimagenes/jug1.png";
-		//ETSIDI::setTextColor(1, 1, 0);
-		//ETSIDI::setFont("fuentes/Bitwise.ttf", 24);
-		//ETSIDI::printxy("texto", 0, 0);
-		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {//enter
-			this->estado = 4;
-			this->t_0 = time(NULL);
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
+			char str[] = "Probando";
+			this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, str);
 
-			/*
-			hacer clase aparte para escribir todo esto --->retocar
-			void output(int x, int y, float r, float g, float b, int font, char *string)
-			{
-				glColor3f( r, g, b );
-				glRasterPos2f(x, y);
-				int len, i;
-				len = (int)strlen(string);
-				for (i = 0; i < len; i++) {
-				glutBitmapCharacter(font, string[i]);
+			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
+				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
+					this->estado = 4;
+					this->t_0 = time(NULL);
 				}
-			}*/
+			}
 		}
 		break;
 	case 4://menu
@@ -174,9 +163,16 @@ void Interfaz::dibuja()
 		break;
 	case 10: //usuario 2
 		this->in.direct = "misimagenes/jug2.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 1) { //cambiar por enter
-			this->estado = 11;
-			this->t_0 = time(NULL);
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
+			char str[] = "Probando";
+			this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, str);
+			
+			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
+				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
+					this->estado = 11;
+					this->t_0 = time(NULL);
+				}
+			}
 		}
 		break;
 	case 11: // carga de 1v1
@@ -230,21 +226,21 @@ void Interfaz::dibuja()
 		break;
 	case 17: //victoria
 		this->in.direct = "misimagenes/victoria.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
 		}
 		break;
 	case 18: // derrota
 		this->in.direct = "misimagenes/derrota.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
 		}
 		break;
 	case 19: //tablas
 		this->in.direct = "misimagenes/tablas.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
 		}
@@ -254,6 +250,8 @@ void Interfaz::dibuja()
 		this->in.direct = "misimagenes/reg.png";
 		
 		if (time(NULL) > static_cast<long long>(this->t_0) + 10) {
+			char str[] = "Probando";
+			this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, str);
 			this->estado = 4;
 			this->t_0 = time(NULL);
 		}
@@ -273,7 +271,8 @@ void Interfaz::dibuja()
 			this->estado = 21;
 		}
 		if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-			this->estado = 0;
+			//this->estado = 0;
+			glutDestroyWindow(glutGetWindow());
 		}
 		break;
 	case 23: //exit no 

@@ -42,3 +42,12 @@ void inicio::carga() {
 		this->coor_y = this->coor_y + 0.05;
 	}
 }
+void inicio::output(int x, int y, float r, float g, float b, void *font, char *string){
+	glColor3f(r, g, b);
+	glRasterPos3f(x, y,1);
+	int len, i;
+	len = (int)strlen(string);
+	for (i = 0; i < len; i++) {
+		glutBitmapCharacter(font, string[i]);
+	}
+}

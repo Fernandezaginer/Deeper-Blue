@@ -8,6 +8,6 @@ public:
 	std::string direct;
 	void draw();
 	void carga();
-	//void reg();
+	void output(int x, int y, float r, float g, float b, void* font, char* string);
 	
 };
