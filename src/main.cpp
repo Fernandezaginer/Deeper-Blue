@@ -7,10 +7,10 @@
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
-#include "Mundo.h"
+#include "Interfaz.h"
 
 using namespace std;
-Mundo mundo;
+Interfaz interfaz;
 
 
 void OnDraw(void); //esta funcion sera llamada para dibujar
@@ -24,8 +24,12 @@ int main(int argc,char* argv[])
 	//y crear la ventana
 	glutInit(&argc, argv);
 	glutInitWindowSize(1920,1080);
+	
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutCreateWindow("DEEPERBLUE");
+
+	glutFullScreen();
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
@@ -41,8 +45,8 @@ int main(int argc,char* argv[])
 	glutKeyboardFunc(OnKeyboardDown);
 	glutMouseFunc(click);
 	
-
-	mundo.inicializa();
+	ETSIDI::playMusica("mimusica/GENSHIN.mp3", true);
+	interfaz.inicializa();
 	//pasarle el control a GLUT,que llamara a los callbacks
 	glutMainLoop();	
 
@@ -58,8 +62,8 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);	
 	glLoadIdentity();
 	
-	mundo.mueve();
-	mundo.dibuja();
+	interfaz.mueve();
+	interfaz.dibuja();
 
 	
 	//no borrar esta linea ni poner nada despues
@@ -67,16 +71,16 @@ void OnDraw(void)
 }
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
-	//poner aqui el cÃ³digo de teclado
-	mundo.tecla(key);
+	//poner aqui el código de teclado
+	interfaz.tecla(key);
 
 	glutPostRedisplay();
 }
 
 void OnTimer(int value)
 {
-//poner aqui el cÃ³digo de animacion
-	mundo.mueve();
+//poner aqui el código de animacion
+	interfaz.mueve();
 
 	//no borrar estas lineas
 	glutTimerFunc(25,OnTimer,0);

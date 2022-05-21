@@ -7,13 +7,14 @@
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
-#include "Mundo.h"
+#include "Interfaz.h"
 
 using namespace std;
 
 inicio::inicio () {
 	this->direct = string();
 	this->coor_y = -4.5f;
+	this->coor_yr = 8.25f ;
 }
 void inicio::draw() {
 	glEnable(GL_TEXTURE_2D);
@@ -39,5 +40,14 @@ void inicio::carga() {
 		glTexCoord2d(0, 1); glVertex3f(-4, this->coor_y, 0);
 		glEnd();
 		this->coor_y = this->coor_y + 0.05;
+	}
+}
+void inicio::output(int x, int y, float r, float g, float b, void *font, char *string){
+	glColor3f(r, g, b);
+	glRasterPos3f(x, y,1);
+	int len, i;
+	len = (int)strlen(string);
+	for (i = 0; i < len; i++) {
+		glutBitmapCharacter(font, string[i]);
 	}
 }

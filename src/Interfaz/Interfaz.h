@@ -8,12 +8,12 @@
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
-#include "Mundo.h"
+#include "Interfaz.h"
 
 using namespace std;
 
 
-class Mundo
+class Interfaz
 {
 private:
 	float x_ojo;
@@ -26,7 +26,7 @@ private:
 public:
 	long long t_0 = time(NULL);
 	int estado;
-	Mundo();
+	Interfaz();
 	void tecla(unsigned char key);
 	void inicializa();
 	void rotarOjo();
