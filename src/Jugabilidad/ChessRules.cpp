@@ -449,10 +449,10 @@ bool Juego::movimiento(int row_o, int col_o, int row_f, int col_f)
 	if (tab[row_o][col_o].getColor() == BLANCA && chesstime::isTrunPlayerA || tab[row_o][col_o].getColor() == NEGRA && chesstime::isTrunPlayerB) {
 
 		bool mov_ok = haz_movimiento(row_o, col_o, row_f, col_f);
-		if (chesstime::isTrunPlayerA) {
+		if (chesstime::isTrunPlayerA && mov_ok) {
 			turnPlayerB();
 		}
-		else {
+		else if (mov_ok){
 			turnPlayerA();
 		}
 
