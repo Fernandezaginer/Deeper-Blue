@@ -58,7 +58,7 @@ public:
 	friend class IA_UnitTests;
 	IA_dificil(color_pieza_t col = NEGRA, int dificultad = 1) : IA_base(col), _dificultad(dificultad) {}
 
-	//Métodos
+	//Mï¿½todos
 	bool hacerMovimiento(Juego& partida);
 
 	//Look up tables

@@ -1,4 +1,3 @@
-
 #include "chesstime.h"
 #include "Pieza.h"
 

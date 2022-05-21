@@ -1,5 +1,7 @@
+
 #include "chesstime.h"
 #include <time.h>
+
 
 chesstime::chesstime(modo_partida_t mode)
 {
@@ -40,15 +42,28 @@ void chesstime::updateTimeValues()
 
 	if (isTrunPlayerA) {
 		if (lastAEpoch != now) {
-			leftTotalSecPlaA -= (now - lastAEpoch);
-			lastAEpoch = now;
+			int restante = leftTotalSecPlaA - (now - lastAEpoch);
+			if (restante > 0) {
+				leftTotalSecPlaA -= (now - lastAEpoch);
+			}
+			else {
+				leftTotalSecPlaA = 0;
+			}
+			lastAEpoch == now;
+
 		}
 	}
 
 	else if (isTrunPlayerB) {
 		if (lastBEpoch != now) {
-			leftTotalSecPlaB -= (now - lastBEpoch);
-			lastBEpoch = now;
+			int restante = leftTotalSecPlaB - (now - lastBEpoch);
+			if (restante > 0) {
+				leftTotalSecPlaB -= (now - lastBEpoch);
+			}
+			else {
+				leftTotalSecPlaB = 0;
+			}
+			lastBEpoch == now;
 		}
 	}
 
@@ -150,3 +165,4 @@ uint chesstime::getNowEpochTime()
 	localtime(&t);
 	return t;
 }
+
