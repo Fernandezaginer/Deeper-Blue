@@ -1,9 +1,3 @@
-#include "Pieza.h"
-#include "ChessRules.h"
-
-#include <sstream>
-#include <iostream>
-using namespace std;
 
 #include "Pieza.h"
 #include "ChessRules.h"
@@ -36,6 +30,8 @@ bool Juego::anade_movimiento_historial(tablero_t posicion)
 				aux[i][j] = posicion[i][j];
 			}
 		}
+
+
 		historial[this->numero_mov] = aux;
 		this->numero_mov++;
 		return true;
@@ -43,11 +39,11 @@ bool Juego::anade_movimiento_historial(tablero_t posicion)
 	return false;
 }
 
-bool Juego::tableros_iguales(tablero_t* t1, tablero_t* t2)
+bool Juego::tableros_iguales(tablero_t t1, tablero_t t2)
 {
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < ROW_SIZE; j++) {
-			if (!(*(t1[i][j]) == *(t2[i][j]))) {
+			if (!(t1[i][j] == t2[i][j])) {
 				return false; // Alguna pieza distinta
 			}
 		}
@@ -57,7 +53,6 @@ bool Juego::tableros_iguales(tablero_t* t1, tablero_t* t2)
 
 //-------------------------------------------------
 //           INFORMACIÓN DE LA PARTIDA
-
 //-------------------------------------------------
 
 bool Juego::tablas()
@@ -69,17 +64,18 @@ bool Juego::tablas_por_repeticiones_de_posicion()
 {
 	int num_repeticiones = 0;
 
-	for (int i = 0; i < numero_mov; i++) {
-		for (int j = i; j < numero_mov; j++) {
-			if (tableros_iguales(&(historial[i]), &(historial[j])) == 1) {
-				num_repeticiones++;
+	if (numero_mov > NUM_POS_TABLAS) {
+		for (int i = 0; i < numero_mov; i++) {
+			for (int j = (i + 1); j < numero_mov; j++) {
+				if (tableros_iguales(historial[i], historial[j]) == 1) {
+					num_repeticiones++;
+				}
 			}
 		}
-	}
 
-
-	if (num_repeticiones > NUM_POS_TABLAS) {
-		return true;
+		if (num_repeticiones > NUM_POS_TABLAS) {
+			return true;
+		}
 	}
 
 	return false;
@@ -172,6 +168,15 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 			(aux + j)->setForma(NO_PIEZA);
 		}
 	}
+
+	// Test unitario caballo:
+	//tab[7][3] = pieza_t(CABALLO, NEGRA);
+	//tab[6][1] = pieza_t(CABALLO, NEGRA);
+	//cout << this->print();
+	//tablero_info_t aux = get_mov_permitidos(&(tab[7][3]), tab);
+	//cout << mov_print(aux);
+	//cout << this->print();
+
 
 
 	// Posicion inicial de la partida (Para una partida normal de momento)
@@ -330,6 +335,7 @@ Juego::~Juego()
 			for (int j = 0; j < ROW_SIZE; j++) {
 				delete[] historial[i][j];
 			}
+			delete[] historial[i];
 		}
 		delete[] historial;
 	}
@@ -589,10 +595,8 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 
 
 	if (a->getForma() == CABALLO) {   // Leo
-		/*
 		matriz.TAB[row][col] = PROPIA_PIEZA;
-		matriz.TAB[row][col] = PROPIA_PIEZA;
-		if (row > 3) {
+		if (row > 2) {
 			if (col > 0) {
 				matriz.TAB[row - 2][col - 1] = tab[row - 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
@@ -600,7 +604,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 				matriz.TAB[row - 2][col + 1] = tab[row - 2][col + 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col + 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
-		if (row < COL_SIZE - 1) {
+		if (row < (ROW_SIZE - 2)) {
 			if (col > 0) {
 				matriz.TAB[row + 2][col - 1] = tab[row + 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 2][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
@@ -612,15 +616,15 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			if (row > 0) {
 				matriz.TAB[row - 1][col - 2] = tab[row - 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (row < COL_SIZE) {
+			if (row < (COL_SIZE - 1)) {
 				matriz.TAB[row + 1][col - 2] = tab[row + 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
-		if (col < ROW_SIZE - 1) {
+		if (col < (ROW_SIZE - 2)) {
 			if (row > 0) {
 				matriz.TAB[row - 1][col + 2] = tab[row - 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col + 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (row < COL_SIZE) {
+			if (row < (COL_SIZE - 1)) {
 				matriz.TAB[row + 1][col + 2] = tab[row + 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col + 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
@@ -633,7 +637,6 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
 			analisis_mov = 0;
 		}
-		*/
 
 	}
 
@@ -904,7 +907,7 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 	// comer al paso:
 	if (mat.TAB[row_f][col_f] == COMER_AL_PASO_L) {
 
-		
+
 		// Comer el peón contrario
 
 		this->tab[row_o][col_o - 1] = pieza_t();
@@ -918,7 +921,7 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 
 	if (mat.TAB[row_f][col_f] == COMER_AL_PASO_R) {
 
-		
+
 		// Comer el peón contrario
 
 		this->tab[row_o][col_o + 1] = pieza_t();
@@ -970,7 +973,7 @@ void Juego::aux_detectar_comer_al_paso(tablero_info_t& matriz, pieza_t peon, int
 	}
 
 
-	if (numero_mov >=4) {
+	if (numero_mov >= 4) {
 
 
 		tablero_t t_o = historial[numero_mov - 1];
@@ -989,7 +992,7 @@ void Juego::aux_detectar_comer_al_paso(tablero_info_t& matriz, pieza_t peon, int
 
 		// Peones en posición inicial:
 		for (int j = 0; j < COL_SIZE; j++) {
-			if (t_o[row_ini][j].getForma() == PEON && t_o[row_ini][j].getColor() ==  (peon.getColor() == BLANCA ? NEGRA : BLANCA) ) {
+			if (t_o[row_ini][j].getForma() == PEON && t_o[row_ini][j].getColor() == (peon.getColor() == BLANCA ? NEGRA : BLANCA)) {
 
 				peones_adv[row_ini][j] = t_o[row_ini][j];
 			}
@@ -1286,4 +1289,3 @@ lista_movimientos Juego::get_mov_permitidos_l(tablero_t tab, int row_o, int col_
 	}
 	return resultado;
 }
-
