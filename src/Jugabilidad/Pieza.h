@@ -15,7 +15,7 @@ using namespace std;
 enum forma_pieza_t { NO_PIEZA, PEON, CABALLO, ALFIL, TORRE, DAMA, REY };
 enum color_pieza_t { NO_COLOR, BLANCA, NEGRA };
 
-enum movimiento_t { PROPIA_PIEZA = -1, NO_PERMITIDO, PERMITIDO, COMER_PIEZA, ENROQUE_C, ENROQUE_L, PROMOCION, COMER_AL_PASO_L, COMER_AL_PASO_R };
+enum movimiento_t { PROPIA_PIEZA = -1, NO_PERMITIDO, PERMITIDO, COMER_PIEZA, ENROQUE_C, ENROQUE_L, PROMOCION, COMER_AL_PASO_L, COMER_AL_PASO_R, PROMOCION_Y_COMER};
 
 
 // Extructura que indica los movimientos permitidos
@@ -63,3 +63,4 @@ public:
 
 
 #endif
+
