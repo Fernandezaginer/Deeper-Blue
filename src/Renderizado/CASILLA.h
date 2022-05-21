@@ -9,7 +9,6 @@ public:
 	~CASILLA() {}
 
 private:
-	VECTOR pos;
 	VECTOR Lim1, Lim2, Lim3, Lim4;
 	COLOR col;
 
