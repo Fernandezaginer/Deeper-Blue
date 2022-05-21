@@ -1,68 +1,3 @@
-// Test unitario:
-/*
-
-#include <iostream>
-#include "chesstime.h";
-#include "ChessRules.h";
-
-#include <thread>
-#include <chrono>
-using std::this_thread::sleep_for;
-using namespace std::chrono_literals;
-
-int main(void)
-{
-	// Test unitario (ejemplo del mate del tonto)
-	Juego a(RAPIDA);
-	int secuencia = 0;
-	while (!a.jaque_mate_playerA() && !a.jaque_mate_playerB()) {
-		sleep_for(750ms);
-		secuencia++;
-
-		switch (secuencia)
-		{
-		case 1:
-			a.movimiento(6, 6, 4, 6);
-			//a.movimiento(static_cast<string>("Pg2 g4"));
-			cout << a.print();
-			break;
-		case 5:
-			a.movimiento(1, 4, 3, 4);
-			//a.movimiento(static_cast<string>("Pe7 e5"));
-			cout << a.print();
-			break;
-		case 10:
-			a.movimiento(6, 5, 5, 5);
-			//a.movimiento(static_cast<string>("Pf2 f3"));
-			cout << a.print();
-			break;
-		case 15:
-			a.movimiento(0, 3, 4, 7);
-			//a.movimiento(static_cast<string>("Pd8 h4"));
-			cout << a.print();
-			break;
-		default:
-			break;
-		}
-
-		// Print tiempo:
-		cout << a.getMinLeftPlaA() << ":" << a.getSecLeftPlaA() << " " << a.getMinLeftPlaB() << ":" << a.getSecLeftPlaB() << " " << a.jaque_mate_playerA() << std::endl;
-	}
-	// Fin de la  partida
-	cout << "Fin de la partida" << endl << endl;
-	cout << a.notacion_partida();
-	//tablero_t aux = a.getTablero();
-	//tablero_info_t info = a.mov_permitidos(&(aux[6][0]), aux);
-	//movimiento_t mov = info.TAB[5][0];
-	//mov = info.TAB[4][0];
-	//mov = info.TAB[4][5];
-	//cout << a.print();
-	//a.movimiento(6, 0, 5, 4);
-	//cout << a.print();
-	return 0;
-}
-
-*/
 
 #include "chesstime.h"
 #include "Pieza.h"
@@ -80,6 +15,8 @@ using namespace std;
 // Puntero a las piezas de la partida
 typedef  pieza_t** tablero_t;
 
+
+// Estructuras IA
 enum casillas_t { a1 = 0, b1, c1, d1, e1, f1, g1, h1, a2, b2, c2, d2, e2, f2, g2, h2, a3, b3, c3, d3, e3, f3, g3, h3, a4, b4, c4, d4, e4, f4, g4, h4, a5, b5, c5, d5, e5, f5, g5, h5, a6, b6, c6, d6, e6, f6, g6, h6, a7, b7, c7, d7, e7, f7, g7, h7, a8, b8, c8, d8, e8, f8, g8, h8 };
 struct movimiento {
 	movimiento_t mov;
@@ -110,7 +47,7 @@ T C A D R A C T  // Piezas blancas
 
 
 
-class Juego : public chesstime 
+class Juego : public chesstime
 {
 
 public:
@@ -192,7 +129,7 @@ private:
 	//bool jaque_b[NUM_MAX_MOV];
 	int numero_mov;
 	bool anade_movimiento_historial(tablero_t posicion);
-	bool tableros_iguales(tablero_t* t1, tablero_t* t2);
+	bool tableros_iguales(tablero_t t1, tablero_t t2);
 
 	// Jaques, mates y ahogados:
 	bool rey_ahogado(color_pieza_t color);
@@ -223,6 +160,129 @@ private:
 
 };
 
-
-
 #endif
+
+
+// TESTS UNITARIOS
+/*
+
+#include <iostream>
+#include "chesstime.h";
+#include "ChessRules.h";
+
+#include <thread>
+#include <chrono>
+using std::this_thread::sleep_for;
+using namespace std::chrono_literals;
+
+
+int main(void)
+{
+
+	// Test unitario (ejemplo del mate del tonto)
+	Juego a(RAPIDA);
+
+	int secuencia = 0;
+	while (!a.jaque_mate_playerA() && !a.jaque_mate_playerB() && !a.tablas()) {
+
+		sleep_for(1000ms);
+		secuencia++;
+
+
+		// MATE DEL TONTO:
+		//switch (secuencia)
+		//{
+		//case 1:
+		//    a.movimiento(6, 6, 4, 6);
+		//    //a.movimiento(static_cast<string>("Pg2 g4"));
+		//    cout << a.print();
+		//    break;
+		//case 5:
+		//    //a.movimiento(1, 4, 3, 4);
+		//    a.movimiento(static_cast<string>("Pe7 e5"));
+		//    cout << a.print();
+		//    break;
+		//case 10:
+		//    //a.movimiento(6, 5, 5, 5);
+		//    a.movimiento(static_cast<string>("Pf2 f3"));
+		//    cout << a.print();
+		//    break;
+		//case 15:
+		//    //a.movimiento(0, 3, 4, 7);
+		//    a.movimiento(static_cast<string>("Pd8 h4"));
+		//    cout << a.print();
+		//    break;
+		//default:
+		//    break;
+		//}
+
+
+		// MATE DEL PASTOR:
+		switch (secuencia)
+		{
+		case 1:
+			a.movimiento(static_cast<string>("Pe2 e4"));
+			cout << a.print();
+			break;
+		case 5:
+			//a.movimiento(1, 4, 3, 4);
+			a.movimiento(static_cast<string>("Pe7 e5"));
+			cout << a.print();
+			break;
+		case 10:
+			//a.movimiento(6, 5, 5, 5);
+			a.movimiento(static_cast<string>("Af1 c4"));
+			cout << a.print();
+			break;
+		case 15:
+			//a.movimiento(0, 3, 4, 7);
+			a.movimiento(static_cast<string>("Cb8 c6"));
+			cout << a.print();
+			break;
+		case 20:
+			//a.movimiento(0, 3, 4, 7);
+			a.movimiento(static_cast<string>("Dd1 f3"));
+			cout << a.print();
+			break;
+		case 25:
+			//a.movimiento(0, 3, 4, 7);
+			a.movimiento(static_cast<string>("Cc6 a5"));
+			cout << a.print();
+			break;
+		case 30:
+			//a.movimiento(0, 3, 4, 7);
+			a.movimiento(static_cast<string>("Df3 f7"));
+			cout << a.print();
+			break;
+		default:
+			break;
+		}
+
+
+		// Print tiempo:
+		cout << a.getMinLeftPlaA() << ":" << a.getSecLeftPlaA() << " " << a.getMinLeftPlaB() << ":" << a.getSecLeftPlaB() << " " << a.jaque_mate_playerA() << std::endl;
+
+	}
+
+	// Fin de la  partida
+	cout << "Fin de la partida" << endl << endl;
+	cout << a.notacion_partida();
+
+
+
+	//tablero_t aux = a.getTablero();
+	//tablero_info_t info = a.mov_permitidos(&(aux[6][0]), aux);
+
+	//movimiento_t mov = info.TAB[5][0];
+	//mov = info.TAB[4][0];
+	//mov = info.TAB[4][5];
+
+	//cout << a.print();
+	//a.movimiento(6, 0, 5, 4);
+	//cout << a.print();
+
+	return 0;
+}
+
+
+*/
