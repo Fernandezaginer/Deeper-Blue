@@ -14,9 +14,11 @@ public:
 	User();
 	void setname(); //setter del nombre de usuario por scanf
 	void stablishname(string n);//setter del nombre de usuario por string enviada
+	void stablishnameactu(string n); // setter especial para actusers
 	std::string getname(); //getter directo del nombre de usuario
 	void setscore(); //setter del score del usuario por scanf
 	void stablishscore(float n);//setter del score del usuario por float enviado
+	void stablishscoreactu(float n); // setter especial para actusers
 	float getscore(); //getter directo de la puntuación del usuario
 	void adduser(); //gestión para añadir user personalizado al fichero
 	void actualizeusers(); //actualización de los usuarios en la clase por el fichero

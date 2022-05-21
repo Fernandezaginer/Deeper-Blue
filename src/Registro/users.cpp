@@ -91,6 +91,44 @@ void User::setname()
 //se utiliza el nombre enviado para establecerlo
 void User::stablishname(string n)
 {
+	ifstream fich("users.txt");
+	if (!fich.is_open())
+	{
+		cout << "Error al abrir users.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	string aux, fulluserlist;
+	int s = 0, flag = 0;
+	while (getline(fich, aux))
+	{
+		if (aux == name)
+		{
+			getline(fich, aux);
+			fulluserlist = fulluserlist + n + "\n";
+			fulluserlist = fulluserlist + aux + "\n";
+		}
+		else
+		{
+			fulluserlist = fulluserlist + aux + "\n";
+		}
+		s++;
+	}
+	int del = fulluserlist.size();
+	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
+	fich.close();
+	/////////////////////////////////////////////////
+	ofstream foch("users.txt");
+	if (!foch)
+	{
+		cout << "Error al abrir users.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	foch << fulluserlist << endl;
+	foch.close();
+	name = n;
+}
+//setter especial para el actusers
+void User::stablishnameactu(string n) {
 	name = n;
 }
 //devuelve el nombre
@@ -107,6 +145,44 @@ void User::setscore()
 //se utiliza el puntaje enviado para establecerlo
 void User::stablishscore(float n)
 {
+	score = n;
+	ifstream fich("users.txt");
+	if (!fich.is_open())
+	{
+		cout << "Error al abrir users.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	string aux, fulluserlist;
+	int s = 0, flag = 0;
+	while (getline(fich, aux))
+	{
+		if (aux == name)
+		{
+			fulluserlist = fulluserlist + aux + "\n";
+			getline(fich, aux);
+			fulluserlist = fulluserlist + to_string(n) + "\n";
+		}
+		else
+		{
+			fulluserlist = fulluserlist + aux + "\n";
+		}
+		s++;
+	}
+	int del = fulluserlist.size();
+	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
+	fich.close();
+	/////////////////////////////////////////////////
+	ofstream foch("users.txt");
+	if (!foch)
+	{
+		cout << "Error al abrir users.txt\n";
+		exit(EXIT_FAILURE);
+	}
+	foch << fulluserlist << endl;
+	foch.close();
+}
+//setter especial para actusers
+void User::stablishscoreactu(float n) {
 	score = n;
 }
 //devuelve el puntaje
@@ -161,7 +237,7 @@ void User::readreplay(User n) {
 	while (move != "FIN")
 	{
 		Juego replaygame; //creación de partida replay
-		replaygame.movimiento(move); //lee el movimiento
+		replaygame.mueve(move); //lee el movimiento
 		sleep_for(1000ms); //tiempo para apreciar cada movimiento
 	}
 	fich.close();
