@@ -177,8 +177,8 @@ int IA_dificil::getBoardScore(tablero_t tablero, color_pieza_t player) {
 	for (int x = 0; x < ROW_SIZE; x++) {
 		for (int y = 0; y < COL_SIZE; y++) {
 			forma_pieza_t forma = tablero[y][x].getForma();
-			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cálculo de puntaje material
-			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == BLANCA ? 7 - y : y)][x]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cálculo de puntaje de piezas individuales
+			score += (IA_dificil::valorPiezas[forma]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cï¿½lculo de puntaje material
+			score += (IA_dificil::individualsTable[forma][(tablero[y][x].getColor() == BLANCA ? 7 - y : y)][x]) * (tablero[y][x].getColor() == player ? 1 : -1); //Cï¿½lculo de puntaje de piezas individuales
 		}
 	}
 	return score;

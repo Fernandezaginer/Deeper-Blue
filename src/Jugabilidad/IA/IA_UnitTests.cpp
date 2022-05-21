@@ -2,9 +2,9 @@
 #include <iostream>
 
 /// <summary>
-/// Comprueba evaluación de tableros de la IA_dificil en la posición inicial
+/// Comprueba evaluaciï¿½n de tableros de la IA_dificil en la posiciï¿½n inicial
 /// </summary>
-/// <returns>true si la evaluación es correcta</returns>
+/// <returns>true si la evaluaciï¿½n es correcta</returns>
 bool IA_UnitTests::test_1()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
@@ -12,9 +12,9 @@ bool IA_UnitTests::test_1()
 }
 
 /// <summary>
-/// Comprueba evaluación de tableros de la IA_dificil con la dama blanca en una posición favorable
+/// Comprueba evaluaciï¿½n de tableros de la IA_dificil con la dama blanca en una posiciï¿½n favorable
 /// </summary>
-/// <returns>true si la evaluación es correcta</returns>
+/// <returns>true si la evaluaciï¿½n es correcta</returns>
 bool IA_UnitTests::test_2()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
@@ -24,9 +24,9 @@ bool IA_UnitTests::test_2()
 }
 
 /// <summary>
-/// Comprueba evaluación de tableros de la IA_dificil cuando a las piezas blancas les falta un peón
+/// Comprueba evaluaciï¿½n de tableros de la IA_dificil cuando a las piezas blancas les falta un peï¿½n
 /// </summary>
-/// <returns>true si la evaluación es correcta</returns>
+/// <returns>true si la evaluaciï¿½n es correcta</returns>
 bool IA_UnitTests::test_3()
 {
 	tablero_t tab = IA_UnitTests::generarTablero();
@@ -49,9 +49,9 @@ bool IA_UnitTests::test_4()
 
 
 /// <summary>
-/// Genera un tablero con la posición inicial de las piezas
+/// Genera un tablero con la posiciï¿½n inicial de las piezas
 /// </summary>
-/// <returns>Tablero con la posición inicial de las piezas</returns>
+/// <returns>Tablero con la posiciï¿½n inicial de las piezas</returns>
 tablero_t IA_UnitTests::generarTablero()
 {
 	// Reserva de memoria tablero
@@ -103,9 +103,9 @@ tablero_t IA_UnitTests::generarTablero()
 }
 
 /// <summary>
-/// Genera un tablero con la posición inicial de las piezas
+/// Genera un tablero con la posiciï¿½n inicial de las piezas
 /// </summary>
-/// <returns>Tablero con la posición inicial de las piezas</returns>
+/// <returns>Tablero con la posiciï¿½n inicial de las piezas</returns>
 bool IA_UnitTests::test()
 {
     bool (*unitTests[3])(void) = { IA_UnitTests::test_1, IA_UnitTests::test_2, IA_UnitTests::test_3 };
