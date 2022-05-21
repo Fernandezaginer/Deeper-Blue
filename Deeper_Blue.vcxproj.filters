@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Jugabilidad">
+      <UniqueIdentifier>{7559bea0-8467-4287-bc84-d32d4be0fafc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Jugabilidad\IA">
+      <UniqueIdentifier>{26b3bac6-3776-4e47-9a9a-867b0eef9a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaz">
+      <UniqueIdentifier>{1e44da08-2b2c-497e-b277-badede8e4659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Registro">
+      <UniqueIdentifier>{ae4f090f-09a6-4770-bf58-aa86a492107c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderizado">
+      <UniqueIdentifier>{a72216a8-41e6-4d8e-baac-38fa05ebf3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lib">
+      <UniqueIdentifier>{10b3d1a1-1929-44f1-a74d-038cda54fbe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jugabilidad">
+      <UniqueIdentifier>{fa4ed0b2-2630-4f8c-918f-ed7aadd9343c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jugabilidad\IA">
+      <UniqueIdentifier>{532f7595-268e-442b-8606-618e2d40c708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaz">
+      <UniqueIdentifier>{0399f80e-1e06-413f-b086-f8e467f0f1fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderizado">
+      <UniqueIdentifier>{7d826a4a-12f3-414e-ae31-3821728a41e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Registro">
+      <UniqueIdentifier>{6a4a6124-29b6-4e9b-9734-dcfd2d206d7e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jugabilidad\ChessRules.cpp">
+      <Filter>Source Files\Jugabilidad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jugabilidad\chesstime.cpp">
+      <Filter>Source Files\Jugabilidad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jugabilidad\Pieza.cpp">
+      <Filter>Source Files\Jugabilidad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jugabilidad\IA\IA.cpp">
+      <Filter>Source Files\Jugabilidad\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jugabilidad\IA\IA_UnitTests.cpp">
+      <Filter>Source Files\Jugabilidad\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interfaz\Controles.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interfaz\Inicio.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interfaz\Interfaz.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interfaz\Pantalla.cpp">
+      <Filter>Source Files\Interfaz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\CASILLA.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\COLOR.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\Figura.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\ListaFiguras.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\Mundo.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\TABLERO.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Registro\Trial.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderizado\VECTOR.cpp">
+      <Filter>Source Files\Renderizado</Filter>
+    </ClCompile>
+    <ClCompile Include="src\registro\users.cpp">
+      <Filter>Source Files\Registro</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\jugabilidad\ChessRules.h">
+      <Filter>Header Files\Jugabilidad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jugabilidad\chesstime.h">
+      <Filter>Header Files\Jugabilidad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jugabilidad\Pieza.h">
+      <Filter>Header Files\Jugabilidad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jugabilidad\IA\IA.h">
+      <Filter>Header Files\Jugabilidad\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Jugabilidad\IA\IA_UnitTests.h">
+      <Filter>Header Files\Jugabilidad\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaz\Controles.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaz\Inicio.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interfaz\Interfaz.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaz\Pantalla.h">
+      <Filter>Header Files\Interfaz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Registro\FunctionsUser.h">
+      <Filter>Header Files\Registro</Filter>
+    </ClInclude>
+    <ClInclude Include="src\registro\users.h">
+      <Filter>Header Files\Registro</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\CASILLA.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\COLOR.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\Figura.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\ListaFiguras.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\Mundo.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\TABLERO.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\VECTOR.h">
+      <Filter>Header Files\Renderizado</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ETSIDI.h">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\freeglut.h">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderizado\Vector3D.h">
+      <Filter>Header Files\lib</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -24,38 +24,38 @@ vector<User> actUsers() {
 	i--;
 	if (i > 0)
 	{
-		X.stablishname(listuser[0]);
-		X.stablishscore(stof(listuser[1]));
+		X.stablishnameactu(listuser[0]);
+		X.stablishscoreactu(stof(listuser[1]));
 		usuarios.push_back(X);
 	}
 	if (i > 2)
 	{
-		A.stablishname(listuser[2]);
-		A.stablishscore(stof(listuser[3]));
+		A.stablishnameactu(listuser[2]);
+		A.stablishscoreactu(stof(listuser[3]));
 		usuarios.push_back(A);
 	}
 	if (i > 4)
 	{
-		B.stablishname(listuser[4]);
-		B.stablishscore(stof(listuser[5]));
+		B.stablishnameactu(listuser[4]);
+		B.stablishscoreactu(stof(listuser[5]));
 		usuarios.push_back(B);
 	}
 	if (i > 6)
 	{
-		C.stablishname(listuser[6]);
-		C.stablishscore(stof(listuser[7]));
+		C.stablishnameactu(listuser[6]);
+		C.stablishscoreactu(stof(listuser[7]));
 		usuarios.push_back(C);
 	}
 	if (i > 8)
 	{
-		D.stablishname(listuser[8]);
-		D.stablishscore(stof(listuser[9]));
+		D.stablishnameactu(listuser[8]);
+		D.stablishscoreactu(stof(listuser[9]));
 		usuarios.push_back(D);
 	}
 	if (i > 10)
 	{
-		E.stablishname(listuser[10]);
-		E.stablishscore(stof(listuser[11]));
+		E.stablishnameactu(listuser[10]);
+		E.stablishscoreactu(stof(listuser[11]));
 		usuarios.push_back(E);
 	}
 	fich.close();
