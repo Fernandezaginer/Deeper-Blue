@@ -93,6 +93,7 @@ public:
 	int getSecLeftPlaB();
 	int getMinLeftPlaA();
 	int getMinLeftPlaB();
+
 	// Métodos para indicar si algún jugador pierde por tiempo
 	bool PlaA_end_time();
 	bool PlaB_end_time();
@@ -163,21 +164,30 @@ private:
 
 // TESTS UNITARIOS
 /*
+
 #include <iostream>
 #include "chesstime.h";
 #include "ChessRules.h";
+
 #include <thread>
 #include <chrono>
 using std::this_thread::sleep_for;
 using namespace std::chrono_literals;
+
+
 int main(void)
 {
+
 	// Test unitario (ejemplo del mate del tonto)
 	Juego a(RAPIDA);
+
 	int secuencia = 0;
 	while (!a.jaque_mate_playerA() && !a.jaque_mate_playerB() && !a.tablas()) {
+
 		sleep_for(1000ms);
 		secuencia++;
+
+
 		// MATE DEL TONTO:
 		//switch (secuencia)
 		//{
@@ -204,6 +214,8 @@ int main(void)
 		//default:
 		//    break;
 		//}
+
+
 		// MATE DEL PASTOR:
 		switch (secuencia)
 		{
@@ -244,20 +256,32 @@ int main(void)
 		default:
 			break;
 		}
+
+
 		// Print tiempo:
 		cout << a.getMinLeftPlaA() << ":" << a.getSecLeftPlaA() << " " << a.getMinLeftPlaB() << ":" << a.getSecLeftPlaB() << " " << a.jaque_mate_playerA() << std::endl;
+
 	}
+
 	// Fin de la  partida
 	cout << "Fin de la partida" << endl << endl;
 	cout << a.notacion_partida();
+
+
+
 	//tablero_t aux = a.getTablero();
 	//tablero_info_t info = a.mov_permitidos(&(aux[6][0]), aux);
+
 	//movimiento_t mov = info.TAB[5][0];
 	//mov = info.TAB[4][0];
 	//mov = info.TAB[4][5];
+
 	//cout << a.print();
 	//a.movimiento(6, 0, 5, 4);
 	//cout << a.print();
+
 	return 0;
 }
+
+
 */
