@@ -1,10 +1,14 @@
 #pragma once
 #include "users.h"
+#include <vector>
 using namespace std;
+
 //actualiza usuarios del fichero al obejeto
-void actUsers() {
+vector<User> actUsers() {
 	User X, A, B, C, D, E;
-	ifstream fich("users.txt");
+
+	vector<User> usuarios;
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -17,49 +21,58 @@ void actUsers() {
 		listuser[i] = aux;
 		i++;
 	}
+	i--;
 	if (i > 0)
 	{
 		X.stablishname(listuser[0]);
 		X.stablishscore(stof(listuser[1]));
+		usuarios.push_back(X);
 	}
 	if (i > 2)
 	{
 		A.stablishname(listuser[2]);
 		A.stablishscore(stof(listuser[3]));
+		usuarios.push_back(A);
 	}
 	if (i > 4)
 	{
 		B.stablishname(listuser[4]);
 		B.stablishscore(stof(listuser[5]));
+		usuarios.push_back(B);
 	}
 	if (i > 6)
 	{
 		C.stablishname(listuser[6]);
 		C.stablishscore(stof(listuser[7]));
+		usuarios.push_back(C);
 	}
 	if (i > 8)
 	{
 		D.stablishname(listuser[8]);
 		D.stablishscore(stof(listuser[9]));
+		usuarios.push_back(D);
 	}
 	if (i > 10)
 	{
 		E.stablishname(listuser[10]);
 		E.stablishscore(stof(listuser[11]));
+		usuarios.push_back(E);
 	}
 	fich.close();
-	printf_s("usuarios\n");
+	/*printf_s("usuarios\n");
 	printf_s("%s\n %f\n", X.getname().c_str(), X.getscore());
 	printf_s("%s\n %f\n", A.getname().c_str(), A.getscore());
 	printf_s("%s\n %f\n", B.getname().c_str(), B.getscore());
 	printf_s("%s\n %f\n", C.getname().c_str(), C.getscore());
 	printf_s("%s\n %f\n", D.getname().c_str(), D.getscore());
-	printf_s("%s\n %f\n", E.getname().c_str(), E.getscore());
+	printf_s("%s\n %f\n", E.getname().c_str(), E.getscore());*/
+
+	return usuarios;
 }
 //añade usuario al fichero
-void usertofile()
+User usertofile(string usuario)
 {
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -79,7 +92,7 @@ void usertofile()
 	}
 	fich.close();
 	/////////////////////////////////////////////////
-	ofstream foch("users.txt");
+	ofstream foch("registro/users.txt");
 	if (!foch)
 	{
 		cout << "Error al abrir users.txt\n";
@@ -91,20 +104,20 @@ void usertofile()
 	}
 	else
 	{
-		string usuario;
+		//string usuario;
 		printf("Introduzca su nombre de usuario\n"); //petición de username
-		getline(std::cin, usuario);
+		//getline(std::cin, usuario);
 		fulluserlist = fulluserlist + usuario + "\n0"; // 0 default de score
 	}
 	foch << fulluserlist << endl;
 	foch.close();
 	//cout << "exito\n"; //borrar mas adelante, es por comprobar el final del programa
-	actUsers(); //actualización de los usuarios
+	return actUsers().back(); //actualización de los usuarios
 }
 //elimina usuario del fichero
 void deleteuser()
 {
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -133,7 +146,7 @@ void deleteuser()
 	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
 	fich.close();
 	/////////////////////////////////////////////////
-	ofstream foch("users.txt");
+	ofstream foch("registro/users.txt");
 	if (!foch)
 	{
 		cout << "Error al abrir users.txt\n";

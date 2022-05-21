@@ -9,6 +9,8 @@
 #include "Inicio.h"
 #include "Pantalla.h"
 #include "Interfaz.h"
+#include "Mundo.h"
+#include "users.h"
 
 using namespace std;
 
@@ -23,6 +25,10 @@ private:
 	pantalla pan;
 	inicio in;
 	controles con;
+	Mundo mundo;
+	string currentUsername;
+	User currentUser;
+	User competidor;
 public:
 	long long t_0 = time(NULL);
 	int estado;

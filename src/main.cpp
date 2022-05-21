@@ -8,6 +8,7 @@
 #include "Inicio.h"
 #include "Pantalla.h"
 #include "Interfaz.h"
+#include "Mundo.h"
 
 using namespace std;
 Interfaz interfaz;
@@ -61,8 +62,6 @@ void OnDraw(void)
 	//Para definir el punto de vista
 	glMatrixMode(GL_MODELVIEW);	
 	glLoadIdentity();
-	
-	interfaz.mueve();
 	interfaz.dibuja();
 
 	
@@ -88,7 +87,20 @@ void OnTimer(int value)
 }
 
 void click(int button, int state, int x, int y) {
+	if (state != controles::estado) {
+		if (state == GLUT_UP) {
+			controles::fp_estado = true;
+		}
+		if (state == GLUT_DOWN) {
+			controles::fn_estado = true;
+		}
+	}
+	else {
+		controles::fp_estado = false;
+		controles::fn_estado = false;
+	}
 
 	controles::boton = button;
 	controles::estado = state;
+
 }

@@ -49,6 +49,9 @@ public:  // Servicios
 	// Constructor de inicio de la partida
 	chesstime(modo_partida_t mode);
 
+	bool getIsTurnPlayerA(){ return isTrunPlayerA; }
+	bool getIsTurnPlayerB(){ return isTrunPlayerA; }
+
 protected: // No tocar
 
 	// Métodos para indicar de quien es el turno

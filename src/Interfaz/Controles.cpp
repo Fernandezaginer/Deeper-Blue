@@ -13,6 +13,8 @@ using namespace std;
 
 int controles::boton = 0;
 int controles::estado = 0;
+bool controles::fp_estado = false;
+bool controles::fn_estado = false;
 
 controles::controles() {
 	this->mousePos = POINT();
@@ -20,8 +22,7 @@ controles::controles() {
 	this->altop = 20;
 	
 	this->ay = 0.0f;
-	this->az = 0.0f;
-	
+	this->az = 0.0f;	
 }
 void controles::coger_pos() {
 	int screen_pos_x = glutGet((GLenum)GLUT_WINDOW_X);
@@ -41,15 +42,16 @@ void controles::coger_pos() {
 	this->az = mousePos.y;
 
 	this->ay = this->ay - screen_pos_x;
-	this->az = this->az - screen_pos_y - 20;
+	this->az = this->az - screen_pos_y;
 
-	this->ay = this->ay *((float)glutGet(GLUT_SCREEN_WIDTH)/ (float)glutGet(GLUT_WINDOW_WIDTH));
-	this->az = this->az * ((float)glutGet(GLUT_SCREEN_HEIGHT) / (float)glutGet(GLUT_WINDOW_HEIGHT));
+	this->ay = this->ay *((float)glutGet(GLUT_SCREEN_WIDTH)/ (float)glutGet(GLUT_WINDOW_WIDTH))*(1600.0/1920.0);
+	this->az = (this->az * ((float)glutGet(GLUT_SCREEN_HEIGHT) / (float)glutGet(GLUT_WINDOW_HEIGHT)) * (900.0/1080.0)) - 50;
 
 	this->mousePos.x = ay;
 	this->mousePos.y = az;
 
-	//std::cout << "(" << this->mousePos.x << ", " << this->mousePos.y << ")" << endl;
+
+	//std::cout << "(" << this->mousePos.x << ", " << this->mousePos.y << ")" << "\t"<< "(" << this->ay << ", " << this->az << ")" <<endl;
 }
 
 

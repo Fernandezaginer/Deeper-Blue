@@ -1,4 +1,4 @@
-#include "users.h"
+/*#include "users.h"
 #include "FunctionsUser.h"
 using namespace std;
 
@@ -14,7 +14,7 @@ int main()
 	/*
 	deleteuser();
 	usertofile();
-	*/
+	
 	return 0;
 }
-
+*/

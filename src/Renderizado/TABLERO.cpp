@@ -1,11 +1,10 @@
 #define NULL 0
 #include "TABLERO.h"
 #include "freeglut.h"
-#include "FICHA.h"
 #include <math.h>
 #include "ListaFiguras.h"
 
-TABLERO::TABLERO() : color_fondo(0, 0, 255)
+TABLERO::TABLERO() : color_fondo(0, 0, 90)
 {
 
 	
@@ -84,10 +83,10 @@ void TABLERO::mueve()
 
 void TABLERO::pintMovPermitidos(tablero_info_t ti)
 {
-	COLOR PP(128, 0, 128); //Propia pieza
+	COLOR PP(128, 90, 128); //Propia pieza
 	COLOR NP(255, 0, 0); //No permitido
-	COLOR PE(0, 255, 0); //Permitido
-	COLOR CP(128, 0, 255); //Comer pieza
+	COLOR PE(50, 200, 50); //Permitido
+	COLOR CP(200, 20, 10); //Comer pieza
 	COLOR EC(255, 255, 0); //Enroque C
 	COLOR EL(255, 0, 255); //ENROQUE L
 	COLOR PR(0, 255, 255); //PROMOCION

@@ -3,11 +3,14 @@
 #include <iostream>
 #include <stdlib.h>
 #include <ctime>
+#include <vector>
 #include "Controles.h"
 #include "ETSIDI.h"
 #include "Inicio.h"
 #include "Pantalla.h"
 #include "Interfaz.h"
+#include "FunctionsUser.h"
+#include "users.h"
 
 using namespace std;
 
@@ -20,6 +23,8 @@ Interfaz::Interfaz() {
 	this->pan = pantalla();
 	this->in = inicio();
 	this->con = controles();
+	this->currentUsername = "";
+	mundo.inicializa();
 }
 
 void Interfaz::rotarOjo()
@@ -34,7 +39,7 @@ void Interfaz::dibuja()
 {
 
 	gluLookAt(this->x_ojo, this->y_ojo, this->z_ojo,  // posicion del ojo
-		0.0, this->y_ojo, 0.0,      // hacia que punto mira  (0,0,0) 
+		0.0, 0.0, 0.0,      // hacia que punto mira  (0,0,0)
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 	
 
@@ -49,7 +54,7 @@ void Interfaz::dibuja()
 	case -2:
 		this->in.direct = "misimagenes/xxx.png";
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
-			this->estado = -1;
+			this->estado = 0;
 			this->t_0 = time(NULL);
 		}
 		break;
@@ -63,7 +68,7 @@ void Interfaz::dibuja()
 	case 0: // pantalla de inicio sin el start
 		this->in.direct = "misimagenes/iniciox.png";
 
-		if (time(NULL) > static_cast<long long>(this->t_0) + 2) {
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
 			this->estado = 1;
 			this->t_0 = time(NULL);
 		}
@@ -86,14 +91,42 @@ void Interfaz::dibuja()
 		break;
 	case 3://usuario 1
 		this->in.direct = "misimagenes/jug1.png";
+		this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, currentUsername.c_str());
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
-			char str[] = "Probando";
-			this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, str);
-
 			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 4;
-					this->t_0 = time(NULL);
+					vector<User> registrados = actUsers();
+					bool auxFlag = true;
+					if (registrados.size() == 0) {
+						this->currentUser = usertofile(currentUsername);
+						//cambiar de estado
+						this->estado = 4;
+						this->t_0 = time(NULL);
+						this->currentUsername = "";
+					}
+					for (int i = 0; i < registrados.size(); i++) {
+						if (registrados[i].getname() == currentUsername) {
+							this->currentUser = registrados[i];
+							auxFlag = false;
+						}
+						if (auxFlag) {
+							if (registrados.size() >= 6) {
+								//Mensaje de error usuarios maximos
+							}
+							else {
+								this->currentUser = usertofile(currentUsername);
+								//cambiar de estado
+								this->estado = 4;
+								this->t_0 = time(NULL);
+								this->currentUsername = "";
+							}
+						}
+						else {
+							this->estado = 4;
+							this->t_0 = time(NULL);
+							this->currentUsername = "";
+						}
+					}
 				}
 			}
 		}
@@ -163,14 +196,41 @@ void Interfaz::dibuja()
 		break;
 	case 10: //usuario 2
 		this->in.direct = "misimagenes/jug2.png";
-		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
-			char str[] = "Probando";
-			this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, str);
-			
+		this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, currentUsername.c_str());
+		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {			
 			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
 				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					this->estado = 11;
-					this->t_0 = time(NULL);
+					vector<User> registrados = actUsers();
+					bool auxFlag = true;
+					if (registrados.size() == 0) {
+						this->competidor = usertofile(currentUsername);
+						//cambiar de estado
+						this->estado = 11;
+						this->t_0 = time(NULL);
+					}
+					for (int i = 0; i < registrados.size(); i++) {
+						if (registrados[i].getname() == currentUsername) {
+							this->currentUser = registrados[i];
+							auxFlag = false;
+						}
+						if (auxFlag) {
+							if (registrados.size() >= 6) {
+								//Mensaje de error usuarios maximos
+							}
+							else {
+								this->currentUser = usertofile(currentUsername);
+								//cambiar de estado
+								this->estado = 11;
+								this->t_0 = time(NULL);
+							}
+						}
+						else {
+							this->estado = 11;
+							this->t_0 = time(NULL);
+						}
+						this->estado = 11;
+						this->t_0 = time(NULL);
+					}
 				}
 			}
 		}
@@ -208,24 +268,46 @@ void Interfaz::dibuja()
 		}
 		break;
 	case 15://1v1 JUEGO
-		//introducir logica del juego
-		//if victoria-> CASE 17 
-		this->estado = 17;
-		//if derrota->CASE 18 this->estado = 18;
-		//if tablas->CASE 19 this->estado = 19;
+		this->in.direct = "misimagenes/xxx.png";
+		mundo.isVsIA = false;
+		mundo.dibuja();
+		if (mundo.playerA_won()) {
+			this->estado = 17;
+			this->currentUser.stablishscore(this->currentUser.getscore() + mundo.score_playerA());
+			this->competidor.stablishscore(this->competidor.getscore() + mundo.score_playerB());
+			this->currentUser.createreplay(this->competidor, mundo.notacion_partida());//crea la replay
+		}
+		if (mundo.playerB_won()) {
+			this->estado = 18;
+			this->currentUser.stablishscore(this->currentUser.getscore() + mundo.score_playerA());
+			this->competidor.stablishscore(this->competidor.getscore() + mundo.score_playerB());
+			this->currentUser.createreplay(this->competidor, mundo.notacion_partida());//crea la replay
+		}
+		if (mundo.tablas()) {
+			this->estado = 19;
+			this->currentUser.stablishscore(this->currentUser.getscore() + mundo.score_playerA());
+			this->competidor.stablishscore(this->competidor.getscore() + mundo.score_playerB());
+			this->currentUser.createreplay(this->competidor, mundo.notacion_partida());//crea la replay
+		}
 		this->t_0 = time(NULL);
 		break;
 	case 16: //IA JUEGO
-		//introducir logica del juego
-		//if victoria-> CASE 17 this->estado = 17;
-		//if derrota->CASE 18 
-		//this->estado = 18;
-		//if tablas->CASE 19 
+		this->in.direct = "misimagenes/xxx.png";
+		mundo.isVsIA = true;
+		mundo.dibuja();
+		if (mundo.playerA_won())
+			this->estado = 17;
+		if (mundo.playerB_won())
+			this->estado = 18;
+		if (mundo.tablas())
+			this->estado = 19;
+		this->t_0 = time(NULL);
 		this->estado = 19;
 		this->t_0 = time(NULL);
 		break;
 	case 17: //victoria
 		this->in.direct = "misimagenes/victoria.png";
+		mundo.inicializa();
 		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
@@ -233,6 +315,7 @@ void Interfaz::dibuja()
 		break;
 	case 18: // derrota
 		this->in.direct = "misimagenes/derrota.png";
+		mundo.inicializa();
 		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
@@ -240,6 +323,7 @@ void Interfaz::dibuja()
 		break;
 	case 19: //tablas
 		this->in.direct = "misimagenes/tablas.png";
+		mundo.inicializa();
 		if (time(NULL) > static_cast<long long>(this->t_0) + 7) {
 			this->estado = 20;
 			this->t_0 = time(NULL);
@@ -501,7 +585,9 @@ void Interfaz::dibuja()
 		break;
 
 	}
-	this->in.draw();
+	if (this->estado != 15) {
+		this->in.draw();
+	}
 	//NO BORRAR X EL AMOR DE DIOS
 	//std::cout << this->con.mousePos.x << "  "<<this->con.mousePos.y << std::endl;
 	//std::cout << controles::boton << "," << controles::estado << std::endl;
@@ -509,7 +595,7 @@ void Interfaz::dibuja()
 
 void Interfaz::mueve()
 {
-	//
+	mundo.mueve();
 }
 
 void Interfaz::inicializa()
@@ -524,4 +610,9 @@ void Interfaz::tecla(unsigned char key)
 	//
 	//string patata;
 	//patata += key;
+	if (this->estado == 3 || this->estado == 10) {
+		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') || key == 'ñ' || key == 'Ñ') {
+			this->currentUsername += key;
+		}
+	}
 }

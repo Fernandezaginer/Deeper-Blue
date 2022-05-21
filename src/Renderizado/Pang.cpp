@@ -1,4 +1,4 @@
-#include "Mundo.h"
+/*#include "Mundo.h"
 #include "freeglut.h"
 Mundo mundo;
 
@@ -78,3 +78,4 @@ void OnRaton(int boton, int estado, int x, int y)
 	mundo.raton(boton, estado, x, y);
 	glutPostRedisplay();
 }
+*/

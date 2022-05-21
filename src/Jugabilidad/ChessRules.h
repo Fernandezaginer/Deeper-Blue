@@ -70,7 +70,7 @@ public:
 	tablero_t getTablero() { return tab; }
 
 
-	// Servicios
+	// Servicios //Marca para recordar donde estoy [borrar]
 	bool tablas();
 	bool tablas_por_repeticiones_de_posicion();
 	bool tablas_por_rey_ahogado();

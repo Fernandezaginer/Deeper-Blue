@@ -1,4 +1,3 @@
-#include "FICHA.h"
 #include "CASILLA.h"
 #include "ChessRules.h"
 #include "COLOR.h"

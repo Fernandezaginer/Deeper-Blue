@@ -1,20 +1,19 @@
 #include "ListaFiguras.h"
-#include "FICHA.h"
 
 //JUGADOR1
-static Figura PEONJ1("imagenes/PEON.obj", "imagenes/TexturaPeonBlanco.png", 1.0f, 0, 0, 0);
-static Figura TORREJ1("imagenes/TORRE.obj", "imagenes/TexturaTorreBlanco.png", 1.0f, 0, 0, 0);
-static Figura ALFILJ1("imagenes/ALFIL.obj", "imagenes/TexturaAlfilBlanco.png", 1.0f, 0, 0, 0);
-static Figura CABALLOJ1("imagenes/CABALLO.obj", "imagenes/TexturaCaballoBlanco.png", 1.0f, 0, 0, 0);
-static Figura REYJ1("imagenes/REY.obj", "imagenes/TexturaReyBlanco.png", 1.0f, 0, 0, 0);
-static Figura REINAJ1("imagenes/REINA.obj", "imagenes/TexturaReinaBlanco.png", 1.0f, 0, 0, 0);
+static Figura PEONJ1("modelos/PEON.obj", "modelos/TexturaPeonBlanco.png", 1.0f, 0, 0, 0);
+static Figura TORREJ1("modelos/TORRE.obj", "modelos/TexturaTorreBlanco.png", 1.0f, 0, 0, 0);
+static Figura ALFILJ1("modelos/ALFIL.obj", "modelos/TexturaAlfilBlanco.png", 1.0f, 0, 0, 0);
+static Figura CABALLOJ1("modelos/CABALLO.obj", "modelos/TexturaCaballoBlanco.png", 1.0f, 0, 0, 0);
+static Figura REYJ1("modelos/REY.obj", "modelos/TexturaReyBlanco.png", 1.0f, 0, 0, 0);
+static Figura REINAJ1("modelos/REINA.obj", "modelos/TexturaReinaBlanco.png", 1.0f, 0, 0, 0);
 //JUGADOR2
-static Figura PEONJ2("imagenes/PEON.obj", "imagenes/TexturaPeonNegro.png", 1.0f, 0, 0, 0);
-static Figura TORREJ2("imagenes/TORRE.obj", "imagenes/TexturaTorreNegro.png", 1.0f, 0, 0, 0);
-static Figura ALFILJ2("imagenes/ALFIL.obj", "imagenes/TexturaAlfilNegro.png", 1.0f, 0, 0, 0);
-static Figura CABALLOJ2("imagenes/CABALLO.obj", "imagenes/TexturaCaballoNegro.png", 1.0f, 0, 0, 0);
-static Figura REYJ2("imagenes/REY.obj", "imagenes/TexturaReyNegro.png", 1.0f, 0, 0, 0);
-static Figura REINAJ2("imagenes/REINA.obj", "imagenes/TexturaReinaNegro.png", 1.0f, 0, 0, 0);
+static Figura PEONJ2("modelos/PEON.obj", "modelos/TexturaPeonNegro.png", 1.0f, 0, 0, 0);
+static Figura TORREJ2("modelos/TORRE.obj", "modelos/TexturaTorreNegro.png", 1.0f, 0, 0, 0);
+static Figura ALFILJ2("modelos/ALFIL.obj", "modelos/TexturaAlfilNegro.png", 1.0f, 0, 0, 0);
+static Figura CABALLOJ2("modelos/CABALLO.obj", "modelos/TexturaCaballoNegro.png", 1.0f, 0, 0, 0);
+static Figura REYJ2("modelos/REY.obj", "modelos/TexturaReyNegro.png", 1.0f, 0, 0, 0);
+static Figura REINAJ2("modelos/REINA.obj", "modelos/TexturaReinaNegro.png", 1.0f, 0, 0, 0);
 
 void ListaFiguras::dibuja(tablero_t& tab, CASILLA casi[][COL_SIZE])
 {
@@ -100,15 +99,13 @@ void ListaFiguras::dibuja(tablero_t& tab, CASILLA casi[][COL_SIZE])
 
 				}
 			}
-			else if (tab[i][j].getColor() == FICHA::NOJUGADOR)
+			else if (tab[i][j].getColor() == NO_COLOR)
 			{
 
 			}
 			
 		}
 	}
-	
-
 }
 
 

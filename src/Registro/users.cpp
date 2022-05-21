@@ -161,7 +161,7 @@ void User::readreplay(User n) {
 	while (move != "FIN")
 	{
 		Juego replaygame; //creación de partida replay
-		replaygame.mueve(move); //lee el movimiento
+		replaygame.movimiento(move); //lee el movimiento
 		sleep_for(1000ms); //tiempo para apreciar cada movimiento
 	}
 	fich.close();

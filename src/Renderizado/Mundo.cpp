@@ -99,62 +99,62 @@ void Mundo::dibuja()
 	}
 
 	glPopMatrix();
-
-
-
 }
-
 
 
 void Mundo::mueve()
 {
 	t.mueve();
+	static int origen_f, origen_c, final_f, final_c;
 	
 	//t.resetColor();
-}
 
-void Mundo::inicializa()
-{
-	x_ojo=0;
-	y_ojo=0;
-	z_ojo=30;
+	this->con.coger_pos();
+	//std::cout << "(" << this->con.mousePos.x << ", " << this->con.mousePos.y << ")" << endl;
 
-	t.inicializa();
-}
+	int c = ROW_SIZE * trunc((float)this->con.mousePos.x - 535.0f) / (1063.0f - 535.0f);
+	int f = COL_SIZE - COL_SIZE * trunc((float)this->con.mousePos.y - 151.0f) / (631.0f - 151.0f);
 
-void Mundo::tecla(unsigned char key)
-{
-	/*
-	if (key == 'q')
-	{
-		//cambia colores esquinas
-		t.modifica();
-	}
-	*/
-}
+	//std::cout << controles::fp_estado << std::endl;
 
-static int origen_f, origen_c, final_f, final_c;
-
-void Mundo::raton(int b, int e, int x, int y) //Boton-estado-posicionx-posiciony
-{
-	//std::cout << b << " " << e << " " << x << " " << y << endl;
-	
-	int c = ROW_SIZE * trunc((float)x - 125.0f) / (675.0f - 125.0f);
-	int f = COL_SIZE - COL_SIZE * trunc((float)y - 25.0f) / (575.0f - 25.0f);
-
-
-	if (b == GLUT_LEFT_BUTTON && e == GLUT_UP)
+	if (controles::boton == GLUT_LEFT_BUTTON && controles::fp_estado == true)
 	{
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
 			j.movimiento(origen_f, origen_c, f, c);
 
 			pieza_t* selec = &j.getTablero()[f][c];
-			t.pintMovPermitidos(j.mov_permitidos(selec, j.get_tablero()));
-			origen_f=f;
-			origen_c=c;
-			
+			t.pintMovPermitidos(j.mov_permitidos(selec, j.getTablero()));
+			origen_f = f;
+			origen_c = c;
 		}
 	}
+	if (this->isVsIA && this->j.getIsTurnPlayerB()) {
+		//IA.hacerMovimiento(this->j);
+	}
+	//1º Cómo detecto que estoy vs IA
+	//2º Cómo detecto que es el turno de la IA
+
+	controles::fp_estado = false;
+	controles::fn_estado = false;
+}
+
+void Mundo::inicializa()
+{
+	x_ojo=0;
+	y_ojo=0;
+	z_ojo=20;
+
+	t.inicializa();
+
+	this->isVsIA = false;
+}
+
+void Mundo::tecla(unsigned char key)
+{
+}
+
+void Mundo::raton(int b, int e, int x, int y) //Boton-estado-posicionx-posiciony
+{
 	
 }

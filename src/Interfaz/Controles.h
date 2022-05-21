@@ -12,6 +12,9 @@ public:
 	static int boton;
 	static int estado;
 
+	static bool fp_estado;
+	static bool fn_estado;
+
 	controles();
 	void coger_pos();
 	
