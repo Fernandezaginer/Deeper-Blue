@@ -143,7 +143,7 @@ void Mundo::raton(int b, int e, int x, int y) //Boton-estado-posicionx-posiciony
 	int f = COL_SIZE - COL_SIZE * trunc((float)y - 25.0f) / (575.0f - 25.0f);
 
 
-	if (b == 0 && e == 0)
+	if (b == GLUT_LEFT_BUTTON && e == GLUT_UP)
 	{
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
