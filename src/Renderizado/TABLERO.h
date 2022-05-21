@@ -23,7 +23,7 @@ public:
 	void mueve();
 	void pintMovPermitidos(tablero_info_t ti);
 	void resetColor();
-	pieza_t* seleccionarPiezaRaton(int b, int e, int x, int y);
+	
 
 };
 

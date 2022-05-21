@@ -143,9 +143,6 @@ void TABLERO::resetColor()
 			cas[i][j].resetColor(i, j);
 }
 
-pieza_t* TABLERO::seleccionarPiezaRaton(int b, int e, int x, int y)
-{
-	return nullptr;
-}
+
 
 
