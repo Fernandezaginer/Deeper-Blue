@@ -1,3 +1,4 @@
+
 #include "Pieza.h"
 #include "ChessRules.h"
 #include "chesstime.h"
@@ -168,11 +169,33 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 		}
 	}
 
+
+	// Test unitario rey:
+	tab[6][5] = pieza_t(REY, BLANCA);
+	cout << this->print();
+	tablero_info_t aux = get_mov_permitidos(&(tab[6][5]), tab);
+	cout << mov_print(aux);
+	cout << this->print();
+
+
+
 	// Test unitario caballo:
 	//tab[7][3] = pieza_t(CABALLO, NEGRA);
 	//tab[6][1] = pieza_t(CABALLO, NEGRA);
 	//cout << this->print();
 	//tablero_info_t aux = get_mov_permitidos(&(tab[7][3]), tab);
+	//cout << mov_print(aux);
+	//cout << this->print();
+
+
+	// Test unitario jaque
+	//tab[7][0] = pieza_t(REY, NEGRA);
+	//tab[5][3] = pieza_t(PEON, NEGRA);
+	//tab[7][4] = pieza_t(REY, BLANCA);
+
+	//tab[7][7] = pieza_t(TORRE, BLANCA);
+	//cout << this->print();
+	//tablero_info_t aux = mov_permitidos(&(tab[7][7]), tab);
 	//cout << mov_print(aux);
 	//cout << this->print();
 
@@ -205,8 +228,8 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 	//haz_movimiento(3, 4, 2, 3);
 	//cout << this->print();
 
-	// Test unitario promoción a dama:
 
+	// Test unitario promoción a dama:
 	//for (int i = 0; i < ROW_SIZE; i++) {
 	//	pieza_t* aux;
 	//	aux = *(tab + i);
@@ -452,7 +475,7 @@ bool Juego::movimiento(int row_o, int col_o, int row_f, int col_f)
 		if (chesstime::isTrunPlayerA && mov_ok) {
 			turnPlayerB();
 		}
-		else if (mov_ok){
+		else if (mov_ok) {
 			turnPlayerA();
 		}
 
@@ -579,7 +602,6 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 		aux_detectar_comer_al_paso(matriz, tab[row][col], row, col);
 		aux_detectar_promocion(matriz, tab[row][col], row, col);
 
-
 		// Analizar si está clavada:
 
 		if (analisis_mov == 0) {
@@ -587,6 +609,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			aux_detectar_jaques_a_la_descubierta(matriz, tab, row, col);
 			analisis_mov = 0;
 		}
+
 
 
 	}
@@ -763,7 +786,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 		// Movimiento a las casillas cercanas
 		const int mat_aux[8][2] = { {-1,0}, {-1,1}, {0,1}, {1,1}, {1,0}, {1,-1}, {0,-1}, {-1,-1} };
 		for (int i = 0; i < 8; i++) {
-			if (row + mat_aux[i][0] > 0 && row + mat_aux[i][0] < ROW_SIZE && col + mat_aux[i][1] > 0 && col + mat_aux[i][1] < COL_SIZE) {
+			if ((row + mat_aux[i][0]) > 0 && ((row + mat_aux[i][0]) < ROW_SIZE) && (col + mat_aux[i][1] > 0) && (col + mat_aux[i][1] < COL_SIZE)) {
 				matriz.TAB[row + mat_aux[i][0]][col + mat_aux[i][1]] = PERMITIDO;
 				a->aux_detectar_comer_y_propias_piezas(matriz, row + mat_aux[i][0], col + mat_aux[i][1], tab[row + mat_aux[i][0]][col + mat_aux[i][1]]);
 			}
@@ -935,7 +958,7 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 
 	// Promoción del peón
 
-	if (mat.TAB[row_f][col_f] == PROMOCION) {
+	if (mat.TAB[row_f][col_f] == PROMOCION || mat.TAB[row_f][col_f] == PROMOCION_Y_COMER) {
 		tab[row_f][col_f] = pieza_t(DAMA, tab[row_o][col_o].getColor());
 		tab[row_o][col_o] = pieza_t();
 		return true;
@@ -1064,9 +1087,14 @@ void Juego::aux_detectar_promocion(tablero_info_t& matriz, pieza_t peon, int row
 	}
 
 	for (int j = 0; j < COL_SIZE; j++) {
-		if (matriz.TAB[row_promocion][j] != NO_PERMITIDO) {
+		if (matriz.TAB[row_promocion][j] != NO_PERMITIDO && matriz.TAB[row_promocion][j] != COMER_PIEZA) {
 			matriz.TAB[row_promocion][j] = PROMOCION;
+
 		}
+		if (matriz.TAB[row_promocion][j] == COMER_PIEZA) {
+			matriz.TAB[row_promocion][j] = PROMOCION_Y_COMER;
+		}
+		
 	}
 }
 
@@ -1078,12 +1106,12 @@ void Juego::aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t
 
 				// Crear tablero auxiliar:
 				pieza_t** aux = new pieza_t * [ROW_SIZE];
-				for (int i = 0; i < ROW_SIZE; i++) {
-					*(aux + i) = new pieza_t[COL_SIZE];
+				for (int ii = 0; ii < ROW_SIZE; ii++) {
+					*(aux + ii) = new pieza_t[COL_SIZE];
 				}
-				for (int i = 0; i < ROW_SIZE; i++) {
-					for (int j = 0; j < COL_SIZE; j++) {
-						aux[i][j] = tab[i][j];
+				for (int ii = 0; ii < ROW_SIZE; ii++) {
+					for (int jj = 0; jj < COL_SIZE; jj++) {
+						aux[ii][jj] = tab[ii][jj];
 					}
 				}
 
@@ -1094,6 +1122,22 @@ void Juego::aux_detectar_jaques_a_la_descubierta(tablero_info_t& matriz, pieza_t
 				if (jaque_player(tab[row][col].getColor(), aux)) {
 					matriz.TAB[i][j] = NO_PERMITIDO;
 				}
+
+				// Si no está el rey, poner como no permitido:
+				/*
+				bool hay_rey = 0;
+				for (int ii = 0; ii < ROW_SIZE; ii++) {
+					for (int jj = 0; jj < COL_SIZE; jj++) {
+						if (aux[ii][jj].getColor() == tab[row][col].getColor() && aux[ii][jj].getForma() == REY) {
+							hay_rey = 1;
+						}
+					}
+				}
+
+				if (!hay_rey) {
+					matriz.TAB[i][j] = NO_PERMITIDO;
+				}
+				*/
 
 				for (int i = 0; i < ROW_SIZE; i++) {
 					delete[] aux[i];
@@ -1153,8 +1197,10 @@ bool Juego::jaque_player(color_pieza_t color, tablero_t mat)
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < COL_SIZE; j++) {
 			if (mat[i][j].getColor() != color && mat[i][j].getColor() != NO_COLOR && mat[i][j].getForma() != REY && mat[i][j].getForma() != NO_PIEZA) {
+
 				tablero_info_t aux = get_mov_permitidos(&(mat[i][j]), mat);
-				if (aux.TAB[row][col] == COMER_PIEZA) {
+
+				if (aux.TAB[row][col] == COMER_PIEZA || aux.TAB[row][col] == PROMOCION_Y_COMER) {
 					jaque = true;
 					break;
 				}
