@@ -171,13 +171,11 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 
 
 	// Test unitario rey:
-	tab[6][5] = pieza_t(REY, BLANCA);
-	cout << this->print();
-	tablero_info_t aux = get_mov_permitidos(&(tab[6][5]), tab);
-	cout << mov_print(aux);
-	cout << this->print();
-
-
+	//tab[1][5] = pieza_t(REY, BLANCA);
+	//cout << this->print();
+	//tablero_info_t aux = get_mov_permitidos(&(tab[1][5]), tab);
+	//cout << mov_print(aux);
+	//cout << this->print();
 
 	// Test unitario caballo:
 	//tab[7][3] = pieza_t(CABALLO, NEGRA);
@@ -786,7 +784,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 		// Movimiento a las casillas cercanas
 		const int mat_aux[8][2] = { {-1,0}, {-1,1}, {0,1}, {1,1}, {1,0}, {1,-1}, {0,-1}, {-1,-1} };
 		for (int i = 0; i < 8; i++) {
-			if ((row + mat_aux[i][0]) > 0 && ((row + mat_aux[i][0]) < ROW_SIZE) && (col + mat_aux[i][1] > 0) && (col + mat_aux[i][1] < COL_SIZE)) {
+			if ((row + mat_aux[i][0]) >= 0 && ((row + mat_aux[i][0]) < ROW_SIZE) && (col + mat_aux[i][1] >= 0) && (col + mat_aux[i][1] < COL_SIZE)) {
 				matriz.TAB[row + mat_aux[i][0]][col + mat_aux[i][1]] = PERMITIDO;
 				a->aux_detectar_comer_y_propias_piezas(matriz, row + mat_aux[i][0], col + mat_aux[i][1], tab[row + mat_aux[i][0]][col + mat_aux[i][1]]);
 			}
