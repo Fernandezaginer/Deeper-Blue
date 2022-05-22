@@ -49,10 +49,10 @@ void TABLERO::dibuja(tablero_t tab)
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(color_fondo.rojo, color_fondo.verde, color_fondo.azul);
-	glVertex3f(-100 , -100, -0.1f);
-	glVertex3f(-100 , 100, -0.1f);
-	glVertex3f(100, 100, -0.1f);
-	glVertex3f(100, -100, -0.1f);
+	glVertex3f(28.5, -16.3, -0.1f);
+	glVertex3f(28.5, 16.3, -0.1f);
+	glVertex3f(-28.5, 16.3, -0.1f);
+	glVertex3f(-28.5, -16.3, -0.1f);
 	glEnd();
 	glEnable(GL_LIGHTING);
 

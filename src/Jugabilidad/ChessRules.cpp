@@ -132,7 +132,7 @@ Juego::Juego(modo_partida_t mode) : chesstime(mode)
 {
 	// Gestión del tiempo:
 
-	chesstime::start();
+	//chesstime::start();
 
 	// Informacion del enrroque
 	playerA_enroque_permitido = 1;
@@ -447,7 +447,6 @@ string Juego::print(tablero_t t)
 
 tablero_info_t Juego::mov_permitidos(pieza_t* a, tablero_t tab)
 {
-
 	tablero_info_t aux;
 	for (int i = 0; i < ROW_SIZE; i++) {
 		for (int j = 0; j < COL_SIZE; j++) {
@@ -455,7 +454,7 @@ tablero_info_t Juego::mov_permitidos(pieza_t* a, tablero_t tab)
 		}
 	}
 
-	if (a->getColor() == BLANCA && chesstime::isTrunPlayerA || a->getColor() == NEGRA && chesstime::isTrunPlayerB) {
+	if (a->getColor() == BLANCA && chesstime::isTrunPlayerA || a->getColor() == NEGRA && chesstime::isTrunPlayerB || this->numero_mov == 0) {
 		aux = get_mov_permitidos(a, tab);
 	}
 
@@ -852,6 +851,7 @@ bool Juego::haz_movimiento(int row_o, int col_o, int row_f, int col_f)
 
 	if (mat.TAB[row_f][col_f] != NO_PERMITIDO && mat.TAB[row_f][col_f] != PROPIA_PIEZA) {
 
+		
 		// Historial para tablas por repetición
 		anade_movimiento_historial(tab);
 

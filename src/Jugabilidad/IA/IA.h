@@ -45,7 +45,7 @@ private:
 	static int getBoardScore(tablero_t partida, color_pieza_t player);
 public:
 	friend class IA_UnitTests;
-	IA_dificil(color_pieza_t col = NEGRA, int dificultad = 3) : IA_base(col), _dificultad(dificultad) {}
+	IA_dificil(color_pieza_t col = NEGRA, int dificultad = 4) : IA_base(col), _dificultad(dificultad) {}
 
 	//M�todos
 	bool hacerMovimiento(Juego& partida);

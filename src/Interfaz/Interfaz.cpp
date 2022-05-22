@@ -203,6 +203,7 @@ void Interfaz::dibuja()
 					this->competidor = usertofile(currentUsername);
 					//cambiar de estado
 					this->estado = 11;
+					//mundo.dibuja();
 					this->t_0 = time(NULL);
 				}
 				for (int i = 0; i < registrados.size(); i++) {
@@ -218,14 +219,17 @@ void Interfaz::dibuja()
 							this->currentUser = usertofile(currentUsername);
 							//cambiar de estado
 							this->estado = 11;
+							//mundo.dibuja();
 							this->t_0 = time(NULL);
 						}
 					}
 					else {
 						this->estado = 11;
+						//mundo.dibuja();
 						this->t_0 = time(NULL);
 					}
 					this->estado = 11;
+					//mundo.dibuja();
 					this->t_0 = time(NULL);
 				}
 			}
@@ -237,6 +241,7 @@ void Interfaz::dibuja()
 		if (this->in.coor_y >= 8.25) {
 			this->estado = 15;
 			this->in.coor_y = -4.5f;
+			this->mundo.j.start();
 		}
 		break;
 	case 12: //carga de IA
@@ -245,6 +250,7 @@ void Interfaz::dibuja()
 		if (this->in.coor_y >= 8.25) {
 			this->estado = 16;
 			this->in.coor_y = -4.5f;
+			this->mundo.j.start();
 		}
 		break;
 	case 13: //carga de registro

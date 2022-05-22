@@ -1,19 +1,19 @@
 #include "ListaFiguras.h"
 
 //JUGADOR1
-static Figura PEONJ1("modelos/PEON.obj", "modelos/TexturaPeonBlanco.png", 1.0f, 0, 0, 0);
-static Figura TORREJ1("modelos/TORRE.obj", "modelos/TexturaTorreBlanco.png", 1.0f, 0, 0, 0);
-static Figura ALFILJ1("modelos/ALFIL.obj", "modelos/TexturaAlfilBlanco.png", 1.0f, 0, 0, 0);
-static Figura CABALLOJ1("modelos/CABALLO.obj", "modelos/TexturaCaballoBlanco.png", 1.0f, 0, 0, 0);
-static Figura REYJ1("modelos/REY.obj", "modelos/TexturaReyBlanco.png", 1.0f, 0, 0, 0);
-static Figura REINAJ1("modelos/REINA.obj", "modelos/TexturaReinaBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::PEONJ1("modelos/PEON.obj", "modelos/TexturaPeonBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::TORREJ1("modelos/TORRE.obj", "modelos/TexturaTorreBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::ALFILJ1("modelos/ALFIL.obj", "modelos/TexturaAlfilBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::CABALLOJ1("modelos/CABALLO.obj", "modelos/TexturaCaballoBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::REYJ1("modelos/REY.obj", "modelos/TexturaReyBlanco.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::REINAJ1("modelos/REINA.obj", "modelos/TexturaReinaBlanco.png", 1.0f, 0, 0, 0);
 //JUGADOR2
-static Figura PEONJ2("modelos/PEON.obj", "modelos/TexturaPeonNegro.png", 1.0f, 0, 0, 0);
-static Figura TORREJ2("modelos/TORRE.obj", "modelos/TexturaTorreNegro.png", 1.0f, 0, 0, 0);
-static Figura ALFILJ2("modelos/ALFIL.obj", "modelos/TexturaAlfilNegro.png", 1.0f, 0, 0, 0);
-static Figura CABALLOJ2("modelos/CABALLO.obj", "modelos/TexturaCaballoNegro.png", 1.0f, 0, 0, 0);
-static Figura REYJ2("modelos/REY.obj", "modelos/TexturaReyNegro.png", 1.0f, 0, 0, 0);
-static Figura REINAJ2("modelos/REINA.obj", "modelos/TexturaReinaNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::PEONJ2("modelos/PEON.obj", "modelos/TexturaPeonNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::TORREJ2("modelos/TORRE.obj", "modelos/TexturaTorreNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::ALFILJ2("modelos/ALFIL.obj", "modelos/TexturaAlfilNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::CABALLOJ2("modelos/CABALLO.obj", "modelos/TexturaCaballoNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::REYJ2("modelos/REY.obj", "modelos/TexturaReyNegro.png", 1.0f, 0, 0, 0);
+Figura ListaFiguras::REINAJ2("modelos/REINA.obj", "modelos/TexturaReinaNegro.png", 1.0f, 0, 0, 0);
 
 void ListaFiguras::dibuja(tablero_t& tab, CASILLA casi[][COL_SIZE])
 {

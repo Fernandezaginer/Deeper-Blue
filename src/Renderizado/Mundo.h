@@ -24,13 +24,13 @@ public:
 
 	bool isVsIA;
 
+	Juego j;
 private:
 	float x_ojo;
 	float y_ojo;
 	float z_ojo;
 
 	TABLERO t;
-	Juego j;
 	IA_dificil IA;
 
 	controles con;

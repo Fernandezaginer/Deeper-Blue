@@ -6,9 +6,6 @@
 #include "ETSIDI.h"
 #include <thread>
 #include <chrono>
-using std::this_thread::sleep_for;
-using namespace std::chrono_literals;
-
 
 
 void Mundo::rotarOjo()
@@ -58,7 +55,14 @@ void Mundo::dibuja()
 	glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, ':'); //Separacion
 
 	char str3[3];
-	sprintf(str3, "%d", j.getSecLeftPlaA());
+	if (j.getSecLeftPlaA() < 10) {
+		str3[0] = '0';
+		str3[1] = '0' + j.getSecLeftPlaA();
+		str3[2] = '\0';
+	}
+	else {
+		sprintf(str3, "%d", j.getSecLeftPlaA());
+	}
 	for (int i = 0; i < strlen(str3); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str3[i]); //Segundos
 	}
@@ -70,7 +74,7 @@ void Mundo::dibuja()
 
 	glPushMatrix();
 	glTranslatef(9.0, -7.0, 5.0);
-	glColor3ub(0, 0, 0);
+	glColor3ub(255, 255, 255);
 	glScalef(0.004f, 0.004f, 1);
 	const char str4[] = "Negras";
 	for (int i = 0; i < strlen(str4); i++) {
@@ -82,19 +86,26 @@ void Mundo::dibuja()
 	glPushMatrix();
 	//TIEMPO NEGRAS
 	glTranslatef(9.0, -8.0, 5.0);
-	glColor3ub(0, 0, 0);
+	glColor3ub(255, 255, 255);
 	glScalef(0.004f, 0.004f, 1);
 	char str5[3];
 	sprintf(str5, "%d", j.getMinLeftPlaB());
-	for (int i = 0; i < strlen(str4); i++) {
+	for (int i = 0; i < strlen(str5); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str5[i]); //Minutos
 	}
 
 	glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, ':'); //Separacion
 
 	char str6[3];
-	sprintf(str6, "%d", j.getSecLeftPlaB());
-	for (int i = 0; i < strlen(str5); i++) {
+	if (j.getSecLeftPlaB() < 10) {
+		str6[0] = '0';
+		str6[1] = '0' + j.getSecLeftPlaB();
+		str6[2] = '\0';
+	}
+	else {
+		sprintf(str6, "%d", j.getSecLeftPlaB());
+	}
+	for (int i = 0; i < strlen(str6); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str6[i]); //Segundos
 	}
 

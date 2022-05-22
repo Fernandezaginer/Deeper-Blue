@@ -54,6 +54,8 @@ public:  // Servicios
 
 protected: // No tocar
 
+	bool halt;
+
 	// Métodos para indicar de quien es el turno
 	void turnPlayerA();
 	void turnPlayerB();
