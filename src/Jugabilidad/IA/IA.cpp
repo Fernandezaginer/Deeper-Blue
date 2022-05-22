@@ -18,7 +18,7 @@ bool IA_facil::hacerMovimiento(Juego& partida) {
 									if (partida.get_mov_permitidos(&partida.get_tablero()[i][j], partida.get_tablero()).TAB[m][n] > 0) {
 										moving = true;
 										if (rand() % 5 == 3) {
-											if (partida.haz_movimiento(i, j, m, n)) {
+											if (partida.movimiento(i, j, m, n)) {
 												return true;
 											}
 										}
@@ -37,10 +37,10 @@ bool IA_facil::hacerMovimiento(Juego& partida) {
 bool IA_dificil::hacerMovimiento(Juego& partida)
 {
 	Juego temp = Juego(partida);
-	arbol tree = IA_dificil::getArbol(temp, this->color, 3);
+	arbol tree = IA_dificil::getArbol(temp, this->color, this->_dificultad);
 	movimiento mov = IA_dificil::evaluarArbol(tree);
 	if (mov.mov > 0) {
-		return partida.haz_movimiento(mov.row_o, mov.col_o, mov.row_f, mov.col_f);
+		return partida.movimiento(mov.row_o, mov.col_o, mov.row_f, mov.col_f);
 	}
 	return false;
 }
@@ -52,7 +52,7 @@ movimiento IA_dificil::evaluarArbol(arbol tree)
 	int best_score = -99999;
 	for (int i = 0; i < tree.size(); i++) {
 		fruto testing_fruit = tree[i];
-		int current_score = IA_dificil::evaluarRama(testing_fruit);
+		int current_score = IA_dificil::evaluarRama(testing_fruit) + testing_fruit.score;
 		if (current_score > best_score) {
 			mejor_mov = testing_fruit.mov;
 			best_score = current_score;
@@ -61,7 +61,7 @@ movimiento IA_dificil::evaluarArbol(arbol tree)
 	return mejor_mov;
 }
 
-int IA_dificil::evaluarRama(fruto fruta)
+float IA_dificil::evaluarRama(fruto fruta)
 {
 	//if (fruta.hijos->size() == 0) {
 	if (fruta.hijos.size() == 0) {
@@ -74,11 +74,10 @@ int IA_dificil::evaluarRama(fruto fruta)
 
 	//for (int i = 0; i < fruta.hijos->size(); i++) {
 	for (int i = 0; i < fruta.hijos.size(); i++) {
-		//score += -1 * ((*fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((*fruta.hijos)[i])) / fruta.hijos->size();
-		score += -1 * ((fruta.hijos)[i].score + 0.5 * IA_dificil::evaluarRama((fruta.hijos)[i])) / fruta.hijos.size();
+		score += -1 * ((fruta.hijos)[i].score + 0.85 * IA_dificil::evaluarRama((fruta.hijos)[i])) / fruta.hijos.size();
 	}
 
-	return (int)score;
+	return score;
 }
 
 arbol IA_dificil::getArbol(Juego partida, color_pieza_t player, int depth)
@@ -156,7 +155,7 @@ int IA_dificil::contarMovPosibles(Juego partida, color_pieza_t player) {
 int IA_dificil::getScore(Juego partida, color_pieza_t player)
 {
 	tablero_t tablero = partida.get_tablero();
-	int score = IA_dificil::getBoardScore(tablero, player);
+	float score = (float)IA_dificil::getBoardScore(tablero, player);
 	if (partida.jaque_player(BLANCA, tablero)) {
 		if (player == BLANCA)
 			score += 9999;
@@ -169,7 +168,7 @@ int IA_dificil::getScore(Juego partida, color_pieza_t player)
 		else
 			score -= 9999;
 	}
-	return 0;
+	return score;
 }
 
 int IA_dificil::getBoardScore(tablero_t tablero, color_pieza_t player) {

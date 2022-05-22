@@ -50,7 +50,7 @@ public:  // Servicios
 	chesstime(modo_partida_t mode);
 
 	bool getIsTurnPlayerA(){ return isTrunPlayerA; }
-	bool getIsTurnPlayerB(){ return isTrunPlayerA; }
+	bool getIsTurnPlayerB(){ return isTrunPlayerB; }
 
 protected: // No tocar
 

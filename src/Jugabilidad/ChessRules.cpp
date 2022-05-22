@@ -616,11 +616,11 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 
 	if (a->getForma() == CABALLO) {   // Leo
 		matriz.TAB[row][col] = PROPIA_PIEZA;
-		if (row > 2) {
+		if (row >= 2) {
 			if (col > 0) {
 				matriz.TAB[row - 2][col - 1] = tab[row - 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (col < ROW_SIZE) {
+			if (col < COL_SIZE - 1) {
 				matriz.TAB[row - 2][col + 1] = tab[row - 2][col + 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 2][col + 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
@@ -628,7 +628,7 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			if (col > 0) {
 				matriz.TAB[row + 2][col - 1] = tab[row + 2][col - 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 2][col - 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (col < ROW_SIZE) {
+			if (col < COL_SIZE - 1) {
 				matriz.TAB[row + 2][col + 1] = tab[row + 2][col + 1].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 2][col + 1].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
@@ -636,15 +636,15 @@ tablero_info_t Juego::get_mov_permitidos(pieza_t* a, tablero_t tab)
 			if (row > 0) {
 				matriz.TAB[row - 1][col - 2] = tab[row - 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (row < (COL_SIZE - 1)) {
+			if (row < (ROW_SIZE - 1)) {
 				matriz.TAB[row + 1][col - 2] = tab[row + 1][col - 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col - 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}
-		if (col < (ROW_SIZE - 2)) {
+		if (col < (COL_SIZE - 2)) {
 			if (row > 0) {
 				matriz.TAB[row - 1][col + 2] = tab[row - 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row - 1][col + 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
-			if (row < (COL_SIZE - 1)) {
+			if (row < (ROW_SIZE - 1)) {
 				matriz.TAB[row + 1][col + 2] = tab[row + 1][col + 2].getForma() == NO_PIEZA ? PERMITIDO : tab[row + 1][col + 2].getColor() == a->getColor() ? NO_PERMITIDO : COMER_PIEZA;
 			}
 		}

@@ -130,10 +130,8 @@ void Mundo::mueve()
 		}
 	}
 	if (this->isVsIA && this->j.getIsTurnPlayerB()) {
-		//IA.hacerMovimiento(this->j);
+		IA.hacerMovimiento(this->j);
 	}
-	//1º Cómo detecto que estoy vs IA
-	//2º Cómo detecto que es el turno de la IA
 
 	controles::fp_estado = false;
 	controles::fn_estado = false;

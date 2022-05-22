@@ -17,5 +17,4 @@ public:
 
 	controles();
 	void coger_pos();
-	
 };

@@ -302,8 +302,6 @@ void Interfaz::dibuja()
 		if (mundo.tablas())
 			this->estado = 19;
 		this->t_0 = time(NULL);
-		this->estado = 19;
-		this->t_0 = time(NULL);
 		break;
 	case 17: //victoria
 		this->in.direct = "misimagenes/victoria.png";
@@ -585,7 +583,7 @@ void Interfaz::dibuja()
 		break;
 
 	}
-	if (this->estado != 15) {
+	if (this->estado != 15 && this->estado != 16) {
 		this->in.draw();
 	}
 	//NO BORRAR X EL AMOR DE DIOS
@@ -611,8 +609,17 @@ void Interfaz::tecla(unsigned char key)
 	//string patata;
 	//patata += key;
 	if (this->estado == 3 || this->estado == 10) {
-		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') || key == 'ñ' || key == 'Ñ') {
+		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') || key == 'ñ' || key == 'Ñ' || key==' ' || key == '_') {
 			this->currentUsername += key;
+		}
+		else if (key == 8 && this->currentUsername.size() > 0) {
+			this->currentUsername.pop_back();
+		}
+		else if (key == 13) {
+			controles::boton = GLUT_LEFT_BUTTON;
+			controles::estado = GLUT_DOWN;
+			this->con.mousePos.y = 600;
+			this->con.mousePos.x = 600;
 		}
 	}
 }

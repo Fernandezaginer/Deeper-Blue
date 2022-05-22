@@ -10,7 +10,7 @@
 struct fruto {
 	movimiento mov;
 	Juego partida;
-	int score;
+	float score;
 	//vector<fruto>* hijos;
 	vector<fruto> hijos;
 
@@ -48,7 +48,7 @@ class IA_dificil : public IA_base {
 private:
 	int _dificultad;
 	static movimiento evaluarArbol(arbol tree);
-	static int evaluarRama(fruto fruta);
+	static float evaluarRama(fruto fruta);
 	static arbol getArbol(Juego partida, color_pieza_t player, int depth);
 	static void crearRama(fruto& fruta, Juego partida, color_pieza_t player, int depth_left);
 	static int contarMovPosibles(Juego partida, color_pieza_t player);
@@ -56,7 +56,7 @@ private:
 	static int getBoardScore(tablero_t partida, color_pieza_t player);
 public:
 	friend class IA_UnitTests;
-	IA_dificil(color_pieza_t col = NEGRA, int dificultad = 1) : IA_base(col), _dificultad(dificultad) {}
+	IA_dificil(color_pieza_t col = NEGRA, int dificultad = 3) : IA_base(col), _dificultad(dificultad) {}
 
 	//M�todos
 	bool hacerMovimiento(Juego& partida);
