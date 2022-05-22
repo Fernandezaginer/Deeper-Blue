@@ -35,8 +35,8 @@ void controles::coger_pos() {
 	this->ay = this->ay - screen_pos_x;
 	this->az = this->az - screen_pos_y;
 
-	this->ay = this->ay *((float)glutGet(GLUT_SCREEN_WIDTH)/ (float)glutGet(GLUT_WINDOW_WIDTH))*(1600.0/1920.0);
-	this->az = (this->az * ((float)glutGet(GLUT_SCREEN_HEIGHT) / (float)glutGet(GLUT_WINDOW_HEIGHT)) * (900.0/1080.0)) - 50;
+	this->ay = this->ay * (1600.0/(float)glutGet(GLUT_WINDOW_WIDTH));
+	this->az = (this->az * (900.0/(float)glutGet(GLUT_WINDOW_HEIGHT))) - 50;
 
 	std::cout << "(" << glutGet(GLUT_SCREEN_WIDTH) << ", " << glutGet(GLUT_SCREEN_HEIGHT) << ")" << "\t" << "(" << this->mousePos.x << ", " << this->mousePos.y << ")" << "\t" << "(" << this->ay << ", " << this->az << ")" << endl;
 
