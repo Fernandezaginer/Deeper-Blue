@@ -9,22 +9,23 @@ class Mundo
 public: 
 	void tecla(unsigned char key);
 	void inicializa();
+	void reinicia();
 	void rotarOjo();
 	void mueve();
 	void dibuja();
 	void raton(int b, int e, int x, int y);
-	bool playerA_won() { return this->j.playerA_won(); }
-	bool playerB_won() { return this->j.playerB_won(); }
-	bool tablas() { return this->j.tablas(); }
+	bool playerA_won() { return this->j->playerA_won(); }
+	bool playerB_won() { return this->j->playerB_won(); }
+	bool tablas() { return this->j->tablas(); }
 
-	int score_playerA() { return this->j.score_playerA(); }
-	int score_playerB() { return this->j.score_playerB(); }
+	int score_playerA() { return this->j->score_playerA(); }
+	int score_playerB() { return this->j->score_playerB(); }
 
-	string notacion_partida() { return this->j.notacion_partida(); }
+	string notacion_partida() { return this->j->notacion_partida(); }
 
 	bool isVsIA;
 
-	Juego j;
+	Juego* j;
 private:
 	float x_ojo;
 	float y_ojo;

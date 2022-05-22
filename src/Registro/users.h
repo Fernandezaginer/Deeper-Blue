@@ -17,7 +17,7 @@ public:
 	void stablishnameactu(string n); // setter especial para actusers
 	std::string getname(); //getter directo del nombre de usuario
 	void setscore(); //setter del score del usuario por scanf
-	void stablishscore(float n);//setter del score del usuario por float enviado
+	void stablishscore(int n);//setter del score del usuario por float enviado
 	void stablishscoreactu(float n); // setter especial para actusers
 	float getscore(); //getter directo de la puntuación del usuario
 	void adduser(); //gestión para añadir user personalizado al fichero

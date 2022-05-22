@@ -17,7 +17,7 @@ User::User()
 //añade usuario directamente, es fuertemente preferible el uso de la función usertofile en lugar de esta
 void User::adduser()
 {
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -35,7 +35,7 @@ void User::adduser()
 	}
 	fich.close();
 	/////////////////////////////////////////////////
-	ofstream foch("users.txt");
+	ofstream foch("registro/users.txt");
 	if (!foch)
 	{
 		cout << "Error al abrir users.txt\n";
@@ -60,7 +60,7 @@ void User::adduser()
 void User::actualizeusers()
 {
 	User X, A, B, C, D, E;
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -91,7 +91,7 @@ void User::setname()
 //se utiliza el nombre enviado para establecerlo
 void User::stablishname(string n)
 {
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
@@ -117,7 +117,7 @@ void User::stablishname(string n)
 	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
 	fich.close();
 	/////////////////////////////////////////////////
-	ofstream foch("users.txt");
+	ofstream foch("registro/users.txt");
 	if (!foch)
 	{
 		cout << "Error al abrir users.txt\n";
@@ -143,28 +143,28 @@ void User::setscore()
 	scanf_s("%f", &score);
 }
 //se utiliza el puntaje enviado para establecerlo
-void User::stablishscore(float n)
+void User::stablishscore(int n)
 {
 	score = n;
-	ifstream fich("users.txt");
+	ifstream fich("registro/users.txt");
 	if (!fich.is_open())
 	{
 		cout << "Error al abrir users.txt\n";
 		exit(EXIT_FAILURE);
 	}
-	string aux, fulluserlist;
+	string aux, fulluserlist = "";
 	int s = 0, flag = 0;
 	while (getline(fich, aux))
 	{
 		if (aux == name)
 		{
-			fulluserlist = fulluserlist + aux + "\n";
+			fulluserlist = fulluserlist + aux + '\n';
 			getline(fich, aux);
-			fulluserlist = fulluserlist + to_string(n) + "\n";
+			fulluserlist = fulluserlist + to_string(n) + '\n';
 		}
 		else
 		{
-			fulluserlist = fulluserlist + aux + "\n";
+			fulluserlist = fulluserlist + aux + '\n';
 		}
 		s++;
 	}
@@ -172,7 +172,7 @@ void User::stablishscore(float n)
 	fulluserlist[del - 1] = '\0'; //eliminación de un \n muy extraño
 	fich.close();
 	/////////////////////////////////////////////////
-	ofstream foch("users.txt");
+	ofstream foch("registro/users.txt");
 	if (!foch)
 	{
 		cout << "Error al abrir users.txt\n";

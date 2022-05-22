@@ -134,7 +134,7 @@ int pieza_t::valor()
 		break;
 
 	}
-	return 0;
+	return valor_pieza;
 }
 
 string mov_print(tablero_info_t t) {

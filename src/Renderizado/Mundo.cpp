@@ -25,7 +25,7 @@ void Mundo::dibuja()
 	//aqui es donde hay que poner el codigo de dibujo
 	//dibujo del suelo
 
-	t.dibuja(j.getTablero());
+	t.dibuja(j->getTablero());
 		
 	/////////////////////////////////////////////
 	//BLANCAS
@@ -47,7 +47,7 @@ void Mundo::dibuja()
 	glColor3ub(255, 255, 255);
 	glScalef(0.004f, 0.004f, 1);
 	char str2[3];
-	sprintf(str2, "%d", j.getMinLeftPlaA());
+	sprintf(str2, "%d", j->getMinLeftPlaA());
 	for (int i = 0; i < strlen(str2); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str2[i]); //Minutos
 	}
@@ -55,13 +55,13 @@ void Mundo::dibuja()
 	glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, ':'); //Separacion
 
 	char str3[3];
-	if (j.getSecLeftPlaA() < 10) {
+	if (j->getSecLeftPlaA() < 10) {
 		str3[0] = '0';
-		str3[1] = '0' + j.getSecLeftPlaA();
+		str3[1] = '0' + j->getSecLeftPlaA();
 		str3[2] = '\0';
 	}
 	else {
-		sprintf(str3, "%d", j.getSecLeftPlaA());
+		sprintf(str3, "%d", j->getSecLeftPlaA());
 	}
 	for (int i = 0; i < strlen(str3); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str3[i]); //Segundos
@@ -89,7 +89,7 @@ void Mundo::dibuja()
 	glColor3ub(255, 255, 255);
 	glScalef(0.004f, 0.004f, 1);
 	char str5[3];
-	sprintf(str5, "%d", j.getMinLeftPlaB());
+	sprintf(str5, "%d", j->getMinLeftPlaB());
 	for (int i = 0; i < strlen(str5); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str5[i]); //Minutos
 	}
@@ -97,13 +97,13 @@ void Mundo::dibuja()
 	glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, ':'); //Separacion
 
 	char str6[3];
-	if (j.getSecLeftPlaB() < 10) {
+	if (j->getSecLeftPlaB() < 10) {
 		str6[0] = '0';
-		str6[1] = '0' + j.getSecLeftPlaB();
+		str6[1] = '0' + j->getSecLeftPlaB();
 		str6[2] = '\0';
 	}
 	else {
-		sprintf(str6, "%d", j.getSecLeftPlaB());
+		sprintf(str6, "%d", j->getSecLeftPlaB());
 	}
 	for (int i = 0; i < strlen(str6); i++) {
 		glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, str6[i]); //Segundos
@@ -132,16 +132,16 @@ void Mundo::mueve()
 	{
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
-			j.movimiento(origen_f, origen_c, f, c);
+			j->movimiento(origen_f, origen_c, f, c);
 
-			pieza_t* selec = &j.getTablero()[f][c];
-			t.pintMovPermitidos(j.mov_permitidos(selec, j.getTablero()));
+			pieza_t* selec = &j->getTablero()[f][c];
+			t.pintMovPermitidos(j->mov_permitidos(selec, j->getTablero()));
 			origen_f = f;
 			origen_c = c;
 		}
 	}
-	if (this->isVsIA && this->j.getIsTurnPlayerB()) {
-		IA.hacerMovimiento(this->j);
+	if (this->isVsIA && this->j->getIsTurnPlayerB()) {
+		IA.hacerMovimiento(*this->j);
 	}
 }
 
@@ -152,8 +152,14 @@ void Mundo::inicializa()
 	z_ojo=20;
 
 	t.inicializa();
+	j = new Juego();
 
 	this->isVsIA = false;
+}
+
+void Mundo::reinicia() {
+	delete this->j;
+	this->inicializa();
 }
 
 void Mundo::tecla(unsigned char key)

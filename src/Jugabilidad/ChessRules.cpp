@@ -98,7 +98,12 @@ bool Juego::jaque_mate_playerA()
 
 bool Juego::jaque_mate_playerB()
 {
-	return rey_jaque_mate(NEGRA);
+	//return rey_jaque_mate(NEGRA);
+	bool aux = rey_jaque_mate(NEGRA);
+	if (aux) {
+		return true;
+	}
+	return false;
 }
 
 bool Juego::jaque_playerA()

@@ -29,6 +29,8 @@ private:
 	string currentUsername;
 	User currentUser;
 	User competidor;
+
+	bool last_turn;
 public:
 	long long t_0 = time(NULL);
 	int estado;
