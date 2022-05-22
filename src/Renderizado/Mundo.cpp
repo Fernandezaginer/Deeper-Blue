@@ -117,7 +117,7 @@ void Mundo::mueve()
 
 	//std::cout << controles::fp_estado << std::endl;
 
-	if (controles::boton == GLUT_LEFT_BUTTON && controles::fp_estado == true)
+	if (controles::boton == GLUT_LEFT_BUTTON && controles::read_fp() == true)
 	{
 		if (f < ROW_SIZE && f >= 0 && c < COL_SIZE && c >= 0)
 		{
@@ -132,9 +132,6 @@ void Mundo::mueve()
 	if (this->isVsIA && this->j.getIsTurnPlayerB()) {
 		IA.hacerMovimiento(this->j);
 	}
-
-	controles::fp_estado = false;
-	controles::fn_estado = false;
 }
 
 void Mundo::inicializa()

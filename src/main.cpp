@@ -71,6 +71,7 @@ void OnDraw(void)
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//poner aqui el código de teclado
+	controles::key = key;
 	interfaz.tecla(key);
 
 	glutPostRedisplay();

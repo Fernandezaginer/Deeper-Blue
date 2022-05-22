@@ -93,39 +93,37 @@ void Interfaz::dibuja()
 		this->in.direct = "misimagenes/jug1.png";
 		this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, currentUsername.c_str());
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {
-			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
-				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					vector<User> registrados = actUsers();
-					bool auxFlag = true;
-					if (registrados.size() == 0) {
-						this->currentUser = usertofile(currentUsername);
-						//cambiar de estado
-						this->estado = 4;
-						this->t_0 = time(NULL);
-						this->currentUsername = "";
+			if ((((this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) && controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) || controles::read_key() == 13) && currentUsername.size() > 0) {
+				vector<User> registrados = actUsers();
+				bool auxFlag = true;
+				if (registrados.size() == 0) {
+					this->currentUser = usertofile(currentUsername);
+					//cambiar de estado
+					this->estado = 4;
+					this->t_0 = time(NULL);
+					this->currentUsername = "";
+				}
+				for (int i = 0; i < registrados.size(); i++) {
+					if (registrados[i].getname() == currentUsername) {
+						this->currentUser = registrados[i];
+						auxFlag = false;
 					}
-					for (int i = 0; i < registrados.size(); i++) {
-						if (registrados[i].getname() == currentUsername) {
-							this->currentUser = registrados[i];
-							auxFlag = false;
-						}
-						if (auxFlag) {
-							if (registrados.size() >= 6) {
-								//Mensaje de error usuarios maximos
-							}
-							else {
-								this->currentUser = usertofile(currentUsername);
-								//cambiar de estado
-								this->estado = 4;
-								this->t_0 = time(NULL);
-								this->currentUsername = "";
-							}
+					if (auxFlag) {
+						if (registrados.size() >= 6) {
+							//Mensaje de error usuarios maximos
 						}
 						else {
+							this->currentUser = usertofile(currentUsername);
+							//cambiar de estado
 							this->estado = 4;
 							this->t_0 = time(NULL);
 							this->currentUsername = "";
 						}
+					}
+					else {
+						this->estado = 4;
+						this->t_0 = time(NULL);
+						this->currentUsername = "";
 					}
 				}
 			}
@@ -198,39 +196,37 @@ void Interfaz::dibuja()
 		this->in.direct = "misimagenes/jug2.png";
 		this->in.output(-2, 0, 1, 0.5, 1, GLUT_BITMAP_TIMES_ROMAN_24, currentUsername.c_str());
 		if (time(NULL) > static_cast<long long>(this->t_0) + 1) {			
-			if (this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) {
-				if (controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) {
-					vector<User> registrados = actUsers();
-					bool auxFlag = true;
-					if (registrados.size() == 0) {
-						this->competidor = usertofile(currentUsername);
-						//cambiar de estado
-						this->estado = 11;
-						this->t_0 = time(NULL);
+			if ((((this->con.mousePos.y < 630 && this->con.mousePos.y >586 && this->con.mousePos.x > 594 && this->con.mousePos.x < 871) && controles::boton == GLUT_LEFT_BUTTON && controles::estado == GLUT_DOWN) || controles::read_key() == 13) && currentUsername.size() > 0) {
+				vector<User> registrados = actUsers();
+				bool auxFlag = true;
+				if (registrados.size() == 0) {
+					this->competidor = usertofile(currentUsername);
+					//cambiar de estado
+					this->estado = 11;
+					this->t_0 = time(NULL);
+				}
+				for (int i = 0; i < registrados.size(); i++) {
+					if (registrados[i].getname() == currentUsername) {
+						this->currentUser = registrados[i];
+						auxFlag = false;
 					}
-					for (int i = 0; i < registrados.size(); i++) {
-						if (registrados[i].getname() == currentUsername) {
-							this->currentUser = registrados[i];
-							auxFlag = false;
-						}
-						if (auxFlag) {
-							if (registrados.size() >= 6) {
-								//Mensaje de error usuarios maximos
-							}
-							else {
-								this->currentUser = usertofile(currentUsername);
-								//cambiar de estado
-								this->estado = 11;
-								this->t_0 = time(NULL);
-							}
+					if (auxFlag) {
+						if (registrados.size() >= 6) {
+							//Mensaje de error usuarios maximos
 						}
 						else {
+							this->currentUser = usertofile(currentUsername);
+							//cambiar de estado
 							this->estado = 11;
 							this->t_0 = time(NULL);
 						}
+					}
+					else {
 						this->estado = 11;
 						this->t_0 = time(NULL);
 					}
+					this->estado = 11;
+					this->t_0 = time(NULL);
 				}
 			}
 		}
@@ -605,21 +601,12 @@ void Interfaz::inicializa()
 
 void Interfaz::tecla(unsigned char key)
 {
-	//
-	//string patata;
-	//patata += key;
 	if (this->estado == 3 || this->estado == 10) {
 		if ((key >= 'a' && key <= 'z') || (key >= 'A' && key <= 'Z') || key == 'ñ' || key == 'Ñ' || key==' ' || key == '_') {
 			this->currentUsername += key;
 		}
 		else if (key == 8 && this->currentUsername.size() > 0) {
 			this->currentUsername.pop_back();
-		}
-		else if (key == 13) {
-			controles::boton = GLUT_LEFT_BUTTON;
-			controles::estado = GLUT_DOWN;
-			this->con.mousePos.y = 600;
-			this->con.mousePos.x = 600;
 		}
 	}
 }

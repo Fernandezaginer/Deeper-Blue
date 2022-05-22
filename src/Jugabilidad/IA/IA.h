@@ -11,17 +11,7 @@ struct fruto {
 	movimiento mov;
 	Juego partida;
 	float score;
-	//vector<fruto>* hijos;
 	vector<fruto> hijos;
-
-	//fruto(): mov(movimiento()), partida(Juego()), score(0), hijos(new vector<fruto>){}
-
-	/*fruto(const fruto& f) : mov(f.mov), score(f.score) {
-		partida = Juego(f.partida);
-		//hijos = new vector<fruto>;
-		//*hijos = *f.hijos;
-		hijos = *(new vector<fruto>);
-	}*/
 };
 typedef vector<fruto> arbol;
 
@@ -51,7 +41,6 @@ private:
 	static float evaluarRama(fruto fruta);
 	static arbol getArbol(Juego partida, color_pieza_t player, int depth);
 	static void crearRama(fruto& fruta, Juego partida, color_pieza_t player, int depth_left);
-	static int contarMovPosibles(Juego partida, color_pieza_t player);
 	static int getScore(Juego partida, color_pieza_t player);
 	static int getBoardScore(tablero_t partida, color_pieza_t player);
 public:

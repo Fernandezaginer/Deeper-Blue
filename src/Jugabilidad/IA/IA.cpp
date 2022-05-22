@@ -49,10 +49,11 @@ movimiento IA_dificil::evaluarArbol(arbol tree)
 {
 	//cout << "evaluando arbol" << endl;
 	movimiento mejor_mov;
-	int best_score = -99999;
+	float best_score = -99999;
 	for (int i = 0; i < tree.size(); i++) {
 		fruto testing_fruit = tree[i];
-		int current_score = IA_dificil::evaluarRama(testing_fruit) + testing_fruit.score;
+		float current_score = IA_dificil::evaluarRama(testing_fruit);
+		current_score += testing_fruit.score;
 		if (current_score > best_score) {
 			mejor_mov = testing_fruit.mov;
 			best_score = current_score;
@@ -137,19 +138,6 @@ void IA_dificil::crearRama(fruto& fruta, Juego partida, color_pieza_t player, in
 			}
 		}
 	}
-}
-
-int IA_dificil::contarMovPosibles(Juego partida, color_pieza_t player) {
-	tablero_t tab = partida.get_tablero();
-	int num = 0;
-	for (int x = 0; x < COL_SIZE; x++) {
-		for (int y = 0; y < ROW_SIZE; y++) {
-			if (tab[y][x].getColor() == player) {
-				num += partida.get_mov_permitidos_l(tab, y, x).size();
-			}
-		}
-	}
-	return num;
 }
 
 int IA_dificil::getScore(Juego partida, color_pieza_t player)
